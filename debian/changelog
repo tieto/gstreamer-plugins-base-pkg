@@ -1,3 +1,15 @@
+gst-plugins-base0.11 (0.11.2-1) experimental; urgency=low
+
+  * Imported Upstream version 0.11.2
+  * Regenerated debian/control from control.in
+  * Removed 01_riff-big-endian.patch, now upstreamed
+  * Cherry-picked an upstream patch required to build gststreamvolume
+  * Updated debian/*.symbols
+  * Removed cdda and netbuffer from .install file, following upstream
+  * debian/gbp.conf: use bzip2 compression
+
+ -- Olivier Naudan <o-naudan@ti.com>  Mon, 19 Mar 2012 13:26:48 -0400
+
 gst-plugins-base0.11 (0.11.1-3) UNRELEASED; urgency=low
 
   [ Sebastian Dröge ]
