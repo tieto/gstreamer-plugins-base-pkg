@@ -68,6 +68,7 @@ am__aclocal_m4_deps = $(top_srcdir)/common/m4/as-ac-expand.m4 \
 	$(top_srcdir)/common/m4/gst-gettext.m4 \
 	$(top_srcdir)/common/m4/gst-glib2.m4 \
 	$(top_srcdir)/common/m4/gst-package-release-datetime.m4 \
+	$(top_srcdir)/common/m4/gst-platform.m4 \
 	$(top_srcdir)/common/m4/gst-plugin-docs.m4 \
 	$(top_srcdir)/common/m4/gst-plugindir.m4 \
 	$(top_srcdir)/common/m4/gst-x11.m4 \
@@ -76,16 +77,16 @@ am__aclocal_m4_deps = $(top_srcdir)/common/m4/as-ac-expand.m4 \
 	$(top_srcdir)/common/m4/introspection.m4 \
 	$(top_srcdir)/common/m4/orc.m4 $(top_srcdir)/common/m4/pkg.m4 \
 	$(top_srcdir)/m4/freetype2.m4 $(top_srcdir)/m4/gettext.m4 \
-	$(top_srcdir)/m4/gst-alsa.m4 $(top_srcdir)/m4/gst-fionread.m4 \
-	$(top_srcdir)/m4/iconv.m4 $(top_srcdir)/m4/intlmacosx.m4 \
-	$(top_srcdir)/m4/lib-ld.m4 $(top_srcdir)/m4/lib-link.m4 \
-	$(top_srcdir)/m4/lib-prefix.m4 $(top_srcdir)/m4/libtool.m4 \
-	$(top_srcdir)/m4/lrint.m4 $(top_srcdir)/m4/lrintf.m4 \
-	$(top_srcdir)/m4/ltoptions.m4 $(top_srcdir)/m4/ltsugar.m4 \
-	$(top_srcdir)/m4/ltversion.m4 $(top_srcdir)/m4/lt~obsolete.m4 \
-	$(top_srcdir)/m4/nls.m4 $(top_srcdir)/m4/ogg.m4 \
-	$(top_srcdir)/m4/po.m4 $(top_srcdir)/m4/progtest.m4 \
-	$(top_srcdir)/m4/vorbis.m4 $(top_srcdir)/configure.ac
+	$(top_srcdir)/m4/gst-alsa.m4 $(top_srcdir)/m4/iconv.m4 \
+	$(top_srcdir)/m4/intlmacosx.m4 $(top_srcdir)/m4/lib-ld.m4 \
+	$(top_srcdir)/m4/lib-link.m4 $(top_srcdir)/m4/lib-prefix.m4 \
+	$(top_srcdir)/m4/libtool.m4 $(top_srcdir)/m4/lrint.m4 \
+	$(top_srcdir)/m4/lrintf.m4 $(top_srcdir)/m4/ltoptions.m4 \
+	$(top_srcdir)/m4/ltsugar.m4 $(top_srcdir)/m4/ltversion.m4 \
+	$(top_srcdir)/m4/lt~obsolete.m4 $(top_srcdir)/m4/nls.m4 \
+	$(top_srcdir)/m4/ogg.m4 $(top_srcdir)/m4/po.m4 \
+	$(top_srcdir)/m4/progtest.m4 $(top_srcdir)/m4/vorbis.m4 \
+	$(top_srcdir)/configure.ac
 am__configure_deps = $(am__aclocal_m4_deps) $(CONFIGURE_DEPENDENCIES) \
 	$(ACLOCAL_M4)
 mkinstalldirs = $(install_sh) -d
@@ -119,24 +120,30 @@ am__installdirs = "$(DESTDIR)$(libdir)" "$(DESTDIR)$(girdir)" \
 	"$(DESTDIR)$(libgstaudio_@GST_MAJORMINOR@includedir)"
 LTLIBRARIES = $(lib_LTLIBRARIES)
 am__DEPENDENCIES_1 =
-libgstaudio_@GST_MAJORMINOR@_la_DEPENDENCIES = $(am__DEPENDENCIES_1) \
-	$(am__DEPENDENCIES_1) \
-	$(top_builddir)/gst-libs/gst/interfaces/libgstinterfaces-@GST_MAJORMINOR@.la
+libgstaudio_@GST_MAJORMINOR@_la_DEPENDENCIES = $(top_builddir)/gst-libs/gst/interfaces/libgstinterfaces-@GST_MAJORMINOR@.la \
+	$(top_builddir)/gst-libs/gst/tag/libgsttag-@GST_MAJORMINOR@.la \
+	$(am__DEPENDENCIES_1) $(am__DEPENDENCIES_1)
 am_libgstaudio_@GST_MAJORMINOR@_la_OBJECTS =  \
 	libgstaudio_@GST_MAJORMINOR@_la-audio.lo \
-	libgstaudio_@GST_MAJORMINOR@_la-gstringbuffer.lo \
+	libgstaudio_@GST_MAJORMINOR@_la-gstaudioringbuffer.lo \
 	libgstaudio_@GST_MAJORMINOR@_la-gstaudioclock.lo \
+	libgstaudio_@GST_MAJORMINOR@_la-mixer.lo \
+	libgstaudio_@GST_MAJORMINOR@_la-mixeroptions.lo \
+	libgstaudio_@GST_MAJORMINOR@_la-mixertrack.lo \
 	libgstaudio_@GST_MAJORMINOR@_la-mixerutils.lo \
-	libgstaudio_@GST_MAJORMINOR@_la-multichannel.lo \
+	libgstaudio_@GST_MAJORMINOR@_la-gstaudiocdsrc.lo \
 	libgstaudio_@GST_MAJORMINOR@_la-gstaudiodecoder.lo \
 	libgstaudio_@GST_MAJORMINOR@_la-gstaudioencoder.lo \
-	libgstaudio_@GST_MAJORMINOR@_la-gstbaseaudiosink.lo \
-	libgstaudio_@GST_MAJORMINOR@_la-gstbaseaudiosrc.lo \
+	libgstaudio_@GST_MAJORMINOR@_la-gstaudiobasesink.lo \
+	libgstaudio_@GST_MAJORMINOR@_la-gstaudiobasesrc.lo \
 	libgstaudio_@GST_MAJORMINOR@_la-gstaudiofilter.lo \
+	libgstaudio_@GST_MAJORMINOR@_la-gstaudiometa.lo \
 	libgstaudio_@GST_MAJORMINOR@_la-gstaudiosink.lo \
 	libgstaudio_@GST_MAJORMINOR@_la-gstaudiosrc.lo \
+	libgstaudio_@GST_MAJORMINOR@_la-streamvolume.lo \
 	libgstaudio_@GST_MAJORMINOR@_la-gstaudioiec61937.lo
-am__objects_1 = libgstaudio_@GST_MAJORMINOR@_la-audio-enumtypes.lo
+am__objects_1 = libgstaudio_@GST_MAJORMINOR@_la-audio-enumtypes.lo \
+	libgstaudio_@GST_MAJORMINOR@_la-audio-marshal.lo
 am__objects_2 =
 nodist_libgstaudio_@GST_MAJORMINOR@_la_OBJECTS = $(am__objects_1) \
 	$(am__objects_2)
@@ -245,6 +252,7 @@ GIO_CFLAGS = @GIO_CFLAGS@
 GIO_LDFLAGS = @GIO_LDFLAGS@
 GIO_LIBS = @GIO_LIBS@
 GLIB_CFLAGS = @GLIB_CFLAGS@
+GLIB_EXTRA_CFLAGS = @GLIB_EXTRA_CFLAGS@
 GLIB_LIBS = @GLIB_LIBS@
 GLIB_PREFIX = @GLIB_PREFIX@
 GLIB_REQ = @GLIB_REQ@
@@ -262,8 +270,6 @@ GST_CONTROLLER_CFLAGS = @GST_CONTROLLER_CFLAGS@
 GST_CONTROLLER_LIBS = @GST_CONTROLLER_LIBS@
 GST_CURRENT = @GST_CURRENT@
 GST_CXXFLAGS = @GST_CXXFLAGS@
-GST_GDP_CFLAGS = @GST_GDP_CFLAGS@
-GST_GDP_LIBS = @GST_GDP_LIBS@
 GST_INSTALL_PLUGINS_HELPER = @GST_INSTALL_PLUGINS_HELPER@
 GST_LEVEL_DEFAULT = @GST_LEVEL_DEFAULT@
 GST_LIBS = @GST_LIBS@
@@ -295,7 +301,6 @@ HAVE_CDPARANOIA = @HAVE_CDPARANOIA@
 HAVE_X = @HAVE_X@
 HAVE_XSHM = @HAVE_XSHM@
 HAVE_ZLIB = @HAVE_ZLIB@
-HSTRERROR_LIBS = @HSTRERROR_LIBS@
 HTML_DIR = @HTML_DIR@
 INSTALL = @INSTALL@
 INSTALL_DATA = @INSTALL_DATA@
@@ -332,6 +337,7 @@ LTLIBINTL = @LTLIBINTL@
 LTLIBOBJS = @LTLIBOBJS@
 MAINT = @MAINT@
 MAKEINFO = @MAKEINFO@
+MANIFEST_TOOL = @MANIFEST_TOOL@
 MKDIR_P = @MKDIR_P@
 MSGFMT = @MSGFMT@
 MSGFMT_015 = @MSGFMT_015@
@@ -393,7 +399,6 @@ VORBIS_CFLAGS = @VORBIS_CFLAGS@
 VORBIS_LIBS = @VORBIS_LIBS@
 WARNING_CFLAGS = @WARNING_CFLAGS@
 WARNING_CXXFLAGS = @WARNING_CXXFLAGS@
-WIN32_LIBS = @WIN32_LIBS@
 XGETTEXT = @XGETTEXT@
 XGETTEXT_015 = @XGETTEXT_015@
 XGETTEXT_EXTRA_OPTIONS = @XGETTEXT_EXTRA_OPTIONS@
@@ -410,6 +415,7 @@ abs_builddir = @abs_builddir@
 abs_srcdir = @abs_srcdir@
 abs_top_builddir = @abs_top_builddir@
 abs_top_srcdir = @abs_top_srcdir@
+ac_ct_AR = @ac_ct_AR@
 ac_ct_CC = @ac_ct_CC@
 ac_ct_CXX = @ac_ct_CXX@
 ac_ct_DUMPBIN = @ac_ct_DUMPBIN@
@@ -443,7 +449,6 @@ libdir = @libdir@
 libexecdir = @libexecdir@
 localedir = @localedir@
 localstatedir = @localstatedir@
-lt_ECHO = @lt_ECHO@
 mandir = @mandir@
 mkdir_p = @mkdir_p@
 oldincludedir = @oldincludedir@
@@ -467,59 +472,72 @@ top_srcdir = @top_srcdir@
 
 # variables used for enum/marshal generation
 glib_enum_headers = \
-	multichannel.h		\
-	gstringbuffer.h
+	audio.h			\
+	gstaudioringbuffer.h
 
 glib_enum_define = GST_AUDIO
 glib_gen_prefix = gst_audio
 glib_gen_basename = audio
-built_sources = audio-enumtypes.c
-built_headers = audio-enumtypes.h
+built_sources = audio-enumtypes.c audio-marshal.c
+built_headers = audio-enumtypes.h audio-marshal.h
 BUILT_SOURCES = $(built_sources) $(built_headers)
 lib_LTLIBRARIES = \
 	libgstaudio-@GST_MAJORMINOR@.la
 
+EXTRA_DIST = audio-marshal.list
 CLEANFILES = $(BUILT_SOURCES) $(am__append_1)
 
 # FIXME 0.11: rename GstBaseAudioSink to GstAudioBaseSink or merge with GstAudioSink
 libgstaudio_@GST_MAJORMINOR@_la_SOURCES = \
 	audio.c \
-	gstringbuffer.c \
+	gstaudioringbuffer.c \
 	gstaudioclock.c \
+	mixer.c \
+	mixeroptions.c \
+	mixertrack.c \
 	mixerutils.c \
-	multichannel.c \
+	gstaudiocdsrc.c \
 	gstaudiodecoder.c \
 	gstaudioencoder.c \
-	gstbaseaudiosink.c \
-	gstbaseaudiosrc.c \
+	gstaudiobasesink.c \
+	gstaudiobasesrc.c \
 	gstaudiofilter.c \
+	gstaudiometa.c \
 	gstaudiosink.c \
 	gstaudiosrc.c \
+	streamvolume.c \
 	gstaudioiec61937.c
 
 nodist_libgstaudio_@GST_MAJORMINOR@_la_SOURCES = $(built_sources) $(built_headers)
 libgstaudio_@GST_MAJORMINOR@includedir = $(includedir)/gstreamer-@GST_MAJORMINOR@/gst/audio
 libgstaudio_@GST_MAJORMINOR@include_HEADERS = \
 	audio.h \
-	gstringbuffer.h \
+	gstaudioringbuffer.h \
 	gstaudioclock.h \
 	gstaudiofilter.h \
+	gstaudiocdsrc.h \
 	gstaudiodecoder.h \
 	gstaudioencoder.h \
-	gstbaseaudiosink.h \
-	gstbaseaudiosrc.h \
+	gstaudiobasesink.h \
+	gstaudiobasesrc.h \
+	gstaudiometa.h \
 	gstaudiosink.h \
 	gstaudiosrc.h \
+	mixer.h \
+	mixeroptions.h \
+	mixertrack.h \
 	mixerutils.h \
-	multichannel.h \
+	streamvolume.h \
 	gstaudioiec61937.h
 
 nodist_libgstaudio_@GST_MAJORMINOR@include_HEADERS = \
 	audio-enumtypes.h
 
 libgstaudio_@GST_MAJORMINOR@_la_CFLAGS = $(GST_PLUGINS_BASE_CFLAGS) $(GST_BASE_CFLAGS) $(GST_CFLAGS)
-libgstaudio_@GST_MAJORMINOR@_la_LIBADD = $(GST_BASE_LIBS) $(GST_LIBS) \
-  $(top_builddir)/gst-libs/gst/interfaces/libgstinterfaces-@GST_MAJORMINOR@.la
+libgstaudio_@GST_MAJORMINOR@_la_LIBADD = \
+  $(top_builddir)/gst-libs/gst/interfaces/libgstinterfaces-@GST_MAJORMINOR@.la \
+  $(top_builddir)/gst-libs/gst/tag/libgsttag-@GST_MAJORMINOR@.la \
+  $(GST_BASE_LIBS) $(GST_LIBS)
 
 libgstaudio_@GST_MAJORMINOR@_la_LDFLAGS = $(GST_LIB_LDFLAGS) $(GST_ALL_LDFLAGS) $(GST_LT_LDFLAGS)
 enum_headers = $(foreach h,$(glib_enum_headers),\n\#include \"$(h)\")
@@ -619,19 +637,25 @@ distclean-compile:
 	-rm -f *.tab.c
 
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libgstaudio_@GST_MAJORMINOR@_la-audio-enumtypes.Plo@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libgstaudio_@GST_MAJORMINOR@_la-audio-marshal.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libgstaudio_@GST_MAJORMINOR@_la-audio.Plo@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libgstaudio_@GST_MAJORMINOR@_la-gstaudiobasesink.Plo@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libgstaudio_@GST_MAJORMINOR@_la-gstaudiobasesrc.Plo@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libgstaudio_@GST_MAJORMINOR@_la-gstaudiocdsrc.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libgstaudio_@GST_MAJORMINOR@_la-gstaudioclock.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libgstaudio_@GST_MAJORMINOR@_la-gstaudiodecoder.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libgstaudio_@GST_MAJORMINOR@_la-gstaudioencoder.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libgstaudio_@GST_MAJORMINOR@_la-gstaudiofilter.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libgstaudio_@GST_MAJORMINOR@_la-gstaudioiec61937.Plo@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libgstaudio_@GST_MAJORMINOR@_la-gstaudiometa.Plo@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libgstaudio_@GST_MAJORMINOR@_la-gstaudioringbuffer.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libgstaudio_@GST_MAJORMINOR@_la-gstaudiosink.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libgstaudio_@GST_MAJORMINOR@_la-gstaudiosrc.Plo@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libgstaudio_@GST_MAJORMINOR@_la-gstbaseaudiosink.Plo@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libgstaudio_@GST_MAJORMINOR@_la-gstbaseaudiosrc.Plo@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libgstaudio_@GST_MAJORMINOR@_la-gstringbuffer.Plo@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libgstaudio_@GST_MAJORMINOR@_la-mixer.Plo@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libgstaudio_@GST_MAJORMINOR@_la-mixeroptions.Plo@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libgstaudio_@GST_MAJORMINOR@_la-mixertrack.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libgstaudio_@GST_MAJORMINOR@_la-mixerutils.Plo@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libgstaudio_@GST_MAJORMINOR@_la-multichannel.Plo@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libgstaudio_@GST_MAJORMINOR@_la-streamvolume.Plo@am__quote@
 
 .c.o:
 @am__fastdepCC_TRUE@	$(AM_V_CC)$(COMPILE) -MT $@ -MD -MP -MF $(DEPDIR)/$*.Tpo -c -o $@ $<
@@ -665,13 +689,13 @@ libgstaudio_@GST_MAJORMINOR@_la-audio.lo: audio.c
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
 @am__fastdepCC_FALSE@	$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libgstaudio_@GST_MAJORMINOR@_la_CFLAGS) $(CFLAGS) -c -o libgstaudio_@GST_MAJORMINOR@_la-audio.lo `test -f 'audio.c' || echo '$(srcdir)/'`audio.c
 
-libgstaudio_@GST_MAJORMINOR@_la-gstringbuffer.lo: gstringbuffer.c
-@am__fastdepCC_TRUE@	$(AM_V_CC)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libgstaudio_@GST_MAJORMINOR@_la_CFLAGS) $(CFLAGS) -MT libgstaudio_@GST_MAJORMINOR@_la-gstringbuffer.lo -MD -MP -MF $(DEPDIR)/libgstaudio_@GST_MAJORMINOR@_la-gstringbuffer.Tpo -c -o libgstaudio_@GST_MAJORMINOR@_la-gstringbuffer.lo `test -f 'gstringbuffer.c' || echo '$(srcdir)/'`gstringbuffer.c
-@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/libgstaudio_@GST_MAJORMINOR@_la-gstringbuffer.Tpo $(DEPDIR)/libgstaudio_@GST_MAJORMINOR@_la-gstringbuffer.Plo
+libgstaudio_@GST_MAJORMINOR@_la-gstaudioringbuffer.lo: gstaudioringbuffer.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libgstaudio_@GST_MAJORMINOR@_la_CFLAGS) $(CFLAGS) -MT libgstaudio_@GST_MAJORMINOR@_la-gstaudioringbuffer.lo -MD -MP -MF $(DEPDIR)/libgstaudio_@GST_MAJORMINOR@_la-gstaudioringbuffer.Tpo -c -o libgstaudio_@GST_MAJORMINOR@_la-gstaudioringbuffer.lo `test -f 'gstaudioringbuffer.c' || echo '$(srcdir)/'`gstaudioringbuffer.c
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/libgstaudio_@GST_MAJORMINOR@_la-gstaudioringbuffer.Tpo $(DEPDIR)/libgstaudio_@GST_MAJORMINOR@_la-gstaudioringbuffer.Plo
 @am__fastdepCC_FALSE@	$(AM_V_CC) @AM_BACKSLASH@
-@AMDEP_TRUE@@am__fastdepCC_FALSE@	source='gstringbuffer.c' object='libgstaudio_@GST_MAJORMINOR@_la-gstringbuffer.lo' libtool=yes @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	source='gstaudioringbuffer.c' object='libgstaudio_@GST_MAJORMINOR@_la-gstaudioringbuffer.lo' libtool=yes @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCC_FALSE@	$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libgstaudio_@GST_MAJORMINOR@_la_CFLAGS) $(CFLAGS) -c -o libgstaudio_@GST_MAJORMINOR@_la-gstringbuffer.lo `test -f 'gstringbuffer.c' || echo '$(srcdir)/'`gstringbuffer.c
+@am__fastdepCC_FALSE@	$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libgstaudio_@GST_MAJORMINOR@_la_CFLAGS) $(CFLAGS) -c -o libgstaudio_@GST_MAJORMINOR@_la-gstaudioringbuffer.lo `test -f 'gstaudioringbuffer.c' || echo '$(srcdir)/'`gstaudioringbuffer.c
 
 libgstaudio_@GST_MAJORMINOR@_la-gstaudioclock.lo: gstaudioclock.c
 @am__fastdepCC_TRUE@	$(AM_V_CC)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libgstaudio_@GST_MAJORMINOR@_la_CFLAGS) $(CFLAGS) -MT libgstaudio_@GST_MAJORMINOR@_la-gstaudioclock.lo -MD -MP -MF $(DEPDIR)/libgstaudio_@GST_MAJORMINOR@_la-gstaudioclock.Tpo -c -o libgstaudio_@GST_MAJORMINOR@_la-gstaudioclock.lo `test -f 'gstaudioclock.c' || echo '$(srcdir)/'`gstaudioclock.c
@@ -681,6 +705,30 @@ libgstaudio_@GST_MAJORMINOR@_la-gstaudioclock.lo: gstaudioclock.c
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
 @am__fastdepCC_FALSE@	$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libgstaudio_@GST_MAJORMINOR@_la_CFLAGS) $(CFLAGS) -c -o libgstaudio_@GST_MAJORMINOR@_la-gstaudioclock.lo `test -f 'gstaudioclock.c' || echo '$(srcdir)/'`gstaudioclock.c
 
+libgstaudio_@GST_MAJORMINOR@_la-mixer.lo: mixer.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libgstaudio_@GST_MAJORMINOR@_la_CFLAGS) $(CFLAGS) -MT libgstaudio_@GST_MAJORMINOR@_la-mixer.lo -MD -MP -MF $(DEPDIR)/libgstaudio_@GST_MAJORMINOR@_la-mixer.Tpo -c -o libgstaudio_@GST_MAJORMINOR@_la-mixer.lo `test -f 'mixer.c' || echo '$(srcdir)/'`mixer.c
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/libgstaudio_@GST_MAJORMINOR@_la-mixer.Tpo $(DEPDIR)/libgstaudio_@GST_MAJORMINOR@_la-mixer.Plo
+@am__fastdepCC_FALSE@	$(AM_V_CC) @AM_BACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	source='mixer.c' object='libgstaudio_@GST_MAJORMINOR@_la-mixer.lo' libtool=yes @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libgstaudio_@GST_MAJORMINOR@_la_CFLAGS) $(CFLAGS) -c -o libgstaudio_@GST_MAJORMINOR@_la-mixer.lo `test -f 'mixer.c' || echo '$(srcdir)/'`mixer.c
+
+libgstaudio_@GST_MAJORMINOR@_la-mixeroptions.lo: mixeroptions.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libgstaudio_@GST_MAJORMINOR@_la_CFLAGS) $(CFLAGS) -MT libgstaudio_@GST_MAJORMINOR@_la-mixeroptions.lo -MD -MP -MF $(DEPDIR)/libgstaudio_@GST_MAJORMINOR@_la-mixeroptions.Tpo -c -o libgstaudio_@GST_MAJORMINOR@_la-mixeroptions.lo `test -f 'mixeroptions.c' || echo '$(srcdir)/'`mixeroptions.c
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/libgstaudio_@GST_MAJORMINOR@_la-mixeroptions.Tpo $(DEPDIR)/libgstaudio_@GST_MAJORMINOR@_la-mixeroptions.Plo
+@am__fastdepCC_FALSE@	$(AM_V_CC) @AM_BACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	source='mixeroptions.c' object='libgstaudio_@GST_MAJORMINOR@_la-mixeroptions.lo' libtool=yes @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libgstaudio_@GST_MAJORMINOR@_la_CFLAGS) $(CFLAGS) -c -o libgstaudio_@GST_MAJORMINOR@_la-mixeroptions.lo `test -f 'mixeroptions.c' || echo '$(srcdir)/'`mixeroptions.c
+
+libgstaudio_@GST_MAJORMINOR@_la-mixertrack.lo: mixertrack.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libgstaudio_@GST_MAJORMINOR@_la_CFLAGS) $(CFLAGS) -MT libgstaudio_@GST_MAJORMINOR@_la-mixertrack.lo -MD -MP -MF $(DEPDIR)/libgstaudio_@GST_MAJORMINOR@_la-mixertrack.Tpo -c -o libgstaudio_@GST_MAJORMINOR@_la-mixertrack.lo `test -f 'mixertrack.c' || echo '$(srcdir)/'`mixertrack.c
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/libgstaudio_@GST_MAJORMINOR@_la-mixertrack.Tpo $(DEPDIR)/libgstaudio_@GST_MAJORMINOR@_la-mixertrack.Plo
+@am__fastdepCC_FALSE@	$(AM_V_CC) @AM_BACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	source='mixertrack.c' object='libgstaudio_@GST_MAJORMINOR@_la-mixertrack.lo' libtool=yes @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libgstaudio_@GST_MAJORMINOR@_la_CFLAGS) $(CFLAGS) -c -o libgstaudio_@GST_MAJORMINOR@_la-mixertrack.lo `test -f 'mixertrack.c' || echo '$(srcdir)/'`mixertrack.c
+
 libgstaudio_@GST_MAJORMINOR@_la-mixerutils.lo: mixerutils.c
 @am__fastdepCC_TRUE@	$(AM_V_CC)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libgstaudio_@GST_MAJORMINOR@_la_CFLAGS) $(CFLAGS) -MT libgstaudio_@GST_MAJORMINOR@_la-mixerutils.lo -MD -MP -MF $(DEPDIR)/libgstaudio_@GST_MAJORMINOR@_la-mixerutils.Tpo -c -o libgstaudio_@GST_MAJORMINOR@_la-mixerutils.lo `test -f 'mixerutils.c' || echo '$(srcdir)/'`mixerutils.c
 @am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/libgstaudio_@GST_MAJORMINOR@_la-mixerutils.Tpo $(DEPDIR)/libgstaudio_@GST_MAJORMINOR@_la-mixerutils.Plo
@@ -689,13 +737,13 @@ libgstaudio_@GST_MAJORMINOR@_la-mixerutils.lo: mixerutils.c
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
 @am__fastdepCC_FALSE@	$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libgstaudio_@GST_MAJORMINOR@_la_CFLAGS) $(CFLAGS) -c -o libgstaudio_@GST_MAJORMINOR@_la-mixerutils.lo `test -f 'mixerutils.c' || echo '$(srcdir)/'`mixerutils.c
 
-libgstaudio_@GST_MAJORMINOR@_la-multichannel.lo: multichannel.c
-@am__fastdepCC_TRUE@	$(AM_V_CC)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libgstaudio_@GST_MAJORMINOR@_la_CFLAGS) $(CFLAGS) -MT libgstaudio_@GST_MAJORMINOR@_la-multichannel.lo -MD -MP -MF $(DEPDIR)/libgstaudio_@GST_MAJORMINOR@_la-multichannel.Tpo -c -o libgstaudio_@GST_MAJORMINOR@_la-multichannel.lo `test -f 'multichannel.c' || echo '$(srcdir)/'`multichannel.c
-@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/libgstaudio_@GST_MAJORMINOR@_la-multichannel.Tpo $(DEPDIR)/libgstaudio_@GST_MAJORMINOR@_la-multichannel.Plo
+libgstaudio_@GST_MAJORMINOR@_la-gstaudiocdsrc.lo: gstaudiocdsrc.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libgstaudio_@GST_MAJORMINOR@_la_CFLAGS) $(CFLAGS) -MT libgstaudio_@GST_MAJORMINOR@_la-gstaudiocdsrc.lo -MD -MP -MF $(DEPDIR)/libgstaudio_@GST_MAJORMINOR@_la-gstaudiocdsrc.Tpo -c -o libgstaudio_@GST_MAJORMINOR@_la-gstaudiocdsrc.lo `test -f 'gstaudiocdsrc.c' || echo '$(srcdir)/'`gstaudiocdsrc.c
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/libgstaudio_@GST_MAJORMINOR@_la-gstaudiocdsrc.Tpo $(DEPDIR)/libgstaudio_@GST_MAJORMINOR@_la-gstaudiocdsrc.Plo
 @am__fastdepCC_FALSE@	$(AM_V_CC) @AM_BACKSLASH@
-@AMDEP_TRUE@@am__fastdepCC_FALSE@	source='multichannel.c' object='libgstaudio_@GST_MAJORMINOR@_la-multichannel.lo' libtool=yes @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	source='gstaudiocdsrc.c' object='libgstaudio_@GST_MAJORMINOR@_la-gstaudiocdsrc.lo' libtool=yes @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCC_FALSE@	$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libgstaudio_@GST_MAJORMINOR@_la_CFLAGS) $(CFLAGS) -c -o libgstaudio_@GST_MAJORMINOR@_la-multichannel.lo `test -f 'multichannel.c' || echo '$(srcdir)/'`multichannel.c
+@am__fastdepCC_FALSE@	$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libgstaudio_@GST_MAJORMINOR@_la_CFLAGS) $(CFLAGS) -c -o libgstaudio_@GST_MAJORMINOR@_la-gstaudiocdsrc.lo `test -f 'gstaudiocdsrc.c' || echo '$(srcdir)/'`gstaudiocdsrc.c
 
 libgstaudio_@GST_MAJORMINOR@_la-gstaudiodecoder.lo: gstaudiodecoder.c
 @am__fastdepCC_TRUE@	$(AM_V_CC)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libgstaudio_@GST_MAJORMINOR@_la_CFLAGS) $(CFLAGS) -MT libgstaudio_@GST_MAJORMINOR@_la-gstaudiodecoder.lo -MD -MP -MF $(DEPDIR)/libgstaudio_@GST_MAJORMINOR@_la-gstaudiodecoder.Tpo -c -o libgstaudio_@GST_MAJORMINOR@_la-gstaudiodecoder.lo `test -f 'gstaudiodecoder.c' || echo '$(srcdir)/'`gstaudiodecoder.c
@@ -713,21 +761,21 @@ libgstaudio_@GST_MAJORMINOR@_la-gstaudioencoder.lo: gstaudioencoder.c
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
 @am__fastdepCC_FALSE@	$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libgstaudio_@GST_MAJORMINOR@_la_CFLAGS) $(CFLAGS) -c -o libgstaudio_@GST_MAJORMINOR@_la-gstaudioencoder.lo `test -f 'gstaudioencoder.c' || echo '$(srcdir)/'`gstaudioencoder.c
 
-libgstaudio_@GST_MAJORMINOR@_la-gstbaseaudiosink.lo: gstbaseaudiosink.c
-@am__fastdepCC_TRUE@	$(AM_V_CC)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libgstaudio_@GST_MAJORMINOR@_la_CFLAGS) $(CFLAGS) -MT libgstaudio_@GST_MAJORMINOR@_la-gstbaseaudiosink.lo -MD -MP -MF $(DEPDIR)/libgstaudio_@GST_MAJORMINOR@_la-gstbaseaudiosink.Tpo -c -o libgstaudio_@GST_MAJORMINOR@_la-gstbaseaudiosink.lo `test -f 'gstbaseaudiosink.c' || echo '$(srcdir)/'`gstbaseaudiosink.c
-@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/libgstaudio_@GST_MAJORMINOR@_la-gstbaseaudiosink.Tpo $(DEPDIR)/libgstaudio_@GST_MAJORMINOR@_la-gstbaseaudiosink.Plo
+libgstaudio_@GST_MAJORMINOR@_la-gstaudiobasesink.lo: gstaudiobasesink.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libgstaudio_@GST_MAJORMINOR@_la_CFLAGS) $(CFLAGS) -MT libgstaudio_@GST_MAJORMINOR@_la-gstaudiobasesink.lo -MD -MP -MF $(DEPDIR)/libgstaudio_@GST_MAJORMINOR@_la-gstaudiobasesink.Tpo -c -o libgstaudio_@GST_MAJORMINOR@_la-gstaudiobasesink.lo `test -f 'gstaudiobasesink.c' || echo '$(srcdir)/'`gstaudiobasesink.c
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/libgstaudio_@GST_MAJORMINOR@_la-gstaudiobasesink.Tpo $(DEPDIR)/libgstaudio_@GST_MAJORMINOR@_la-gstaudiobasesink.Plo
 @am__fastdepCC_FALSE@	$(AM_V_CC) @AM_BACKSLASH@
-@AMDEP_TRUE@@am__fastdepCC_FALSE@	source='gstbaseaudiosink.c' object='libgstaudio_@GST_MAJORMINOR@_la-gstbaseaudiosink.lo' libtool=yes @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	source='gstaudiobasesink.c' object='libgstaudio_@GST_MAJORMINOR@_la-gstaudiobasesink.lo' libtool=yes @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCC_FALSE@	$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libgstaudio_@GST_MAJORMINOR@_la_CFLAGS) $(CFLAGS) -c -o libgstaudio_@GST_MAJORMINOR@_la-gstbaseaudiosink.lo `test -f 'gstbaseaudiosink.c' || echo '$(srcdir)/'`gstbaseaudiosink.c
+@am__fastdepCC_FALSE@	$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libgstaudio_@GST_MAJORMINOR@_la_CFLAGS) $(CFLAGS) -c -o libgstaudio_@GST_MAJORMINOR@_la-gstaudiobasesink.lo `test -f 'gstaudiobasesink.c' || echo '$(srcdir)/'`gstaudiobasesink.c
 
-libgstaudio_@GST_MAJORMINOR@_la-gstbaseaudiosrc.lo: gstbaseaudiosrc.c
-@am__fastdepCC_TRUE@	$(AM_V_CC)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libgstaudio_@GST_MAJORMINOR@_la_CFLAGS) $(CFLAGS) -MT libgstaudio_@GST_MAJORMINOR@_la-gstbaseaudiosrc.lo -MD -MP -MF $(DEPDIR)/libgstaudio_@GST_MAJORMINOR@_la-gstbaseaudiosrc.Tpo -c -o libgstaudio_@GST_MAJORMINOR@_la-gstbaseaudiosrc.lo `test -f 'gstbaseaudiosrc.c' || echo '$(srcdir)/'`gstbaseaudiosrc.c
-@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/libgstaudio_@GST_MAJORMINOR@_la-gstbaseaudiosrc.Tpo $(DEPDIR)/libgstaudio_@GST_MAJORMINOR@_la-gstbaseaudiosrc.Plo
+libgstaudio_@GST_MAJORMINOR@_la-gstaudiobasesrc.lo: gstaudiobasesrc.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libgstaudio_@GST_MAJORMINOR@_la_CFLAGS) $(CFLAGS) -MT libgstaudio_@GST_MAJORMINOR@_la-gstaudiobasesrc.lo -MD -MP -MF $(DEPDIR)/libgstaudio_@GST_MAJORMINOR@_la-gstaudiobasesrc.Tpo -c -o libgstaudio_@GST_MAJORMINOR@_la-gstaudiobasesrc.lo `test -f 'gstaudiobasesrc.c' || echo '$(srcdir)/'`gstaudiobasesrc.c
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/libgstaudio_@GST_MAJORMINOR@_la-gstaudiobasesrc.Tpo $(DEPDIR)/libgstaudio_@GST_MAJORMINOR@_la-gstaudiobasesrc.Plo
 @am__fastdepCC_FALSE@	$(AM_V_CC) @AM_BACKSLASH@
-@AMDEP_TRUE@@am__fastdepCC_FALSE@	source='gstbaseaudiosrc.c' object='libgstaudio_@GST_MAJORMINOR@_la-gstbaseaudiosrc.lo' libtool=yes @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	source='gstaudiobasesrc.c' object='libgstaudio_@GST_MAJORMINOR@_la-gstaudiobasesrc.lo' libtool=yes @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCC_FALSE@	$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libgstaudio_@GST_MAJORMINOR@_la_CFLAGS) $(CFLAGS) -c -o libgstaudio_@GST_MAJORMINOR@_la-gstbaseaudiosrc.lo `test -f 'gstbaseaudiosrc.c' || echo '$(srcdir)/'`gstbaseaudiosrc.c
+@am__fastdepCC_FALSE@	$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libgstaudio_@GST_MAJORMINOR@_la_CFLAGS) $(CFLAGS) -c -o libgstaudio_@GST_MAJORMINOR@_la-gstaudiobasesrc.lo `test -f 'gstaudiobasesrc.c' || echo '$(srcdir)/'`gstaudiobasesrc.c
 
 libgstaudio_@GST_MAJORMINOR@_la-gstaudiofilter.lo: gstaudiofilter.c
 @am__fastdepCC_TRUE@	$(AM_V_CC)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libgstaudio_@GST_MAJORMINOR@_la_CFLAGS) $(CFLAGS) -MT libgstaudio_@GST_MAJORMINOR@_la-gstaudiofilter.lo -MD -MP -MF $(DEPDIR)/libgstaudio_@GST_MAJORMINOR@_la-gstaudiofilter.Tpo -c -o libgstaudio_@GST_MAJORMINOR@_la-gstaudiofilter.lo `test -f 'gstaudiofilter.c' || echo '$(srcdir)/'`gstaudiofilter.c
@@ -736,6 +784,14 @@ libgstaudio_@GST_MAJORMINOR@_la-gstaudiofilter.lo: gstaudiofilter.c
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	source='gstaudiofilter.c' object='libgstaudio_@GST_MAJORMINOR@_la-gstaudiofilter.lo' libtool=yes @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
 @am__fastdepCC_FALSE@	$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libgstaudio_@GST_MAJORMINOR@_la_CFLAGS) $(CFLAGS) -c -o libgstaudio_@GST_MAJORMINOR@_la-gstaudiofilter.lo `test -f 'gstaudiofilter.c' || echo '$(srcdir)/'`gstaudiofilter.c
+
+libgstaudio_@GST_MAJORMINOR@_la-gstaudiometa.lo: gstaudiometa.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libgstaudio_@GST_MAJORMINOR@_la_CFLAGS) $(CFLAGS) -MT libgstaudio_@GST_MAJORMINOR@_la-gstaudiometa.lo -MD -MP -MF $(DEPDIR)/libgstaudio_@GST_MAJORMINOR@_la-gstaudiometa.Tpo -c -o libgstaudio_@GST_MAJORMINOR@_la-gstaudiometa.lo `test -f 'gstaudiometa.c' || echo '$(srcdir)/'`gstaudiometa.c
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/libgstaudio_@GST_MAJORMINOR@_la-gstaudiometa.Tpo $(DEPDIR)/libgstaudio_@GST_MAJORMINOR@_la-gstaudiometa.Plo
+@am__fastdepCC_FALSE@	$(AM_V_CC) @AM_BACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	source='gstaudiometa.c' object='libgstaudio_@GST_MAJORMINOR@_la-gstaudiometa.lo' libtool=yes @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libgstaudio_@GST_MAJORMINOR@_la_CFLAGS) $(CFLAGS) -c -o libgstaudio_@GST_MAJORMINOR@_la-gstaudiometa.lo `test -f 'gstaudiometa.c' || echo '$(srcdir)/'`gstaudiometa.c
 
 libgstaudio_@GST_MAJORMINOR@_la-gstaudiosink.lo: gstaudiosink.c
 @am__fastdepCC_TRUE@	$(AM_V_CC)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libgstaudio_@GST_MAJORMINOR@_la_CFLAGS) $(CFLAGS) -MT libgstaudio_@GST_MAJORMINOR@_la-gstaudiosink.lo -MD -MP -MF $(DEPDIR)/libgstaudio_@GST_MAJORMINOR@_la-gstaudiosink.Tpo -c -o libgstaudio_@GST_MAJORMINOR@_la-gstaudiosink.lo `test -f 'gstaudiosink.c' || echo '$(srcdir)/'`gstaudiosink.c
@@ -753,6 +809,14 @@ libgstaudio_@GST_MAJORMINOR@_la-gstaudiosrc.lo: gstaudiosrc.c
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
 @am__fastdepCC_FALSE@	$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libgstaudio_@GST_MAJORMINOR@_la_CFLAGS) $(CFLAGS) -c -o libgstaudio_@GST_MAJORMINOR@_la-gstaudiosrc.lo `test -f 'gstaudiosrc.c' || echo '$(srcdir)/'`gstaudiosrc.c
 
+libgstaudio_@GST_MAJORMINOR@_la-streamvolume.lo: streamvolume.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libgstaudio_@GST_MAJORMINOR@_la_CFLAGS) $(CFLAGS) -MT libgstaudio_@GST_MAJORMINOR@_la-streamvolume.lo -MD -MP -MF $(DEPDIR)/libgstaudio_@GST_MAJORMINOR@_la-streamvolume.Tpo -c -o libgstaudio_@GST_MAJORMINOR@_la-streamvolume.lo `test -f 'streamvolume.c' || echo '$(srcdir)/'`streamvolume.c
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/libgstaudio_@GST_MAJORMINOR@_la-streamvolume.Tpo $(DEPDIR)/libgstaudio_@GST_MAJORMINOR@_la-streamvolume.Plo
+@am__fastdepCC_FALSE@	$(AM_V_CC) @AM_BACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	source='streamvolume.c' object='libgstaudio_@GST_MAJORMINOR@_la-streamvolume.lo' libtool=yes @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libgstaudio_@GST_MAJORMINOR@_la_CFLAGS) $(CFLAGS) -c -o libgstaudio_@GST_MAJORMINOR@_la-streamvolume.lo `test -f 'streamvolume.c' || echo '$(srcdir)/'`streamvolume.c
+
 libgstaudio_@GST_MAJORMINOR@_la-gstaudioiec61937.lo: gstaudioiec61937.c
 @am__fastdepCC_TRUE@	$(AM_V_CC)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libgstaudio_@GST_MAJORMINOR@_la_CFLAGS) $(CFLAGS) -MT libgstaudio_@GST_MAJORMINOR@_la-gstaudioiec61937.lo -MD -MP -MF $(DEPDIR)/libgstaudio_@GST_MAJORMINOR@_la-gstaudioiec61937.Tpo -c -o libgstaudio_@GST_MAJORMINOR@_la-gstaudioiec61937.lo `test -f 'gstaudioiec61937.c' || echo '$(srcdir)/'`gstaudioiec61937.c
 @am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/libgstaudio_@GST_MAJORMINOR@_la-gstaudioiec61937.Tpo $(DEPDIR)/libgstaudio_@GST_MAJORMINOR@_la-gstaudioiec61937.Plo
@@ -768,6 +832,14 @@ libgstaudio_@GST_MAJORMINOR@_la-audio-enumtypes.lo: audio-enumtypes.c
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	source='audio-enumtypes.c' object='libgstaudio_@GST_MAJORMINOR@_la-audio-enumtypes.lo' libtool=yes @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
 @am__fastdepCC_FALSE@	$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libgstaudio_@GST_MAJORMINOR@_la_CFLAGS) $(CFLAGS) -c -o libgstaudio_@GST_MAJORMINOR@_la-audio-enumtypes.lo `test -f 'audio-enumtypes.c' || echo '$(srcdir)/'`audio-enumtypes.c
+
+libgstaudio_@GST_MAJORMINOR@_la-audio-marshal.lo: audio-marshal.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libgstaudio_@GST_MAJORMINOR@_la_CFLAGS) $(CFLAGS) -MT libgstaudio_@GST_MAJORMINOR@_la-audio-marshal.lo -MD -MP -MF $(DEPDIR)/libgstaudio_@GST_MAJORMINOR@_la-audio-marshal.Tpo -c -o libgstaudio_@GST_MAJORMINOR@_la-audio-marshal.lo `test -f 'audio-marshal.c' || echo '$(srcdir)/'`audio-marshal.c
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/libgstaudio_@GST_MAJORMINOR@_la-audio-marshal.Tpo $(DEPDIR)/libgstaudio_@GST_MAJORMINOR@_la-audio-marshal.Plo
+@am__fastdepCC_FALSE@	$(AM_V_CC) @AM_BACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	source='audio-marshal.c' object='libgstaudio_@GST_MAJORMINOR@_la-audio-marshal.lo' libtool=yes @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libgstaudio_@GST_MAJORMINOR@_la_CFLAGS) $(CFLAGS) -c -o libgstaudio_@GST_MAJORMINOR@_la-audio-marshal.lo `test -f 'audio-marshal.c' || echo '$(srcdir)/'`audio-marshal.c
 
 mostlyclean-libtool:
 	-rm -f *.lo
@@ -1117,7 +1189,6 @@ $(glib_gen_basename)-enumtypes.c: $(glib_enum_headers)
 @HAVE_INTROSPECTION_TRUE@		--nsversion=@GST_MAJORMINOR@ \
 @HAVE_INTROSPECTION_TRUE@		--warn-all \
 @HAVE_INTROSPECTION_TRUE@		--strip-prefix=Gst \
-@HAVE_INTROSPECTION_TRUE@		-DGST_USE_UNSTABLE_API \
 @HAVE_INTROSPECTION_TRUE@		-I$(top_srcdir)/gst-libs \
 @HAVE_INTROSPECTION_TRUE@		-I$(top_builddir)/gst-libs \
 @HAVE_INTROSPECTION_TRUE@		$(gir_cincludes) \

@@ -30,7 +30,6 @@
     <xi:include href="xml/element-cdparanoiasrc.xml" />
     <xi:include href="xml/element-clockoverlay.xml" />
     <xi:include href="xml/element-decodebin.xml" />
-    <xi:include href="xml/element-decodebin2.xml" />
     <xi:include href="xml/element-encodebin.xml" />
     <xi:include href="xml/element-videoconvert.xml" />
     <xi:include href="xml/element-gdpdepay.xml" />
@@ -40,10 +39,10 @@
     <xi:include href="xml/element-giostreamsink.xml" />
     <xi:include href="xml/element-giostreamsrc.xml" />
     <xi:include href="xml/element-multifdsink.xml" />
+    <xi:include href="xml/element-multisocketsink.xml" />
     <xi:include href="xml/element-oggdemux.xml" />
     <xi:include href="xml/element-oggmux.xml" />
     <xi:include href="xml/element-playbin.xml" />
-    <xi:include href="xml/element-playbin2.xml" />
     <xi:include href="xml/element-subtitleoverlay.xml" />
     <xi:include href="xml/element-tcpclientsrc.xml" />
     <xi:include href="xml/element-tcpclientsink.xml" />
@@ -99,11 +98,6 @@
     <xi:include href="xml/plugin-vorbis.xml" />
     <xi:include href="xml/plugin-ximagesink.xml" />
     <xi:include href="xml/plugin-xvimagesink.xml" />
-  </chapter>
-
-  <chapter>
-    <title>gst-plugins-base Classes</title>
-    <xi:include href="xml/gstplaybasebin.xml" />
   </chapter>
 </book>
 

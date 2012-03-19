@@ -65,6 +65,7 @@ am__aclocal_m4_deps = $(top_srcdir)/common/m4/as-ac-expand.m4 \
 	$(top_srcdir)/common/m4/gst-gettext.m4 \
 	$(top_srcdir)/common/m4/gst-glib2.m4 \
 	$(top_srcdir)/common/m4/gst-package-release-datetime.m4 \
+	$(top_srcdir)/common/m4/gst-platform.m4 \
 	$(top_srcdir)/common/m4/gst-plugin-docs.m4 \
 	$(top_srcdir)/common/m4/gst-plugindir.m4 \
 	$(top_srcdir)/common/m4/gst-x11.m4 \
@@ -73,16 +74,16 @@ am__aclocal_m4_deps = $(top_srcdir)/common/m4/as-ac-expand.m4 \
 	$(top_srcdir)/common/m4/introspection.m4 \
 	$(top_srcdir)/common/m4/orc.m4 $(top_srcdir)/common/m4/pkg.m4 \
 	$(top_srcdir)/m4/freetype2.m4 $(top_srcdir)/m4/gettext.m4 \
-	$(top_srcdir)/m4/gst-alsa.m4 $(top_srcdir)/m4/gst-fionread.m4 \
-	$(top_srcdir)/m4/iconv.m4 $(top_srcdir)/m4/intlmacosx.m4 \
-	$(top_srcdir)/m4/lib-ld.m4 $(top_srcdir)/m4/lib-link.m4 \
-	$(top_srcdir)/m4/lib-prefix.m4 $(top_srcdir)/m4/libtool.m4 \
-	$(top_srcdir)/m4/lrint.m4 $(top_srcdir)/m4/lrintf.m4 \
-	$(top_srcdir)/m4/ltoptions.m4 $(top_srcdir)/m4/ltsugar.m4 \
-	$(top_srcdir)/m4/ltversion.m4 $(top_srcdir)/m4/lt~obsolete.m4 \
-	$(top_srcdir)/m4/nls.m4 $(top_srcdir)/m4/ogg.m4 \
-	$(top_srcdir)/m4/po.m4 $(top_srcdir)/m4/progtest.m4 \
-	$(top_srcdir)/m4/vorbis.m4 $(top_srcdir)/configure.ac
+	$(top_srcdir)/m4/gst-alsa.m4 $(top_srcdir)/m4/iconv.m4 \
+	$(top_srcdir)/m4/intlmacosx.m4 $(top_srcdir)/m4/lib-ld.m4 \
+	$(top_srcdir)/m4/lib-link.m4 $(top_srcdir)/m4/lib-prefix.m4 \
+	$(top_srcdir)/m4/libtool.m4 $(top_srcdir)/m4/lrint.m4 \
+	$(top_srcdir)/m4/lrintf.m4 $(top_srcdir)/m4/ltoptions.m4 \
+	$(top_srcdir)/m4/ltsugar.m4 $(top_srcdir)/m4/ltversion.m4 \
+	$(top_srcdir)/m4/lt~obsolete.m4 $(top_srcdir)/m4/nls.m4 \
+	$(top_srcdir)/m4/ogg.m4 $(top_srcdir)/m4/po.m4 \
+	$(top_srcdir)/m4/progtest.m4 $(top_srcdir)/m4/vorbis.m4 \
+	$(top_srcdir)/configure.ac
 am__configure_deps = $(am__aclocal_m4_deps) $(CONFIGURE_DEPENDENCIES) \
 	$(ACLOCAL_M4)
 mkinstalldirs = $(install_sh) -d
@@ -115,15 +116,21 @@ LTLIBRARIES = $(plugin_LTLIBRARIES)
 am__DEPENDENCIES_1 =
 libgsttcp_la_DEPENDENCIES = $(am__DEPENDENCIES_1) \
 	$(am__DEPENDENCIES_1) $(am__DEPENDENCIES_1)
+am__libgsttcp_la_SOURCES_DIST = gsttcpplugin.c gsttcpclientsrc.c \
+	gsttcpclientsink.c gstmultifdsink.c gstmultihandlesink.c \
+	gstmultisocketsink.c gsttcpserversrc.c gsttcpserversink.c
+@HAVE_SYS_SOCKET_H_TRUE@am__objects_1 =  \
+@HAVE_SYS_SOCKET_H_TRUE@	libgsttcp_la-gstmultifdsink.lo
 am_libgsttcp_la_OBJECTS = libgsttcp_la-gsttcpplugin.lo \
-	libgsttcp_la-gsttcp.lo libgsttcp_la-gstmultifdsink.lo \
 	libgsttcp_la-gsttcpclientsrc.lo \
-	libgsttcp_la-gsttcpclientsink.lo \
+	libgsttcp_la-gsttcpclientsink.lo $(am__objects_1) \
+	libgsttcp_la-gstmultihandlesink.lo \
+	libgsttcp_la-gstmultisocketsink.lo \
 	libgsttcp_la-gsttcpserversrc.lo \
 	libgsttcp_la-gsttcpserversink.lo
-am__objects_1 = libgsttcp_la-gsttcp-enumtypes.lo \
+am__objects_2 = libgsttcp_la-gsttcp-enumtypes.lo \
 	libgsttcp_la-gsttcp-marshal.lo
-nodist_libgsttcp_la_OBJECTS = $(am__objects_1)
+nodist_libgsttcp_la_OBJECTS = $(am__objects_2)
 libgsttcp_la_OBJECTS = $(am_libgsttcp_la_OBJECTS) \
 	$(nodist_libgsttcp_la_OBJECTS)
 AM_V_lt = $(am__v_lt_$(V))
@@ -160,7 +167,7 @@ AM_V_GEN = $(am__v_GEN_$(V))
 am__v_GEN_ = $(am__v_GEN_$(AM_DEFAULT_VERBOSITY))
 am__v_GEN_0 = @echo "  GEN   " $@;
 SOURCES = $(libgsttcp_la_SOURCES) $(nodist_libgsttcp_la_SOURCES)
-DIST_SOURCES = $(libgsttcp_la_SOURCES)
+DIST_SOURCES = $(am__libgsttcp_la_SOURCES_DIST)
 HEADERS = $(noinst_HEADERS)
 ETAGS = etags
 CTAGS = ctags
@@ -225,6 +232,7 @@ GIO_CFLAGS = @GIO_CFLAGS@
 GIO_LDFLAGS = @GIO_LDFLAGS@
 GIO_LIBS = @GIO_LIBS@
 GLIB_CFLAGS = @GLIB_CFLAGS@
+GLIB_EXTRA_CFLAGS = @GLIB_EXTRA_CFLAGS@
 GLIB_LIBS = @GLIB_LIBS@
 GLIB_PREFIX = @GLIB_PREFIX@
 GLIB_REQ = @GLIB_REQ@
@@ -242,8 +250,6 @@ GST_CONTROLLER_CFLAGS = @GST_CONTROLLER_CFLAGS@
 GST_CONTROLLER_LIBS = @GST_CONTROLLER_LIBS@
 GST_CURRENT = @GST_CURRENT@
 GST_CXXFLAGS = @GST_CXXFLAGS@
-GST_GDP_CFLAGS = @GST_GDP_CFLAGS@
-GST_GDP_LIBS = @GST_GDP_LIBS@
 GST_INSTALL_PLUGINS_HELPER = @GST_INSTALL_PLUGINS_HELPER@
 GST_LEVEL_DEFAULT = @GST_LEVEL_DEFAULT@
 GST_LIBS = @GST_LIBS@
@@ -275,7 +281,6 @@ HAVE_CDPARANOIA = @HAVE_CDPARANOIA@
 HAVE_X = @HAVE_X@
 HAVE_XSHM = @HAVE_XSHM@
 HAVE_ZLIB = @HAVE_ZLIB@
-HSTRERROR_LIBS = @HSTRERROR_LIBS@
 HTML_DIR = @HTML_DIR@
 INSTALL = @INSTALL@
 INSTALL_DATA = @INSTALL_DATA@
@@ -312,6 +317,7 @@ LTLIBINTL = @LTLIBINTL@
 LTLIBOBJS = @LTLIBOBJS@
 MAINT = @MAINT@
 MAKEINFO = @MAKEINFO@
+MANIFEST_TOOL = @MANIFEST_TOOL@
 MKDIR_P = @MKDIR_P@
 MSGFMT = @MSGFMT@
 MSGFMT_015 = @MSGFMT_015@
@@ -373,7 +379,6 @@ VORBIS_CFLAGS = @VORBIS_CFLAGS@
 VORBIS_LIBS = @VORBIS_LIBS@
 WARNING_CFLAGS = @WARNING_CFLAGS@
 WARNING_CXXFLAGS = @WARNING_CXXFLAGS@
-WIN32_LIBS = @WIN32_LIBS@
 XGETTEXT = @XGETTEXT@
 XGETTEXT_015 = @XGETTEXT_015@
 XGETTEXT_EXTRA_OPTIONS = @XGETTEXT_EXTRA_OPTIONS@
@@ -390,6 +395,7 @@ abs_builddir = @abs_builddir@
 abs_srcdir = @abs_srcdir@
 abs_top_builddir = @abs_top_builddir@
 abs_top_srcdir = @abs_top_srcdir@
+ac_ct_AR = @ac_ct_AR@
 ac_ct_CC = @ac_ct_CC@
 ac_ct_CXX = @ac_ct_CXX@
 ac_ct_DUMPBIN = @ac_ct_DUMPBIN@
@@ -423,7 +429,6 @@ libdir = @libdir@
 libexecdir = @libexecdir@
 localedir = @localedir@
 localstatedir = @localstatedir@
-lt_ECHO = @lt_ECHO@
 mandir = @mandir@
 mkdir_p = @mkdir_p@
 oldincludedir = @oldincludedir@
@@ -455,28 +460,31 @@ enum_headers = $(foreach h,$(glib_enum_headers),\n\#include \"$(h)\")
 built_sources = gsttcp-enumtypes.c gsttcp-marshal.c
 built_headers = gsttcp-enumtypes.h gsttcp-marshal.h
 BUILT_SOURCES = $(built_sources) $(built_headers)
+@HAVE_SYS_SOCKET_H_FALSE@multifdsink_SOURCES = 
+@HAVE_SYS_SOCKET_H_TRUE@multifdsink_SOURCES = \
+@HAVE_SYS_SOCKET_H_TRUE@	gstmultifdsink.c
+
 libgsttcp_la_SOURCES = \
 	gsttcpplugin.c \
-	gsttcp.c \
-	gstmultifdsink.c  \
 	gsttcpclientsrc.c gsttcpclientsink.c \
+	$(multifdsink_SOURCES) \
+	gstmultihandlesink.c  \
+	gstmultisocketsink.c  \
 	gsttcpserversrc.c gsttcpserversink.c
 
 nodist_libgsttcp_la_SOURCES = \
 	$(built_sources)
 
-
-# remove ENABLE_NEW when dataprotocol is stable
-libgsttcp_la_CFLAGS = $(GST_PLUGINS_BASE_CFLAGS) $(GST_BASE_CFLAGS) $(GST_GDP_CFLAGS) $(GST_CFLAGS) -DGST_ENABLE_NEW
+libgsttcp_la_CFLAGS = $(GST_PLUGINS_BASE_CFLAGS) $(GST_BASE_CFLAGS) $(GST_CFLAGS) $(GIO_CFLAGS)
 libgsttcp_la_LDFLAGS = $(GST_PLUGIN_LDFLAGS)
-libgsttcp_la_LIBADD = $(GST_BASE_LIBS) $(GST_GDP_LIBS) $(GST_LIBS)
+libgsttcp_la_LIBADD = $(GST_BASE_LIBS) $(GST_LIBS) $(GIO_LIBS)
 libgsttcp_la_LIBTOOLFLAGS = --tag=disable-static
 noinst_HEADERS = \
-  gsttcpplugin.h \
   gsttcp.h \
-  gstmultifdsink.h  \
   gsttcpclientsrc.h gsttcpclientsink.h \
-  gsttcpserversrc.h gsttcpserversink.h
+  gstmultifdsink.h  \
+  gstmultisocketsink.h  \
+  gsttcpserversrc.h gsttcpserversink.h gstmultihandlesink.h
 
 CLEANFILES = $(BUILT_SOURCES)
 EXTRA_DIST = gsttcp-marshal.list
@@ -556,9 +564,10 @@ distclean-compile:
 	-rm -f *.tab.c
 
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libgsttcp_la-gstmultifdsink.Plo@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libgsttcp_la-gstmultihandlesink.Plo@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libgsttcp_la-gstmultisocketsink.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libgsttcp_la-gsttcp-enumtypes.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libgsttcp_la-gsttcp-marshal.Plo@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libgsttcp_la-gsttcp.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libgsttcp_la-gsttcpclientsink.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libgsttcp_la-gsttcpclientsrc.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libgsttcp_la-gsttcpplugin.Plo@am__quote@
@@ -597,22 +606,6 @@ libgsttcp_la-gsttcpplugin.lo: gsttcpplugin.c
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
 @am__fastdepCC_FALSE@	$(LIBTOOL) $(AM_V_lt) --tag=CC $(libgsttcp_la_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libgsttcp_la_CFLAGS) $(CFLAGS) -c -o libgsttcp_la-gsttcpplugin.lo `test -f 'gsttcpplugin.c' || echo '$(srcdir)/'`gsttcpplugin.c
 
-libgsttcp_la-gsttcp.lo: gsttcp.c
-@am__fastdepCC_TRUE@	$(AM_V_CC)$(LIBTOOL) $(AM_V_lt) --tag=CC $(libgsttcp_la_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libgsttcp_la_CFLAGS) $(CFLAGS) -MT libgsttcp_la-gsttcp.lo -MD -MP -MF $(DEPDIR)/libgsttcp_la-gsttcp.Tpo -c -o libgsttcp_la-gsttcp.lo `test -f 'gsttcp.c' || echo '$(srcdir)/'`gsttcp.c
-@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/libgsttcp_la-gsttcp.Tpo $(DEPDIR)/libgsttcp_la-gsttcp.Plo
-@am__fastdepCC_FALSE@	$(AM_V_CC) @AM_BACKSLASH@
-@AMDEP_TRUE@@am__fastdepCC_FALSE@	source='gsttcp.c' object='libgsttcp_la-gsttcp.lo' libtool=yes @AMDEPBACKSLASH@
-@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCC_FALSE@	$(LIBTOOL) $(AM_V_lt) --tag=CC $(libgsttcp_la_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libgsttcp_la_CFLAGS) $(CFLAGS) -c -o libgsttcp_la-gsttcp.lo `test -f 'gsttcp.c' || echo '$(srcdir)/'`gsttcp.c
-
-libgsttcp_la-gstmultifdsink.lo: gstmultifdsink.c
-@am__fastdepCC_TRUE@	$(AM_V_CC)$(LIBTOOL) $(AM_V_lt) --tag=CC $(libgsttcp_la_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libgsttcp_la_CFLAGS) $(CFLAGS) -MT libgsttcp_la-gstmultifdsink.lo -MD -MP -MF $(DEPDIR)/libgsttcp_la-gstmultifdsink.Tpo -c -o libgsttcp_la-gstmultifdsink.lo `test -f 'gstmultifdsink.c' || echo '$(srcdir)/'`gstmultifdsink.c
-@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/libgsttcp_la-gstmultifdsink.Tpo $(DEPDIR)/libgsttcp_la-gstmultifdsink.Plo
-@am__fastdepCC_FALSE@	$(AM_V_CC) @AM_BACKSLASH@
-@AMDEP_TRUE@@am__fastdepCC_FALSE@	source='gstmultifdsink.c' object='libgsttcp_la-gstmultifdsink.lo' libtool=yes @AMDEPBACKSLASH@
-@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCC_FALSE@	$(LIBTOOL) $(AM_V_lt) --tag=CC $(libgsttcp_la_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libgsttcp_la_CFLAGS) $(CFLAGS) -c -o libgsttcp_la-gstmultifdsink.lo `test -f 'gstmultifdsink.c' || echo '$(srcdir)/'`gstmultifdsink.c
-
 libgsttcp_la-gsttcpclientsrc.lo: gsttcpclientsrc.c
 @am__fastdepCC_TRUE@	$(AM_V_CC)$(LIBTOOL) $(AM_V_lt) --tag=CC $(libgsttcp_la_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libgsttcp_la_CFLAGS) $(CFLAGS) -MT libgsttcp_la-gsttcpclientsrc.lo -MD -MP -MF $(DEPDIR)/libgsttcp_la-gsttcpclientsrc.Tpo -c -o libgsttcp_la-gsttcpclientsrc.lo `test -f 'gsttcpclientsrc.c' || echo '$(srcdir)/'`gsttcpclientsrc.c
 @am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/libgsttcp_la-gsttcpclientsrc.Tpo $(DEPDIR)/libgsttcp_la-gsttcpclientsrc.Plo
@@ -628,6 +621,30 @@ libgsttcp_la-gsttcpclientsink.lo: gsttcpclientsink.c
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	source='gsttcpclientsink.c' object='libgsttcp_la-gsttcpclientsink.lo' libtool=yes @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
 @am__fastdepCC_FALSE@	$(LIBTOOL) $(AM_V_lt) --tag=CC $(libgsttcp_la_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libgsttcp_la_CFLAGS) $(CFLAGS) -c -o libgsttcp_la-gsttcpclientsink.lo `test -f 'gsttcpclientsink.c' || echo '$(srcdir)/'`gsttcpclientsink.c
+
+libgsttcp_la-gstmultifdsink.lo: gstmultifdsink.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(LIBTOOL) $(AM_V_lt) --tag=CC $(libgsttcp_la_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libgsttcp_la_CFLAGS) $(CFLAGS) -MT libgsttcp_la-gstmultifdsink.lo -MD -MP -MF $(DEPDIR)/libgsttcp_la-gstmultifdsink.Tpo -c -o libgsttcp_la-gstmultifdsink.lo `test -f 'gstmultifdsink.c' || echo '$(srcdir)/'`gstmultifdsink.c
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/libgsttcp_la-gstmultifdsink.Tpo $(DEPDIR)/libgsttcp_la-gstmultifdsink.Plo
+@am__fastdepCC_FALSE@	$(AM_V_CC) @AM_BACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	source='gstmultifdsink.c' object='libgsttcp_la-gstmultifdsink.lo' libtool=yes @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(LIBTOOL) $(AM_V_lt) --tag=CC $(libgsttcp_la_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libgsttcp_la_CFLAGS) $(CFLAGS) -c -o libgsttcp_la-gstmultifdsink.lo `test -f 'gstmultifdsink.c' || echo '$(srcdir)/'`gstmultifdsink.c
+
+libgsttcp_la-gstmultihandlesink.lo: gstmultihandlesink.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(LIBTOOL) $(AM_V_lt) --tag=CC $(libgsttcp_la_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libgsttcp_la_CFLAGS) $(CFLAGS) -MT libgsttcp_la-gstmultihandlesink.lo -MD -MP -MF $(DEPDIR)/libgsttcp_la-gstmultihandlesink.Tpo -c -o libgsttcp_la-gstmultihandlesink.lo `test -f 'gstmultihandlesink.c' || echo '$(srcdir)/'`gstmultihandlesink.c
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/libgsttcp_la-gstmultihandlesink.Tpo $(DEPDIR)/libgsttcp_la-gstmultihandlesink.Plo
+@am__fastdepCC_FALSE@	$(AM_V_CC) @AM_BACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	source='gstmultihandlesink.c' object='libgsttcp_la-gstmultihandlesink.lo' libtool=yes @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(LIBTOOL) $(AM_V_lt) --tag=CC $(libgsttcp_la_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libgsttcp_la_CFLAGS) $(CFLAGS) -c -o libgsttcp_la-gstmultihandlesink.lo `test -f 'gstmultihandlesink.c' || echo '$(srcdir)/'`gstmultihandlesink.c
+
+libgsttcp_la-gstmultisocketsink.lo: gstmultisocketsink.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(LIBTOOL) $(AM_V_lt) --tag=CC $(libgsttcp_la_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libgsttcp_la_CFLAGS) $(CFLAGS) -MT libgsttcp_la-gstmultisocketsink.lo -MD -MP -MF $(DEPDIR)/libgsttcp_la-gstmultisocketsink.Tpo -c -o libgsttcp_la-gstmultisocketsink.lo `test -f 'gstmultisocketsink.c' || echo '$(srcdir)/'`gstmultisocketsink.c
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/libgsttcp_la-gstmultisocketsink.Tpo $(DEPDIR)/libgsttcp_la-gstmultisocketsink.Plo
+@am__fastdepCC_FALSE@	$(AM_V_CC) @AM_BACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	source='gstmultisocketsink.c' object='libgsttcp_la-gstmultisocketsink.lo' libtool=yes @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(LIBTOOL) $(AM_V_lt) --tag=CC $(libgsttcp_la_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libgsttcp_la_CFLAGS) $(CFLAGS) -c -o libgsttcp_la-gstmultisocketsink.lo `test -f 'gstmultisocketsink.c' || echo '$(srcdir)/'`gstmultisocketsink.c
 
 libgsttcp_la-gsttcpserversrc.lo: gsttcpserversrc.c
 @am__fastdepCC_TRUE@	$(AM_V_CC)$(LIBTOOL) $(AM_V_lt) --tag=CC $(libgsttcp_la_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libgsttcp_la_CFLAGS) $(CFLAGS) -MT libgsttcp_la-gsttcpserversrc.lo -MD -MP -MF $(DEPDIR)/libgsttcp_la-gsttcpserversrc.Tpo -c -o libgsttcp_la-gsttcpserversrc.lo `test -f 'gsttcpserversrc.c' || echo '$(srcdir)/'`gsttcpserversrc.c

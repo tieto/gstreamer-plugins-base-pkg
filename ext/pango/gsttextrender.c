@@ -377,10 +377,12 @@ gst_text_render_src_setcaps (GstTextRender * render, GstCaps * caps)
 }
 
 static void
-gst_text_render_fixate_caps (GstPad * pad, GstCaps * caps)
+gst_text_render_fixate_caps (GstTextRender * render, GstCaps * caps)
 {
-  GstTextRender *render = GST_TEXT_RENDER (gst_pad_get_parent (pad));
-  GstStructure *s = gst_caps_get_structure (caps, 0);
+  GstStructure *s;
+
+  gst_caps_truncate (caps);
+  s = gst_caps_get_structure (caps, 0);
 
   GST_DEBUG ("Fixating caps %" GST_PTR_FORMAT, caps);
   gst_structure_fixate_field_nearest_int (s, "width", MAX (render->image_width,
@@ -388,8 +390,6 @@ gst_text_render_fixate_caps (GstPad * pad, GstCaps * caps)
   gst_structure_fixate_field_nearest_int (s, "height",
       MAX (render->image_height + render->ypad, DEFAULT_RENDER_HEIGHT));
   GST_DEBUG ("Fixated to    %" GST_PTR_FORMAT, caps);
-
-  gst_object_unref (render);
 }
 
 #define CAIRO_UNPREMULTIPLY(a,r,g,b) G_STMT_START { \
@@ -465,20 +465,23 @@ gst_text_renderer_image_to_argb (GstTextRender * render, guchar * pixbuf,
 }
 
 static GstFlowReturn
-gst_text_render_chain (GstPad * pad, GstBuffer * inbuf)
+gst_text_render_chain (GstPad * pad, GstObject * parent, GstBuffer * inbuf)
 {
   GstTextRender *render;
   GstFlowReturn ret;
   GstBuffer *outbuf;
   GstCaps *caps = NULL, *padcaps;
+  GstMapInfo map;
   guint8 *data;
   gsize size;
   gint n;
   gint xpos, ypos;
 
-  render = GST_TEXT_RENDER (gst_pad_get_parent (pad));
+  render = GST_TEXT_RENDER (parent);
 
-  data = gst_buffer_map (inbuf, &size, NULL, GST_MAP_READ);
+  gst_buffer_map (inbuf, &map, GST_MAP_READ);
+  data = map.data;
+  size = map.size;
 
   /* somehow pango barfs over "\0" buffers... */
   while (size > 0 &&
@@ -491,12 +494,12 @@ gst_text_render_chain (GstPad * pad, GstBuffer * inbuf)
   GST_DEBUG ("rendering '%*s'", (gint) size, data);
   pango_layout_set_markup (render->layout, (gchar *) data, size);
   gst_text_render_render_pangocairo (render);
-  gst_buffer_unmap (inbuf, data, size);
+  gst_buffer_unmap (inbuf, &map);
 
   gst_text_render_check_argb (render);
 
-  padcaps = gst_pad_get_caps (render->srcpad, NULL);
-  caps = gst_pad_peer_get_caps (render->srcpad, padcaps);
+  padcaps = gst_pad_query_caps (render->srcpad, NULL);
+  caps = gst_pad_peer_query_caps (render->srcpad, padcaps);
   gst_caps_unref (padcaps);
 
   if (!caps || gst_caps_is_empty (caps)) {
@@ -505,8 +508,7 @@ gst_text_render_chain (GstPad * pad, GstBuffer * inbuf)
     goto done;
   }
 
-  gst_caps_truncate (caps);
-  gst_pad_fixate_caps (render->srcpad, caps);
+  gst_text_render_fixate_caps (render, caps);
 
   if (!gst_text_render_src_setcaps (render, caps)) {
     GST_ELEMENT_ERROR (render, CORE, NEGOTIATION, (NULL), (NULL));
@@ -518,7 +520,10 @@ gst_text_render_chain (GstPad * pad, GstBuffer * inbuf)
   outbuf = gst_buffer_new_and_alloc (render->width * render->height * 4);
 
   gst_buffer_copy_into (outbuf, inbuf, GST_BUFFER_COPY_TIMESTAMPS, 0, -1);
-  data = gst_buffer_map (outbuf, &size, NULL, GST_MAP_WRITE);
+
+  gst_buffer_map (outbuf, &map, GST_MAP_WRITE);
+  data = map.data;
+  size = map.size;
 
   if (render->use_ARGB) {
     memset (data, 0, render->width * render->height * 4);
@@ -567,7 +572,7 @@ gst_text_render_chain (GstPad * pad, GstBuffer * inbuf)
           render->width * 4);
     }
   }
-  gst_buffer_unmap (outbuf, data, size);
+  gst_buffer_unmap (outbuf, &map);
 
   ret = gst_pad_push (render->srcpad, outbuf);
 
@@ -575,7 +580,7 @@ done:
   if (caps)
     gst_caps_unref (caps);
   gst_buffer_unref (inbuf);
-  gst_object_unref (render);
+
   return ret;
 }
 
@@ -609,8 +614,6 @@ gst_text_render_init (GstTextRender * render)
   template = gst_static_pad_template_get (&src_template_factory);
   render->srcpad = gst_pad_new_from_template (template, "src");
   gst_object_unref (template);
-  gst_pad_set_fixatecaps_function (render->srcpad,
-      GST_DEBUG_FUNCPTR (gst_text_render_fixate_caps));
 
   gst_element_add_pad (GST_ELEMENT (render), render->srcpad);
 

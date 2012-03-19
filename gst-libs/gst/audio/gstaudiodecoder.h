@@ -23,11 +23,6 @@
 #ifndef _GST_AUDIO_DECODER_H_
 #define _GST_AUDIO_DECODER_H_
 
-#ifndef GST_USE_UNSTABLE_API
-#warning "GstAudioDecoder is unstable API and may change in future."
-#warning "You can define GST_USE_UNSTABLE_API to avoid this warning."
-#endif
-
 #include <gst/gst.h>
 #include <gst/audio/audio.h>
 #include <gst/base/gstadapter.h>
@@ -84,8 +79,8 @@ G_BEGIN_DECLS
  */
 #define GST_AUDIO_DECODER_SINK_PAD(obj)        (((GstAudioDecoder *) (obj))->sinkpad)
 
-#define GST_AUDIO_DECODER_STREAM_LOCK(dec) g_static_rec_mutex_lock (&GST_AUDIO_DECODER (dec)->stream_lock)
-#define GST_AUDIO_DECODER_STREAM_UNLOCK(dec) g_static_rec_mutex_unlock (&GST_AUDIO_DECODER (dec)->stream_lock)
+#define GST_AUDIO_DECODER_STREAM_LOCK(dec)   g_rec_mutex_lock (&GST_AUDIO_DECODER (dec)->stream_lock)
+#define GST_AUDIO_DECODER_STREAM_UNLOCK(dec) g_rec_mutex_unlock (&GST_AUDIO_DECODER (dec)->stream_lock)
 
 typedef struct _GstAudioDecoder GstAudioDecoder;
 typedef struct _GstAudioDecoderClass GstAudioDecoderClass;
@@ -132,6 +127,16 @@ G_STMT_START {                                                              \
       GST_FUNCTION, __LINE__);                                              \
 } G_STMT_END
 
+
+/**
+ * GST_AUDIO_DECODER_MAX_ERRORS:
+ *
+ * Default maximum number of errors tolerated before signaling error.
+ *
+ * Since: 0.10.36
+ */
+#define GST_AUDIO_DECODER_MAX_ERRORS     10
+
 /**
  * GstAudioDecoder:
  *
@@ -151,13 +156,14 @@ struct _GstAudioDecoder
   /* protects all data processing, i.e. is locked
    * in the chain function, finish_frame and when
    * processing serialized events */
-  GStaticRecMutex stream_lock;
+  GRecMutex       stream_lock;
 
   /* MT-protected (with STREAM_LOCK) */
   GstSegment      segment;
 
   /*< private >*/
   GstAudioDecoderPrivate *priv;
+
   gpointer       _gst_reserved[GST_PADDING_LARGE];
 };
 
@@ -178,16 +184,17 @@ struct _GstAudioDecoder
  *                  frames as defined by audio format.
  * @handle_frame:   Provides input data (or NULL to clear any remaining data)
  *                  to subclass.  Input data ref management is performed by
- *                  base class, subclass should not care or intervene.
+ *                  base class, subclass should not care or intervene,
+ *                  and input data is only valid until next call to base class,
+ *                  most notably a call to gst_audio_decoder_finish_frame().
  * @flush:          Optional.
  *                  Instructs subclass to clear any codec caches and discard
- *                  any pending samples and not yet returned encoded data.
+ *                  any pending samples and not yet returned decoded data.
  *                  @hard indicates whether a FLUSH is being processed,
  *                  or otherwise a DISCONT (or conceptually similar).
  * @event:          Optional.
- *                  Event handler on the sink pad. This function should return
- *                  TRUE if the event was handled and should be discarded
- *                  (i.e. not unref'ed).
+ *                  Event handler on the sink pad. Subclasses should chain up to
+ *                  the parent implementation to invoke the default handler.
  * @pre_push:       Optional.
  *                  Called just prior to pushing (encoded data) buffer downstream.
  *                  Subclass has full discretionary access to buffer,
@@ -234,8 +241,8 @@ struct _GstAudioDecoderClass
 
 GType             gst_audio_decoder_get_type (void);
 
-gboolean          gst_audio_decoder_set_outcaps  (GstAudioDecoder * dec,
-                                                  GstCaps * caps);
+gboolean          gst_audio_decoder_set_output_format  (GstAudioDecoder    * dec,
+                                                        const GstAudioInfo * info);
 
 GstFlowReturn     gst_audio_decoder_finish_frame (GstAudioDecoder * dec,
                                                   GstBuffer * buf, gint frames);
@@ -288,6 +295,16 @@ void              gst_audio_decoder_set_tolerance   (GstAudioDecoder * dec,
                                                      gint64            tolerance);
 
 gint64            gst_audio_decoder_get_tolerance   (GstAudioDecoder * dec);
+
+void              gst_audio_decoder_set_drainable (GstAudioDecoder * dec,
+                                                   gboolean enabled);
+
+gboolean          gst_audio_decoder_get_drainable (GstAudioDecoder * dec);
+
+void              gst_audio_decoder_set_needs_format (GstAudioDecoder * dec,
+                                                      gboolean enabled);
+
+gboolean          gst_audio_decoder_get_needs_format (GstAudioDecoder * dec);
 
 G_END_DECLS
 

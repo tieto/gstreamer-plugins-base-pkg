@@ -1,7 +1,6 @@
 libgstrtspincludedir = $(includedir)/gstreamer-@GST_MAJORMINOR@/gst/rtsp
 
-libgstrtspinclude_HEADERS = gstrtspbase64.h \
-			    gstrtsptransport.h \
+libgstrtspinclude_HEADERS = gstrtsptransport.h \
 			    gstrtspurl.h \
 			    gstrtspmessage.h    \
 			    gstrtspconnection.h \
@@ -17,8 +16,7 @@ lib_LTLIBRARIES = libgstrtsp-@GST_MAJORMINOR@.la
 built_sources = gstrtsp-marshal.c gstrtsp-enumtypes.c
 built_headers = gstrtsp-marshal.h gstrtsp-enumtypes.h
 
-libgstrtsp_@GST_MAJORMINOR@_la_SOURCES = gstrtspbase64.c \
-					 gstrtsptransport.c \
+libgstrtsp_@GST_MAJORMINOR@_la_SOURCES = gstrtsptransport.c \
 					 gstrtspurl.c \
 					 gstrtspmessage.c    \
                                          gstrtspconnection.c \
@@ -34,8 +32,8 @@ noinst_HEADERS = gstrtsp.h
 #gstrtspextwms.c  
 #rtspextreal.c    
 
-libgstrtsp_@GST_MAJORMINOR@_la_CFLAGS = $(GST_PLUGINS_BASE_CFLAGS) $(GST_BASE_CFLAGS) $(GST_CFLAGS)
-libgstrtsp_@GST_MAJORMINOR@_la_LIBADD = $(GST_LIBS) $(WIN32_LIBS) $(HSTRERROR_LIBS)
+libgstrtsp_@GST_MAJORMINOR@_la_CFLAGS = $(GST_PLUGINS_BASE_CFLAGS) $(GST_BASE_CFLAGS) $(GST_CFLAGS) $(GIO_CFLAGS)
+libgstrtsp_@GST_MAJORMINOR@_la_LIBADD = $(GST_LIBS) $(GIO_LIBS)
 libgstrtsp_@GST_MAJORMINOR@_la_LDFLAGS = $(GST_LIB_LDFLAGS) $(GST_ALL_LDFLAGS) $(GST_LT_LDFLAGS)
 
 BUILT_SOURCES = $(built_headers) $(built_sources)
@@ -65,6 +63,7 @@ GstRtsp-@GST_MAJORMINOR@.gir: $(INTROSPECTION_SCANNER) libgstrtsp-@GST_MAJORMINO
 		$(INTROSPECTION_SCANNER) -v --namespace GstRtsp \
 		--nsversion=@GST_MAJORMINOR@ \
 		--strip-prefix=Gst \
+		--warn-all \
 		$(gir_cincludes) \
 		-DGST_USE_UNSTABLE_API \
 		-I$(top_builddir)/gst-libs \
@@ -72,9 +71,11 @@ GstRtsp-@GST_MAJORMINOR@.gir: $(INTROSPECTION_SCANNER) libgstrtsp-@GST_MAJORMINO
 		--add-include-path=$(builddir)/../sdp \
 		--add-include-path=`$(PKG_CONFIG) --variable=girdir gstreamer-@GST_MAJORMINOR@` \
 		--library=libgstrtsp-@GST_MAJORMINOR@.la \
+		--include=Gio-2.0 \
 		--include=Gst-@GST_MAJORMINOR@ \
 		--include=GstSdp-@GST_MAJORMINOR@ \
 		--libtool="$(top_builddir)/libtool" \
+		--pkg gio-2.0 \
 		--pkg gstreamer-@GST_MAJORMINOR@ \
 		--pkg gstreamer-sdp-@GST_MAJORMINOR@ \
 		--pkg-export gstreamer-rtsp-@GST_MAJORMINOR@ \

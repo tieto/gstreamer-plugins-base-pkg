@@ -59,6 +59,7 @@ am__aclocal_m4_deps = $(top_srcdir)/common/m4/as-ac-expand.m4 \
 	$(top_srcdir)/common/m4/gst-gettext.m4 \
 	$(top_srcdir)/common/m4/gst-glib2.m4 \
 	$(top_srcdir)/common/m4/gst-package-release-datetime.m4 \
+	$(top_srcdir)/common/m4/gst-platform.m4 \
 	$(top_srcdir)/common/m4/gst-plugin-docs.m4 \
 	$(top_srcdir)/common/m4/gst-plugindir.m4 \
 	$(top_srcdir)/common/m4/gst-x11.m4 \
@@ -67,16 +68,16 @@ am__aclocal_m4_deps = $(top_srcdir)/common/m4/as-ac-expand.m4 \
 	$(top_srcdir)/common/m4/introspection.m4 \
 	$(top_srcdir)/common/m4/orc.m4 $(top_srcdir)/common/m4/pkg.m4 \
 	$(top_srcdir)/m4/freetype2.m4 $(top_srcdir)/m4/gettext.m4 \
-	$(top_srcdir)/m4/gst-alsa.m4 $(top_srcdir)/m4/gst-fionread.m4 \
-	$(top_srcdir)/m4/iconv.m4 $(top_srcdir)/m4/intlmacosx.m4 \
-	$(top_srcdir)/m4/lib-ld.m4 $(top_srcdir)/m4/lib-link.m4 \
-	$(top_srcdir)/m4/lib-prefix.m4 $(top_srcdir)/m4/libtool.m4 \
-	$(top_srcdir)/m4/lrint.m4 $(top_srcdir)/m4/lrintf.m4 \
-	$(top_srcdir)/m4/ltoptions.m4 $(top_srcdir)/m4/ltsugar.m4 \
-	$(top_srcdir)/m4/ltversion.m4 $(top_srcdir)/m4/lt~obsolete.m4 \
-	$(top_srcdir)/m4/nls.m4 $(top_srcdir)/m4/ogg.m4 \
-	$(top_srcdir)/m4/po.m4 $(top_srcdir)/m4/progtest.m4 \
-	$(top_srcdir)/m4/vorbis.m4 $(top_srcdir)/configure.ac
+	$(top_srcdir)/m4/gst-alsa.m4 $(top_srcdir)/m4/iconv.m4 \
+	$(top_srcdir)/m4/intlmacosx.m4 $(top_srcdir)/m4/lib-ld.m4 \
+	$(top_srcdir)/m4/lib-link.m4 $(top_srcdir)/m4/lib-prefix.m4 \
+	$(top_srcdir)/m4/libtool.m4 $(top_srcdir)/m4/lrint.m4 \
+	$(top_srcdir)/m4/lrintf.m4 $(top_srcdir)/m4/ltoptions.m4 \
+	$(top_srcdir)/m4/ltsugar.m4 $(top_srcdir)/m4/ltversion.m4 \
+	$(top_srcdir)/m4/lt~obsolete.m4 $(top_srcdir)/m4/nls.m4 \
+	$(top_srcdir)/m4/ogg.m4 $(top_srcdir)/m4/po.m4 \
+	$(top_srcdir)/m4/progtest.m4 $(top_srcdir)/m4/vorbis.m4 \
+	$(top_srcdir)/configure.ac
 am__configure_deps = $(am__aclocal_m4_deps) $(CONFIGURE_DEPENDENCIES) \
 	$(ACLOCAL_M4)
 mkinstalldirs = $(install_sh) -d
@@ -94,7 +95,7 @@ am__gtk_videooverlay_SOURCES_DIST = gtk-videooverlay.c
 @HAVE_GTK_X11_TRUE@@USE_X_TRUE@am_gtk_videooverlay_OBJECTS = gtk_videooverlay-gtk-videooverlay.$(OBJEXT)
 gtk_videooverlay_OBJECTS = $(am_gtk_videooverlay_OBJECTS)
 am__DEPENDENCIES_1 =
-@HAVE_GTK_X11_TRUE@@USE_X_TRUE@gtk_videooverlay_DEPENDENCIES = $(top_builddir)/gst-libs/gst/interfaces/libgstinterfaces-$(GST_MAJORMINOR).la \
+@HAVE_GTK_X11_TRUE@@USE_X_TRUE@gtk_videooverlay_DEPENDENCIES = $(top_builddir)/gst-libs/gst/video/libgstvideo-$(GST_MAJORMINOR).la \
 @HAVE_GTK_X11_TRUE@@USE_X_TRUE@	$(am__DEPENDENCIES_1) \
 @HAVE_GTK_X11_TRUE@@USE_X_TRUE@	$(am__DEPENDENCIES_1) \
 @HAVE_GTK_X11_TRUE@@USE_X_TRUE@	$(am__DEPENDENCIES_1) \
@@ -109,7 +110,7 @@ gtk_videooverlay_LINK = $(LIBTOOL) $(AM_V_lt) --tag=CC \
 am__qt_videooverlay_SOURCES_DIST = qt-videooverlay.cpp
 @HAVE_QT_TRUE@@USE_X_TRUE@am_qt_videooverlay_OBJECTS = qt_videooverlay-qt-videooverlay.$(OBJEXT)
 qt_videooverlay_OBJECTS = $(am_qt_videooverlay_OBJECTS)
-@HAVE_QT_TRUE@@USE_X_TRUE@qt_videooverlay_DEPENDENCIES = $(top_builddir)/gst-libs/gst/interfaces/libgstinterfaces-$(GST_MAJORMINOR).la \
+@HAVE_QT_TRUE@@USE_X_TRUE@qt_videooverlay_DEPENDENCIES = $(top_builddir)/gst-libs/gst/video/libgstvideo-$(GST_MAJORMINOR).la \
 @HAVE_QT_TRUE@@USE_X_TRUE@	$(am__DEPENDENCIES_1) \
 @HAVE_QT_TRUE@@USE_X_TRUE@	$(am__DEPENDENCIES_1) \
 @HAVE_QT_TRUE@@USE_X_TRUE@	$(am__DEPENDENCIES_1) \
@@ -124,7 +125,7 @@ am__qtgv_videooverlay_SOURCES_DIST = qtgv-videooverlay.cpp \
 @HAVE_QT_GV_TRUE@@USE_X_TRUE@nodist_qtgv_videooverlay_OBJECTS = qtgv_videooverlay-moc_qtgv-videooverlay.$(OBJEXT)
 qtgv_videooverlay_OBJECTS = $(am_qtgv_videooverlay_OBJECTS) \
 	$(nodist_qtgv_videooverlay_OBJECTS)
-@HAVE_QT_GV_TRUE@@USE_X_TRUE@qtgv_videooverlay_DEPENDENCIES = $(top_builddir)/gst-libs/gst/interfaces/libgstinterfaces-$(GST_MAJORMINOR).la \
+@HAVE_QT_GV_TRUE@@USE_X_TRUE@qtgv_videooverlay_DEPENDENCIES = $(top_builddir)/gst-libs/gst/video/libgstvideo-$(GST_MAJORMINOR).la \
 @HAVE_QT_GV_TRUE@@USE_X_TRUE@	$(am__DEPENDENCIES_1) \
 @HAVE_QT_GV_TRUE@@USE_X_TRUE@	$(am__DEPENDENCIES_1) \
 @HAVE_QT_GV_TRUE@@USE_X_TRUE@	$(am__DEPENDENCIES_1) \
@@ -244,6 +245,7 @@ GIO_CFLAGS = @GIO_CFLAGS@
 GIO_LDFLAGS = @GIO_LDFLAGS@
 GIO_LIBS = @GIO_LIBS@
 GLIB_CFLAGS = @GLIB_CFLAGS@
+GLIB_EXTRA_CFLAGS = @GLIB_EXTRA_CFLAGS@
 GLIB_LIBS = @GLIB_LIBS@
 GLIB_PREFIX = @GLIB_PREFIX@
 GLIB_REQ = @GLIB_REQ@
@@ -261,8 +263,6 @@ GST_CONTROLLER_CFLAGS = @GST_CONTROLLER_CFLAGS@
 GST_CONTROLLER_LIBS = @GST_CONTROLLER_LIBS@
 GST_CURRENT = @GST_CURRENT@
 GST_CXXFLAGS = @GST_CXXFLAGS@
-GST_GDP_CFLAGS = @GST_GDP_CFLAGS@
-GST_GDP_LIBS = @GST_GDP_LIBS@
 GST_INSTALL_PLUGINS_HELPER = @GST_INSTALL_PLUGINS_HELPER@
 GST_LEVEL_DEFAULT = @GST_LEVEL_DEFAULT@
 GST_LIBS = @GST_LIBS@
@@ -294,7 +294,6 @@ HAVE_CDPARANOIA = @HAVE_CDPARANOIA@
 HAVE_X = @HAVE_X@
 HAVE_XSHM = @HAVE_XSHM@
 HAVE_ZLIB = @HAVE_ZLIB@
-HSTRERROR_LIBS = @HSTRERROR_LIBS@
 HTML_DIR = @HTML_DIR@
 INSTALL = @INSTALL@
 INSTALL_DATA = @INSTALL_DATA@
@@ -331,6 +330,7 @@ LTLIBINTL = @LTLIBINTL@
 LTLIBOBJS = @LTLIBOBJS@
 MAINT = @MAINT@
 MAKEINFO = @MAKEINFO@
+MANIFEST_TOOL = @MANIFEST_TOOL@
 MKDIR_P = @MKDIR_P@
 MSGFMT = @MSGFMT@
 MSGFMT_015 = @MSGFMT_015@
@@ -392,7 +392,6 @@ VORBIS_CFLAGS = @VORBIS_CFLAGS@
 VORBIS_LIBS = @VORBIS_LIBS@
 WARNING_CFLAGS = @WARNING_CFLAGS@
 WARNING_CXXFLAGS = @WARNING_CXXFLAGS@
-WIN32_LIBS = @WIN32_LIBS@
 XGETTEXT = @XGETTEXT@
 XGETTEXT_015 = @XGETTEXT_015@
 XGETTEXT_EXTRA_OPTIONS = @XGETTEXT_EXTRA_OPTIONS@
@@ -409,6 +408,7 @@ abs_builddir = @abs_builddir@
 abs_srcdir = @abs_srcdir@
 abs_top_builddir = @abs_top_builddir@
 abs_top_srcdir = @abs_top_srcdir@
+ac_ct_AR = @ac_ct_AR@
 ac_ct_CC = @ac_ct_CC@
 ac_ct_CXX = @ac_ct_CXX@
 ac_ct_DUMPBIN = @ac_ct_DUMPBIN@
@@ -442,7 +442,6 @@ libdir = @libdir@
 libexecdir = @libexecdir@
 localedir = @localedir@
 localstatedir = @localstatedir@
-lt_ECHO = @lt_ECHO@
 mandir = @mandir@
 mkdir_p = @mkdir_p@
 oldincludedir = @oldincludedir@
@@ -467,19 +466,19 @@ EXAMPLES = $(am__append_1) $(am__append_2) $(am__append_3)
 @HAVE_GTK_X11_TRUE@@USE_X_TRUE@gtk_videooverlay_SOURCES = gtk-videooverlay.c
 @HAVE_GTK_X11_TRUE@@USE_X_TRUE@gtk_videooverlay_CFLAGS = $(GST_PLUGINS_BASE_CFLAGS) $(GST_BASE_CFLAGS) $(GST_CFLAGS) $(X_CFLAGS) $(GTK_CFLAGS)
 @HAVE_GTK_X11_TRUE@@USE_X_TRUE@gtk_videooverlay_LDADD = \
-@HAVE_GTK_X11_TRUE@@USE_X_TRUE@	$(top_builddir)/gst-libs/gst/interfaces/libgstinterfaces-$(GST_MAJORMINOR).la \
+@HAVE_GTK_X11_TRUE@@USE_X_TRUE@	$(top_builddir)/gst-libs/gst/video/libgstvideo-$(GST_MAJORMINOR).la \
 @HAVE_GTK_X11_TRUE@@USE_X_TRUE@	$(GST_LIBS) $(X_LIBS) $(LIBM) $(GTK_LIBS)
 
 @HAVE_QT_TRUE@@USE_X_TRUE@qt_videooverlay_SOURCES = qt-videooverlay.cpp
 @HAVE_QT_TRUE@@USE_X_TRUE@qt_videooverlay_CXXFLAGS = $(GST_PLUGINS_BASE_CFLAGS) $(GST_BASE_CFLAGS) $(GST_CXXFLAGS) $(X_CFLAGS) $(QT_CFLAGS)
 @HAVE_QT_TRUE@@USE_X_TRUE@qt_videooverlay_LDADD = \
-@HAVE_QT_TRUE@@USE_X_TRUE@	$(top_builddir)/gst-libs/gst/interfaces/libgstinterfaces-$(GST_MAJORMINOR).la \
+@HAVE_QT_TRUE@@USE_X_TRUE@	$(top_builddir)/gst-libs/gst/video/libgstvideo-$(GST_MAJORMINOR).la \
 @HAVE_QT_TRUE@@USE_X_TRUE@	$(GST_LIBS) $(X_LIBS) $(LIBM) $(QT_LIBS)
 
 @HAVE_QT_GV_TRUE@@USE_X_TRUE@qtgv_videooverlay_SOURCES = qtgv-videooverlay.cpp qtgv-videooverlay.h
 @HAVE_QT_GV_TRUE@@USE_X_TRUE@qtgv_videooverlay_CXXFLAGS = $(GST_PLUGINS_BASE_CFLAGS) $(GST_BASE_CFLAGS) $(GST_CXXFLAGS) $(X_CFLAGS) $(QT_CFLAGS)
 @HAVE_QT_GV_TRUE@@USE_X_TRUE@qtgv_videooverlay_LDADD = \
-@HAVE_QT_GV_TRUE@@USE_X_TRUE@	$(top_builddir)/gst-libs/gst/interfaces/libgstinterfaces-$(GST_MAJORMINOR).la \
+@HAVE_QT_GV_TRUE@@USE_X_TRUE@	$(top_builddir)/gst-libs/gst/video/libgstvideo-$(GST_MAJORMINOR).la \
 @HAVE_QT_GV_TRUE@@USE_X_TRUE@	$(GST_LIBS) $(X_LIBS) $(LIBM) $(QT_LIBS)
 
 

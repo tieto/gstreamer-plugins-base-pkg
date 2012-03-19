@@ -24,7 +24,7 @@
 #define __GST_ADDER_H__
 
 #include <gst/gst.h>
-#include <gst/base/gstcollectpads.h>
+#include <gst/base/gstcollectpads2.h>
 #include <gst/audio/audio.h>
 
 G_BEGIN_DECLS
@@ -51,7 +51,7 @@ struct _GstAdder {
   GstElement      element;
 
   GstPad         *srcpad;
-  GstCollectPads *collect;
+  GstCollectPads2 *collect;
   /* pad counter, used for creating unique request pads */
   gint            padcount;
 
@@ -77,6 +77,8 @@ struct _GstAdder {
 
   /* Pending inline events */
   GList *pending_events;
+  
+  gboolean in_setcaps;
 };
 
 struct _GstAdderClass {

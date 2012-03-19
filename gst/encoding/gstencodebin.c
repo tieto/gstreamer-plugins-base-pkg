@@ -133,22 +133,22 @@ GST_STATIC_PAD_TEMPLATE ("src", GST_PAD_SRC, GST_PAD_ALWAYS,
     GST_STATIC_CAPS_ANY);
 
 static GstStaticPadTemplate video_sink_template =
-GST_STATIC_PAD_TEMPLATE ("video_%d",
+GST_STATIC_PAD_TEMPLATE ("video_%u",
     GST_PAD_SINK,
     GST_PAD_REQUEST,
     GST_STATIC_CAPS_ANY);
 static GstStaticPadTemplate audio_sink_template =
-GST_STATIC_PAD_TEMPLATE ("audio_%d",
+GST_STATIC_PAD_TEMPLATE ("audio_%u",
     GST_PAD_SINK,
     GST_PAD_REQUEST,
     GST_STATIC_CAPS_ANY);
 /* static GstStaticPadTemplate text_sink_template = */
-/* GST_STATIC_PAD_TEMPLATE ("text_%d", */
+/* GST_STATIC_PAD_TEMPLATE ("text_%u", */
 /*     GST_PAD_SINK, */
 /*     GST_PAD_REQUEST, */
 /*     GST_STATIC_CAPS_ANY); */
 static GstStaticPadTemplate private_sink_template =
-GST_STATIC_PAD_TEMPLATE ("private_%d",
+GST_STATIC_PAD_TEMPLATE ("private_%u",
     GST_PAD_SINK,
     GST_PAD_REQUEST,
     GST_STATIC_CAPS_ANY);
@@ -706,11 +706,11 @@ gst_encode_bin_request_new_pad (GstElement * element,
   if (res == NULL) {
     GType ptype = G_TYPE_NONE;
 
-    if (!strcmp (templ->name_template, "video_%d"))
+    if (!strcmp (templ->name_template, "video_%u"))
       ptype = GST_TYPE_ENCODING_VIDEO_PROFILE;
-    else if (!strcmp (templ->name_template, "audio_%d"))
+    else if (!strcmp (templ->name_template, "audio_%u"))
       ptype = GST_TYPE_ENCODING_AUDIO_PROFILE;
-    /* else if (!strcmp (templ->name_template, "text_%d")) */
+    /* else if (!strcmp (templ->name_template, "text_%u")) */
     /*   ptype = GST_TYPE_ENCODING_TEXT_PROFILE; */
 
     /* FIXME : Check uniqueness of pad */
@@ -1063,7 +1063,7 @@ _create_stream_group (GstEncodeBin * ebin, GstEncodingProfile * sprof,
    * if the muxer isn't a formatter and doesn't implement the tagsetter interface
    */
   if (!ebin->muxer || (!GST_IS_TAG_SETTER (ebin->muxer)
-          || !_has_class (ebin->muxer, "Formatter"))) {
+          && !_has_class (ebin->muxer, "Formatter"))) {
     sgroup->formatter = _get_formatter (ebin, sprof);
     if (sgroup->formatter) {
       GST_DEBUG ("Adding formatter for %" GST_PTR_FORMAT, format);
@@ -1090,45 +1090,6 @@ _create_stream_group (GstEncodeBin * ebin, GstEncodingProfile * sprof,
   last = sgroup->outfilter;
 
 
-  /* FIXME :
-   *
-   *   The usage of parsers in encoding/muxing scenarios is
-   * just too undefined to just use as-is.
-   *
-   * Take the use-case where you want to re-mux a stream of type
-   * "my/media". You create a StreamEncodingProfile with that type
-   * as the target (as-is). And you use decodebin2/uridecodebin
-   * upstream.
-   *
-   * * demuxer exposes "my/media"
-   * * a parser is available for "my/media" which has a source pad
-   *   caps of "my/media,parsed=True"
-   * * decodebin2/uridecodebin exposes a new pad with the parsed caps
-   * * You request a new stream from encodebin, which will match the
-   *   streamprofile and creates a group (i.e. going through this method)
-   *   There is a matching parser (the same used in the decoder) whose
-   *   source pad caps intersects with the stream profile caps, you
-   *   therefore use it...
-   * * ... but that parser has a "my/media,parsed=False" sink pad caps
-   * * ... and you can't link your decodebin pad to encodebin.
-   *
-   * In the end, it comes down to parsers only taking into account the
-   * decoding use-cases.
-   *
-   * One way to solve that might be to :
-   * * Make parsers sink pad caps be "framed={False,True}" and the
-   *   source pad caps be "framed=True"
-   * * Modify decodebin2 accordingly to avoid looping and chaining
-   *   an infinite number of parsers
-   *
-   * Another way would be to have "well-known" caps properties to specify
-   * whether a stream has been parsed or not.
-   * * currently we fail. aacparse uses 'framed' and mp3parse uses 'parsed'
-   */
-  /* FIXME : Re-enable once parser situation is un-$#*@(%$#ed */
-#if 0
-  /* Parser.
-   * FIXME : identify smart parsers (used for re-encoding) */
   sgroup->parser = _get_parser (ebin, sprof);
 
   if (sgroup->parser != NULL) {
@@ -1139,7 +1100,6 @@ _create_stream_group (GstEncodeBin * ebin, GstEncodingProfile * sprof,
       goto parser_link_failure;
     last = sgroup->parser;
   }
-#endif
 
   /* Stream combiner */
   sgroup->combiner = g_object_new (GST_TYPE_STREAM_COMBINER, NULL);
@@ -1173,7 +1133,7 @@ _create_stream_group (GstEncodeBin * ebin, GstEncodingProfile * sprof,
   sinkpad = gst_element_get_static_pad (sgroup->inqueue, "sink");
   if (sinkpadname == NULL) {
     gchar *pname =
-        g_strdup_printf ("%s_%d", gst_encoding_profile_get_type_nick (sprof),
+        g_strdup_printf ("%s_%u", gst_encoding_profile_get_type_nick (sprof),
         ebin->last_pad_id++);
     GST_DEBUG ("Adding ghost pad %s", pname);
     sgroup->ghostpad = gst_ghost_pad_new (pname, sinkpad);
@@ -1198,7 +1158,7 @@ _create_stream_group (GstEncodeBin * ebin, GstEncodingProfile * sprof,
 
     /* Check if stream format is compatible */
     srcpad = gst_element_get_static_pad (sgroup->smartencoder, "src");
-    tmpcaps = gst_pad_get_caps (srcpad, NULL);
+    tmpcaps = gst_pad_query_caps (srcpad, NULL);
     if (!gst_caps_can_intersect (tmpcaps, format)) {
       GST_DEBUG ("We don't have a smart encoder for the stream format");
       gst_object_unref (sgroup->smartencoder);
@@ -1262,7 +1222,7 @@ _create_stream_group (GstEncodeBin * ebin, GstEncodingProfile * sprof,
   /* FIXME : Once we have properties for specific converters, use those */
   if (GST_IS_ENCODING_VIDEO_PROFILE (sprof)) {
     const gboolean native_video =
-        !!(ebin->flags & GST_ENC_FLAG_NO_VIDEO_CONVERSION);
+        ! !(ebin->flags & GST_ENC_FLAG_NO_VIDEO_CONVERSION);
     GstElement *cspace = NULL, *scale, *vrate, *cspace2 = NULL;
 
     GST_LOG ("Adding conversion elements for video stream");
@@ -1467,11 +1427,9 @@ combiner_link_failure:
   GST_ERROR_OBJECT (ebin, "Failure linking to the combiner");
   goto cleanup;
 
-#if 0
 parser_link_failure:
   GST_ERROR_OBJECT (ebin, "Failure linking the parser");
   goto cleanup;
-#endif
 
 converter_link_failure:
   GST_ERROR_OBJECT (ebin, "Failure linking the video converters");

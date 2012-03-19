@@ -49,11 +49,11 @@
 <div class="refsect1">
 <a name="gst-plugins-base-plugins-volume.object-hierarchy"></a><h2>Object Hierarchy</h2>
 <pre class="synopsis">
-  <a href="http://library.gnome.org/devel/gobject/unstable/gobject-The-Base-Object-Type.html#GObject">GObject</a>
-   +----<a href="http://library.gnome.org/devel/gobject/unstable/gobject-The-Base-Object-Type.html#GInitiallyUnowned">GInitiallyUnowned</a>
-         +----<a href="http://gstreamer.freedesktop.org/data/doc/gstreamer/head/gstreamer/html/GstObject.html">GstObject</a>
-               +----<a href="http://gstreamer.freedesktop.org/data/doc/gstreamer/head/gstreamer/html/GstElement.html">GstElement</a>
-                     +----<a href="http://gstreamer.freedesktop.org/data/doc/gstreamer/head/gstreamer-libs/html/GstBaseTransform.html">GstBaseTransform</a>
+  GObject
+   +----GInitiallyUnowned
+         +----GstObject
+               +----GstElement
+                     +----GstBaseTransform
                            +----<a href="../gst-plugins-base-libs-0.11/gst-plugins-base-libs-gstaudiofilter.html#GstAudioFilter">GstAudioFilter</a>
                                  +----GstVolume
 </pre>
@@ -62,13 +62,13 @@
 <a name="gst-plugins-base-plugins-volume.implemented-interfaces"></a><h2>Implemented Interfaces</h2>
 <p>
 GstVolume implements
- <a href="http://gstreamer.freedesktop.org/data/doc/gstreamer/head/gstreamer/html/GstImplementsInterface.html">GstImplementsInterface</a>,  <a href="../gst-plugins-base-libs-0.11/gst-plugins-base-libs-gstmixer.html#GstMixer">GstMixer</a> and  <a href="../gst-plugins-base-libs-0.11/gst-plugins-base-libs-gststreamvolume.html#GstStreamVolume">GstStreamVolume</a>.</p>
+ <a href="../gst-plugins-base-libs-0.11/gst-plugins-base-libs-gstmixer.html#GstMixer">GstMixer</a> and  <a href="../gst-plugins-base-libs-0.11/gst-plugins-base-libs-gststreamvolume.html#GstStreamVolume">GstStreamVolume</a>.</p>
 </div>
 <div class="refsect1">
 <a name="gst-plugins-base-plugins-volume.properties"></a><h2>Properties</h2>
 <pre class="synopsis">
-  "<a class="link" href="gst-plugins-base-plugins-volume.html#GstVolume--mute" title='The "mute" property'>mute</a>"                     <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="type">gboolean</span></a>              : Read / Write
-  "<a class="link" href="gst-plugins-base-plugins-volume.html#GstVolume--volume" title='The "volume" property'>volume</a>"                   <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gdouble"><span class="type">gdouble</span></a>               : Read / Write
+  "<a class="link" href="gst-plugins-base-plugins-volume.html#GstVolume--mute" title='The "mute" property'>mute</a>"                     <span class="type">gboolean</span>              : Read / Write
+  "<a class="link" href="gst-plugins-base-plugins-volume.html#GstVolume--volume" title='The "volume" property'>volume</a>"                   <span class="type">gdouble</span>               : Read / Write
 </pre>
 </div>
 <div class="refsect1">
@@ -79,7 +79,7 @@ The volume element changes the volume of the audio data.
 <p>
 </p>
 <div class="refsect2">
-<a name="id523359"></a><h3>Example launch line</h3>
+<a name="idp9342320"></a><h3>Example launch line</h3>
 <div class="informalexample"><pre class="programlisting">
 gst-launch -v -m audiotestsrc ! volume volume=0.5 ! level ! fakesink silent=TRUE
 </pre></div> This pipeline shows that the level of audiotestsrc has been halved
@@ -91,7 +91,7 @@ the same pipeline without the volume element.
 <div class="refsynopsisdiv">
 <h2>Synopsis</h2>
 <div class="refsect2">
-<a name="id499668"></a><h3>Element Information</h3>
+<a name="idp13945936"></a><h3>Element Information</h3>
 <div class="variablelist"><table border="0">
 <col align="left" valign="top">
 <tbody>
@@ -114,7 +114,7 @@ the same pipeline without the volume element.
 </div>
 <hr>
 <div class="refsect2">
-<a name="id496503"></a><h3>Element Pads</h3>
+<a name="idp14683824"></a><h3>Element Pads</h3>
 <div class="variablelist"><table border="0">
 <col align="left" valign="top">
 <tbody>
@@ -132,23 +132,7 @@ the same pipeline without the volume element.
 </tr>
 <tr>
 <td><p><span class="term">details</span></p></td>
-<td>audio/x-raw-float, rate=(int)[ 1, 2147483647 ], channels=(int)[ 1, 2147483647 ], endianness=(int)1234, width=(int){ 32, 64 }</td>
-</tr>
-<tr>
-<td><p><span class="term"></span></p></td>
-<td> audio/x-raw-int, channels=(int)[ 1, 2147483647 ], rate=(int)[ 1, 2147483647 ], endianness=(int)1234, width=(int)8, depth=(int)8, signed=(boolean)true</td>
-</tr>
-<tr>
-<td><p><span class="term"></span></p></td>
-<td> audio/x-raw-int, channels=(int)[ 1, 2147483647 ], rate=(int)[ 1, 2147483647 ], endianness=(int)1234, width=(int)16, depth=(int)16, signed=(boolean)true</td>
-</tr>
-<tr>
-<td><p><span class="term"></span></p></td>
-<td> audio/x-raw-int, channels=(int)[ 1, 2147483647 ], rate=(int)[ 1, 2147483647 ], endianness=(int)1234, width=(int)24, depth=(int)24, signed=(boolean)true</td>
-</tr>
-<tr>
-<td><p><span class="term"></span></p></td>
-<td> audio/x-raw-int, channels=(int)[ 1, 2147483647 ], rate=(int)[ 1, 2147483647 ], endianness=(int)1234, width=(int)32, depth=(int)32, signed=(boolean)true</td>
+<td>audio/x-raw, format=(string){ F32LE, F64LE, S8, S16LE, S24LE, S32LE }, rate=(int)[ 1, 2147483647 ], channels=(int)[ 1, 2147483647 ], layout=(string)interleaved</td>
 </tr>
 </tbody>
 </table></div>
@@ -169,23 +153,7 @@ the same pipeline without the volume element.
 </tr>
 <tr>
 <td><p><span class="term">details</span></p></td>
-<td>audio/x-raw-float, rate=(int)[ 1, 2147483647 ], channels=(int)[ 1, 2147483647 ], endianness=(int)1234, width=(int){ 32, 64 }</td>
-</tr>
-<tr>
-<td><p><span class="term"></span></p></td>
-<td> audio/x-raw-int, channels=(int)[ 1, 2147483647 ], rate=(int)[ 1, 2147483647 ], endianness=(int)1234, width=(int)8, depth=(int)8, signed=(boolean)true</td>
-</tr>
-<tr>
-<td><p><span class="term"></span></p></td>
-<td> audio/x-raw-int, channels=(int)[ 1, 2147483647 ], rate=(int)[ 1, 2147483647 ], endianness=(int)1234, width=(int)16, depth=(int)16, signed=(boolean)true</td>
-</tr>
-<tr>
-<td><p><span class="term"></span></p></td>
-<td> audio/x-raw-int, channels=(int)[ 1, 2147483647 ], rate=(int)[ 1, 2147483647 ], endianness=(int)1234, width=(int)24, depth=(int)24, signed=(boolean)true</td>
-</tr>
-<tr>
-<td><p><span class="term"></span></p></td>
-<td> audio/x-raw-int, channels=(int)[ 1, 2147483647 ], rate=(int)[ 1, 2147483647 ], endianness=(int)1234, width=(int)32, depth=(int)32, signed=(boolean)true</td>
+<td>audio/x-raw, format=(string){ F32LE, F64LE, S8, S16LE, S24LE, S32LE }, rate=(int)[ 1, 2147483647 ], channels=(int)[ 1, 2147483647 ], layout=(string)interleaved</td>
 </tr>
 </tbody>
 </table></div>
@@ -208,14 +176,14 @@ Opaque data structure.
 <a name="gst-plugins-base-plugins-volume.property-details"></a><h2>Property Details</h2>
 <div class="refsect2">
 <a name="GstVolume--mute"></a><h3>The <code class="literal">"mute"</code> property</h3>
-<pre class="programlisting">  "mute"                     <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="type">gboolean</span></a>              : Read / Write</pre>
+<pre class="programlisting">  "mute"                     <span class="type">gboolean</span>              : Read / Write</pre>
 <p>mute channel.</p>
 <p>Default value: FALSE</p>
 </div>
 <hr>
 <div class="refsect2">
 <a name="GstVolume--volume"></a><h3>The <code class="literal">"volume"</code> property</h3>
-<pre class="programlisting">  "volume"                   <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gdouble"><span class="type">gdouble</span></a>               : Read / Write</pre>
+<pre class="programlisting">  "volume"                   <span class="type">gdouble</span>               : Read / Write</pre>
 <p>volume factor, 1.0=100%.</p>
 <p>Allowed values: [0,10]</p>
 <p>Default value: 1</p>
