@@ -51,11 +51,11 @@
 <div class="refsect1">
 <a name="gst-plugins-base-plugins-appsink.object-hierarchy"></a><h2>Object Hierarchy</h2>
 <pre class="synopsis">
-  <a href="http://library.gnome.org/devel/gobject/unstable/gobject-The-Base-Object-Type.html#GObject">GObject</a>
-   +----<a href="http://library.gnome.org/devel/gobject/unstable/gobject-The-Base-Object-Type.html#GInitiallyUnowned">GInitiallyUnowned</a>
-         +----<a href="http://gstreamer.freedesktop.org/data/doc/gstreamer/head/gstreamer/html/GstObject.html">GstObject</a>
-               +----<a href="http://gstreamer.freedesktop.org/data/doc/gstreamer/head/gstreamer/html/GstElement.html">GstElement</a>
-                     +----<a href="http://gstreamer.freedesktop.org/data/doc/gstreamer/head/gstreamer-libs/html/GstBaseSink.html">GstBaseSink</a>
+  GObject
+   +----GInitiallyUnowned
+         +----GstObject
+               +----GstElement
+                     +----GstBaseSink
                            +----GstAppSink
 </pre>
 </div>
@@ -63,28 +63,30 @@
 <a name="gst-plugins-base-plugins-appsink.implemented-interfaces"></a><h2>Implemented Interfaces</h2>
 <p>
 GstAppSink implements
- <a href="http://gstreamer.freedesktop.org/data/doc/gstreamer/head/gstreamer/html/gstreamer-GstUriHandler.html#GstURIHandler">GstURIHandler</a>.</p>
+ GstURIHandler.</p>
 </div>
 <div class="refsect1">
 <a name="gst-plugins-base-plugins-appsink.properties"></a><h2>Properties</h2>
 <pre class="synopsis">
-  "<a class="link" href="gst-plugins-base-plugins-appsink.html#GstAppSink--caps" title='The "caps" property'>caps</a>"                     <a href="http://gstreamer.freedesktop.org/data/doc/gstreamer/head/gstreamer/html/gstreamer-GstCaps.html#GstCaps"><span class="type">GstCaps</span></a>*              : Read / Write
-  "<a class="link" href="gst-plugins-base-plugins-appsink.html#GstAppSink--drop" title='The "drop" property'>drop</a>"                     <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="type">gboolean</span></a>              : Read / Write
-  "<a class="link" href="gst-plugins-base-plugins-appsink.html#GstAppSink--emit-signals" title='The "emit-signals" property'>emit-signals</a>"             <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="type">gboolean</span></a>              : Read / Write
-  "<a class="link" href="gst-plugins-base-plugins-appsink.html#GstAppSink--eos" title='The "eos" property'>eos</a>"                      <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="type">gboolean</span></a>              : Read
-  "<a class="link" href="gst-plugins-base-plugins-appsink.html#GstAppSink--max-buffers" title='The "max-buffers" property'>max-buffers</a>"              <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#guint"><span class="type">guint</span></a>                 : Read / Write
+  "<a class="link" href="gst-plugins-base-plugins-appsink.html#GstAppSink--caps" title='The "caps" property'>caps</a>"                     <span class="type">GstCaps</span>*              : Read / Write
+  "<a class="link" href="gst-plugins-base-plugins-appsink.html#GstAppSink--drop" title='The "drop" property'>drop</a>"                     <span class="type">gboolean</span>              : Read / Write
+  "<a class="link" href="gst-plugins-base-plugins-appsink.html#GstAppSink--emit-signals" title='The "emit-signals" property'>emit-signals</a>"             <span class="type">gboolean</span>              : Read / Write
+  "<a class="link" href="gst-plugins-base-plugins-appsink.html#GstAppSink--eos" title='The "eos" property'>eos</a>"                      <span class="type">gboolean</span>              : Read
+  "<a class="link" href="gst-plugins-base-plugins-appsink.html#GstAppSink--max-buffers" title='The "max-buffers" property'>max-buffers</a>"              <span class="type">guint</span>                 : Read / Write
 </pre>
 </div>
 <div class="refsect1">
 <a name="gst-plugins-base-plugins-appsink.signals"></a><h2>Signals</h2>
 <pre class="synopsis">
-  "<a class="link" href="gst-plugins-base-plugins-appsink.html#GstAppSink-eos" title='The "eos" signal'>eos</a>"                                            : <a href="http://library.gnome.org/devel/gobject/unstable/gobject-Signals.html#G-SIGNAL-RUN-LAST:CAPS"><code class="literal">Run Last</code></a>
-  "<a class="link" href="gst-plugins-base-plugins-appsink.html#GstAppSink-new-buffer" title='The "new-buffer" signal'>new-buffer</a>"                                     : <a href="http://library.gnome.org/devel/gobject/unstable/gobject-Signals.html#G-SIGNAL-RUN-LAST:CAPS"><code class="literal">Run Last</code></a>
-  "<a class="link" href="gst-plugins-base-plugins-appsink.html#GstAppSink-new-preroll" title='The "new-preroll" signal'>new-preroll</a>"                                    : <a href="http://library.gnome.org/devel/gobject/unstable/gobject-Signals.html#G-SIGNAL-RUN-LAST:CAPS"><code class="literal">Run Last</code></a>
-  "<a class="link" href="gst-plugins-base-plugins-appsink.html#GstAppSink-pull-buffer" title='The "pull-buffer" signal'>pull-buffer</a>"                                    : <a href="http://library.gnome.org/devel/gobject/unstable/gobject-Signals.html#G-SIGNAL-ACTION:CAPS"><code class="literal">Action</code></a>
-  "<a class="link" href="gst-plugins-base-plugins-appsink.html#GstAppSink-pull-preroll" title='The "pull-preroll" signal'>pull-preroll</a>"                                   : <a href="http://library.gnome.org/devel/gobject/unstable/gobject-Signals.html#G-SIGNAL-ACTION:CAPS"><code class="literal">Action</code></a>
-  "<a class="link" href="gst-plugins-base-plugins-appsink.html#GstAppSink-new-buffer-list" title='The "new-buffer-list" signal'>new-buffer-list</a>"                                : <a href="http://library.gnome.org/devel/gobject/unstable/gobject-Signals.html#G-SIGNAL-RUN-LAST:CAPS"><code class="literal">Run Last</code></a>
-  "<a class="link" href="gst-plugins-base-plugins-appsink.html#GstAppSink-pull-buffer-list" title='The "pull-buffer-list" signal'>pull-buffer-list</a>"                               : <a href="http://library.gnome.org/devel/gobject/unstable/gobject-Signals.html#G-SIGNAL-ACTION:CAPS"><code class="literal">Action</code></a>
+  "<a class="link" href="gst-plugins-base-plugins-appsink.html#GstAppSink-eos" title='The "eos" signal'>eos</a>"                                            : <code class="literal">Run Last</code>
+  "<a class="link" href="gst-plugins-base-plugins-appsink.html#GstAppSink-new-buffer" title='The "new-buffer" signal'>new-buffer</a>"                                     : <code class="literal">Run Last</code>
+  "<a class="link" href="gst-plugins-base-plugins-appsink.html#GstAppSink-new-preroll" title='The "new-preroll" signal'>new-preroll</a>"                                    : <code class="literal">Run Last</code>
+  "<a class="link" href="gst-plugins-base-plugins-appsink.html#GstAppSink-pull-buffer" title='The "pull-buffer" signal'>pull-buffer</a>"                                    : <code class="literal">Action</code>
+  "<a class="link" href="gst-plugins-base-plugins-appsink.html#GstAppSink-pull-preroll" title='The "pull-preroll" signal'>pull-preroll</a>"                                   : <code class="literal">Action</code>
+  "<a class="link" href="gst-plugins-base-plugins-appsink.html#GstAppSink-new-buffer-list" title='The "new-buffer-list" signal'>new-buffer-list</a>"                                : <code class="literal">Run Last</code>
+  "<a class="link" href="gst-plugins-base-plugins-appsink.html#GstAppSink-pull-buffer-list" title='The "pull-buffer-list" signal'>pull-buffer-list</a>"                               : <code class="literal">Action</code>
+  "<a class="link" href="gst-plugins-base-plugins-appsink.html#GstAppSink-new-sample" title='The "new-sample" signal'>new-sample</a>"                                     : <code class="literal">Run Last</code>
+  "<a class="link" href="gst-plugins-base-plugins-appsink.html#GstAppSink-pull-sample" title='The "pull-sample" signal'>pull-sample</a>"                                    : <code class="literal">Action</code>
 </pre>
 </div>
 <div class="refsect1">
@@ -102,7 +104,7 @@ the GStreamer Plugins Base Libraries documentation.
 <div class="refsynopsisdiv">
 <h2>Synopsis</h2>
 <div class="refsect2">
-<a name="id513544"></a><h3>Element Information</h3>
+<a name="idp9567120"></a><h3>Element Information</h3>
 <div class="variablelist"><table border="0">
 <col align="left" valign="top">
 <tbody>
@@ -125,7 +127,7 @@ the GStreamer Plugins Base Libraries documentation.
 </div>
 <hr>
 <div class="refsect2">
-<a name="id513605"></a><h3>Element Pads</h3>
+<a name="idp9574528"></a><h3>Element Pads</h3>
 <div class="variablelist"><table border="0">
 <col align="left" valign="top">
 <tbody>
@@ -165,34 +167,34 @@ the GStreamer Plugins Base Libraries documentation.
 <a name="gst-plugins-base-plugins-appsink.property-details"></a><h2>Property Details</h2>
 <div class="refsect2">
 <a name="GstAppSink--caps"></a><h3>The <code class="literal">"caps"</code> property</h3>
-<pre class="programlisting">  "caps"                     <a href="http://gstreamer.freedesktop.org/data/doc/gstreamer/head/gstreamer/html/gstreamer-GstCaps.html#GstCaps"><span class="type">GstCaps</span></a>*              : Read / Write</pre>
+<pre class="programlisting">  "caps"                     <span class="type">GstCaps</span>*              : Read / Write</pre>
 <p>The allowed caps for the sink pad.</p>
 </div>
 <hr>
 <div class="refsect2">
 <a name="GstAppSink--drop"></a><h3>The <code class="literal">"drop"</code> property</h3>
-<pre class="programlisting">  "drop"                     <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="type">gboolean</span></a>              : Read / Write</pre>
+<pre class="programlisting">  "drop"                     <span class="type">gboolean</span>              : Read / Write</pre>
 <p>Drop old buffers when the buffer queue is filled.</p>
 <p>Default value: FALSE</p>
 </div>
 <hr>
 <div class="refsect2">
 <a name="GstAppSink--emit-signals"></a><h3>The <code class="literal">"emit-signals"</code> property</h3>
-<pre class="programlisting">  "emit-signals"             <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="type">gboolean</span></a>              : Read / Write</pre>
+<pre class="programlisting">  "emit-signals"             <span class="type">gboolean</span>              : Read / Write</pre>
 <p>Emit new-preroll, new-buffer and new-buffer-list signals.</p>
 <p>Default value: FALSE</p>
 </div>
 <hr>
 <div class="refsect2">
 <a name="GstAppSink--eos"></a><h3>The <code class="literal">"eos"</code> property</h3>
-<pre class="programlisting">  "eos"                      <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="type">gboolean</span></a>              : Read</pre>
+<pre class="programlisting">  "eos"                      <span class="type">gboolean</span>              : Read</pre>
 <p>Check if the sink is EOS or not started.</p>
 <p>Default value: TRUE</p>
 </div>
 <hr>
 <div class="refsect2">
 <a name="GstAppSink--max-buffers"></a><h3>The <code class="literal">"max-buffers"</code> property</h3>
-<pre class="programlisting">  "max-buffers"              <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#guint"><span class="type">guint</span></a>                 : Read / Write</pre>
+<pre class="programlisting">  "max-buffers"              <span class="type">guint</span>                 : Read / Write</pre>
 <p>The maximum number of buffers to queue internally (0 = unlimited).</p>
 <p>Default value: 0</p>
 </div>
@@ -202,7 +204,7 @@ the GStreamer Plugins Base Libraries documentation.
 <div class="refsect2">
 <a name="GstAppSink-eos"></a><h3>The <code class="literal">"eos"</code> signal</h3>
 <pre class="programlisting"><span class="returnvalue">void</span>                user_function                      (<a class="link" href="gst-plugins-base-plugins-appsink.html#GstAppSink"><span class="type">GstAppSink</span></a> *gstappsink,
-                                                        <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a>    user_data)       : <a href="http://library.gnome.org/devel/gobject/unstable/gobject-Signals.html#G-SIGNAL-RUN-LAST:CAPS"><code class="literal">Run Last</code></a></pre>
+                                                        <span class="type">gpointer</span>    user_data)       : <code class="literal">Run Last</code></pre>
 <p>
 </p>
 <div class="variablelist"><table border="0">
@@ -223,7 +225,7 @@ the GStreamer Plugins Base Libraries documentation.
 <div class="refsect2">
 <a name="GstAppSink-new-buffer"></a><h3>The <code class="literal">"new-buffer"</code> signal</h3>
 <pre class="programlisting"><span class="returnvalue">void</span>                user_function                      (<a class="link" href="gst-plugins-base-plugins-appsink.html#GstAppSink"><span class="type">GstAppSink</span></a> *gstappsink,
-                                                        <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a>    user_data)       : <a href="http://library.gnome.org/devel/gobject/unstable/gobject-Signals.html#G-SIGNAL-RUN-LAST:CAPS"><code class="literal">Run Last</code></a></pre>
+                                                        <span class="type">gpointer</span>    user_data)       : <code class="literal">Run Last</code></pre>
 <p>
 </p>
 <div class="variablelist"><table border="0">
@@ -244,7 +246,7 @@ the GStreamer Plugins Base Libraries documentation.
 <div class="refsect2">
 <a name="GstAppSink-new-preroll"></a><h3>The <code class="literal">"new-preroll"</code> signal</h3>
 <pre class="programlisting"><span class="returnvalue">void</span>                user_function                      (<a class="link" href="gst-plugins-base-plugins-appsink.html#GstAppSink"><span class="type">GstAppSink</span></a> *gstappsink,
-                                                        <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a>    user_data)       : <a href="http://library.gnome.org/devel/gobject/unstable/gobject-Signals.html#G-SIGNAL-RUN-LAST:CAPS"><code class="literal">Run Last</code></a></pre>
+                                                        <span class="type">gpointer</span>    user_data)       : <code class="literal">Run Last</code></pre>
 <p>
 </p>
 <div class="variablelist"><table border="0">
@@ -264,8 +266,8 @@ the GStreamer Plugins Base Libraries documentation.
 <hr>
 <div class="refsect2">
 <a name="GstAppSink-pull-buffer"></a><h3>The <code class="literal">"pull-buffer"</code> signal</h3>
-<pre class="programlisting"><a href="http://gstreamer.freedesktop.org/data/doc/gstreamer/head/gstreamer/html/gstreamer-GstBuffer.html#GstBuffer"><span class="returnvalue">GstBuffer</span></a>*          user_function                      (<a class="link" href="gst-plugins-base-plugins-appsink.html#GstAppSink"><span class="type">GstAppSink</span></a> *gstappsink,
-                                                        <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a>    user_data)       : <a href="http://library.gnome.org/devel/gobject/unstable/gobject-Signals.html#G-SIGNAL-ACTION:CAPS"><code class="literal">Action</code></a></pre>
+<pre class="programlisting"><span class="returnvalue">GstBuffer</span>*          user_function                      (<a class="link" href="gst-plugins-base-plugins-appsink.html#GstAppSink"><span class="type">GstAppSink</span></a> *gstappsink,
+                                                        <span class="type">gpointer</span>    user_data)       : <code class="literal">Action</code></pre>
 <p>
 </p>
 <div class="variablelist"><table border="0">
@@ -285,8 +287,8 @@ the GStreamer Plugins Base Libraries documentation.
 <hr>
 <div class="refsect2">
 <a name="GstAppSink-pull-preroll"></a><h3>The <code class="literal">"pull-preroll"</code> signal</h3>
-<pre class="programlisting"><a href="http://gstreamer.freedesktop.org/data/doc/gstreamer/head/gstreamer/html/gstreamer-GstBuffer.html#GstBuffer"><span class="returnvalue">GstBuffer</span></a>*          user_function                      (<a class="link" href="gst-plugins-base-plugins-appsink.html#GstAppSink"><span class="type">GstAppSink</span></a> *gstappsink,
-                                                        <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a>    user_data)       : <a href="http://library.gnome.org/devel/gobject/unstable/gobject-Signals.html#G-SIGNAL-ACTION:CAPS"><code class="literal">Action</code></a></pre>
+<pre class="programlisting"><span class="returnvalue">GstSample</span>*          user_function                      (<a class="link" href="gst-plugins-base-plugins-appsink.html#GstAppSink"><span class="type">GstAppSink</span></a> *gstappsink,
+                                                        <span class="type">gpointer</span>    user_data)       : <code class="literal">Action</code></pre>
 <p>
 </p>
 <div class="variablelist"><table border="0">
@@ -307,7 +309,7 @@ the GStreamer Plugins Base Libraries documentation.
 <div class="refsect2">
 <a name="GstAppSink-new-buffer-list"></a><h3>The <code class="literal">"new-buffer-list"</code> signal</h3>
 <pre class="programlisting"><span class="returnvalue">void</span>                user_function                      (<a class="link" href="gst-plugins-base-plugins-appsink.html#GstAppSink"><span class="type">GstAppSink</span></a> *gstappsink,
-                                                        <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a>    user_data)       : <a href="http://library.gnome.org/devel/gobject/unstable/gobject-Signals.html#G-SIGNAL-RUN-LAST:CAPS"><code class="literal">Run Last</code></a></pre>
+                                                        <span class="type">gpointer</span>    user_data)       : <code class="literal">Run Last</code></pre>
 <p>
 </p>
 <div class="variablelist"><table border="0">
@@ -327,8 +329,50 @@ the GStreamer Plugins Base Libraries documentation.
 <hr>
 <div class="refsect2">
 <a name="GstAppSink-pull-buffer-list"></a><h3>The <code class="literal">"pull-buffer-list"</code> signal</h3>
-<pre class="programlisting"><a href="http://gstreamer.freedesktop.org/data/doc/gstreamer/head/gstreamer/html/gstreamer-GstBufferList.html#GstBufferList"><span class="returnvalue">GstBufferList</span></a>*      user_function                      (<a class="link" href="gst-plugins-base-plugins-appsink.html#GstAppSink"><span class="type">GstAppSink</span></a> *gstappsink,
-                                                        <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a>    user_data)       : <a href="http://library.gnome.org/devel/gobject/unstable/gobject-Signals.html#G-SIGNAL-ACTION:CAPS"><code class="literal">Action</code></a></pre>
+<pre class="programlisting"><span class="returnvalue">GstBufferList</span>*      user_function                      (<a class="link" href="gst-plugins-base-plugins-appsink.html#GstAppSink"><span class="type">GstAppSink</span></a> *gstappsink,
+                                                        <span class="type">gpointer</span>    user_data)       : <code class="literal">Action</code></pre>
+<p>
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>gstappsink</code></em> :</span></p></td>
+<td>the object which received the signal.</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>user_data</code></em> :</span></p></td>
+<td>user data set when the signal handler was connected.</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="GstAppSink-new-sample"></a><h3>The <code class="literal">"new-sample"</code> signal</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                user_function                      (<a class="link" href="gst-plugins-base-plugins-appsink.html#GstAppSink"><span class="type">GstAppSink</span></a> *gstappsink,
+                                                        <span class="type">gpointer</span>    user_data)       : <code class="literal">Run Last</code></pre>
+<p>
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>gstappsink</code></em> :</span></p></td>
+<td>the object which received the signal.</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>user_data</code></em> :</span></p></td>
+<td>user data set when the signal handler was connected.</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="GstAppSink-pull-sample"></a><h3>The <code class="literal">"pull-sample"</code> signal</h3>
+<pre class="programlisting"><span class="returnvalue">GstSample</span>*          user_function                      (<a class="link" href="gst-plugins-base-plugins-appsink.html#GstAppSink"><span class="type">GstAppSink</span></a> *gstappsink,
+                                                        <span class="type">gpointer</span>    user_data)       : <code class="literal">Action</code></pre>
 <p>
 </p>
 <div class="variablelist"><table border="0">

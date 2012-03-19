@@ -40,14 +40,10 @@ DIST_COMMON = $(srcdir)/Makefile.am $(srcdir)/Makefile.in \
 	$(srcdir)/gstreamer-app.pc.in \
 	$(srcdir)/gstreamer-audio-uninstalled.pc.in \
 	$(srcdir)/gstreamer-audio.pc.in \
-	$(srcdir)/gstreamer-cdda-uninstalled.pc.in \
-	$(srcdir)/gstreamer-cdda.pc.in \
 	$(srcdir)/gstreamer-fft-uninstalled.pc.in \
 	$(srcdir)/gstreamer-fft.pc.in \
 	$(srcdir)/gstreamer-interfaces-uninstalled.pc.in \
 	$(srcdir)/gstreamer-interfaces.pc.in \
-	$(srcdir)/gstreamer-netbuffer-uninstalled.pc.in \
-	$(srcdir)/gstreamer-netbuffer.pc.in \
 	$(srcdir)/gstreamer-pbutils-uninstalled.pc.in \
 	$(srcdir)/gstreamer-pbutils.pc.in \
 	$(srcdir)/gstreamer-plugins-base-uninstalled.pc.in \
@@ -83,6 +79,7 @@ am__aclocal_m4_deps = $(top_srcdir)/common/m4/as-ac-expand.m4 \
 	$(top_srcdir)/common/m4/gst-gettext.m4 \
 	$(top_srcdir)/common/m4/gst-glib2.m4 \
 	$(top_srcdir)/common/m4/gst-package-release-datetime.m4 \
+	$(top_srcdir)/common/m4/gst-platform.m4 \
 	$(top_srcdir)/common/m4/gst-plugin-docs.m4 \
 	$(top_srcdir)/common/m4/gst-plugindir.m4 \
 	$(top_srcdir)/common/m4/gst-x11.m4 \
@@ -91,31 +88,29 @@ am__aclocal_m4_deps = $(top_srcdir)/common/m4/as-ac-expand.m4 \
 	$(top_srcdir)/common/m4/introspection.m4 \
 	$(top_srcdir)/common/m4/orc.m4 $(top_srcdir)/common/m4/pkg.m4 \
 	$(top_srcdir)/m4/freetype2.m4 $(top_srcdir)/m4/gettext.m4 \
-	$(top_srcdir)/m4/gst-alsa.m4 $(top_srcdir)/m4/gst-fionread.m4 \
-	$(top_srcdir)/m4/iconv.m4 $(top_srcdir)/m4/intlmacosx.m4 \
-	$(top_srcdir)/m4/lib-ld.m4 $(top_srcdir)/m4/lib-link.m4 \
-	$(top_srcdir)/m4/lib-prefix.m4 $(top_srcdir)/m4/libtool.m4 \
-	$(top_srcdir)/m4/lrint.m4 $(top_srcdir)/m4/lrintf.m4 \
-	$(top_srcdir)/m4/ltoptions.m4 $(top_srcdir)/m4/ltsugar.m4 \
-	$(top_srcdir)/m4/ltversion.m4 $(top_srcdir)/m4/lt~obsolete.m4 \
-	$(top_srcdir)/m4/nls.m4 $(top_srcdir)/m4/ogg.m4 \
-	$(top_srcdir)/m4/po.m4 $(top_srcdir)/m4/progtest.m4 \
-	$(top_srcdir)/m4/vorbis.m4 $(top_srcdir)/configure.ac
+	$(top_srcdir)/m4/gst-alsa.m4 $(top_srcdir)/m4/iconv.m4 \
+	$(top_srcdir)/m4/intlmacosx.m4 $(top_srcdir)/m4/lib-ld.m4 \
+	$(top_srcdir)/m4/lib-link.m4 $(top_srcdir)/m4/lib-prefix.m4 \
+	$(top_srcdir)/m4/libtool.m4 $(top_srcdir)/m4/lrint.m4 \
+	$(top_srcdir)/m4/lrintf.m4 $(top_srcdir)/m4/ltoptions.m4 \
+	$(top_srcdir)/m4/ltsugar.m4 $(top_srcdir)/m4/ltversion.m4 \
+	$(top_srcdir)/m4/lt~obsolete.m4 $(top_srcdir)/m4/nls.m4 \
+	$(top_srcdir)/m4/ogg.m4 $(top_srcdir)/m4/po.m4 \
+	$(top_srcdir)/m4/progtest.m4 $(top_srcdir)/m4/vorbis.m4 \
+	$(top_srcdir)/configure.ac
 am__configure_deps = $(am__aclocal_m4_deps) $(CONFIGURE_DEPENDENCIES) \
 	$(ACLOCAL_M4)
 mkinstalldirs = $(install_sh) -d
 CONFIG_HEADER = $(top_builddir)/config.h
 CONFIG_CLEAN_FILES = gstreamer-audio.pc gstreamer-audio-uninstalled.pc \
-	gstreamer-app.pc gstreamer-app-uninstalled.pc \
-	gstreamer-cdda.pc gstreamer-cdda-uninstalled.pc \
-	gstreamer-fft.pc gstreamer-fft-uninstalled.pc \
-	gstreamer-interfaces.pc gstreamer-interfaces-uninstalled.pc \
-	gstreamer-netbuffer.pc gstreamer-netbuffer-uninstalled.pc \
-	gstreamer-pbutils.pc gstreamer-pbutils-uninstalled.pc \
-	gstreamer-riff.pc gstreamer-riff-uninstalled.pc \
-	gstreamer-rtp.pc gstreamer-rtp-uninstalled.pc \
-	gstreamer-rtsp.pc gstreamer-rtsp-uninstalled.pc \
-	gstreamer-sdp.pc gstreamer-sdp-uninstalled.pc gstreamer-tag.pc \
+	gstreamer-app.pc gstreamer-app-uninstalled.pc gstreamer-fft.pc \
+	gstreamer-fft-uninstalled.pc gstreamer-interfaces.pc \
+	gstreamer-interfaces-uninstalled.pc gstreamer-pbutils.pc \
+	gstreamer-pbutils-uninstalled.pc gstreamer-riff.pc \
+	gstreamer-riff-uninstalled.pc gstreamer-rtp.pc \
+	gstreamer-rtp-uninstalled.pc gstreamer-rtsp.pc \
+	gstreamer-rtsp-uninstalled.pc gstreamer-sdp.pc \
+	gstreamer-sdp-uninstalled.pc gstreamer-tag.pc \
 	gstreamer-tag-uninstalled.pc gstreamer-video.pc \
 	gstreamer-video-uninstalled.pc gstreamer-plugins-base.pc \
 	gstreamer-plugins-base-uninstalled.pc
@@ -212,6 +207,7 @@ GIO_CFLAGS = @GIO_CFLAGS@
 GIO_LDFLAGS = @GIO_LDFLAGS@
 GIO_LIBS = @GIO_LIBS@
 GLIB_CFLAGS = @GLIB_CFLAGS@
+GLIB_EXTRA_CFLAGS = @GLIB_EXTRA_CFLAGS@
 GLIB_LIBS = @GLIB_LIBS@
 GLIB_PREFIX = @GLIB_PREFIX@
 GLIB_REQ = @GLIB_REQ@
@@ -229,8 +225,6 @@ GST_CONTROLLER_CFLAGS = @GST_CONTROLLER_CFLAGS@
 GST_CONTROLLER_LIBS = @GST_CONTROLLER_LIBS@
 GST_CURRENT = @GST_CURRENT@
 GST_CXXFLAGS = @GST_CXXFLAGS@
-GST_GDP_CFLAGS = @GST_GDP_CFLAGS@
-GST_GDP_LIBS = @GST_GDP_LIBS@
 GST_INSTALL_PLUGINS_HELPER = @GST_INSTALL_PLUGINS_HELPER@
 GST_LEVEL_DEFAULT = @GST_LEVEL_DEFAULT@
 GST_LIBS = @GST_LIBS@
@@ -262,7 +256,6 @@ HAVE_CDPARANOIA = @HAVE_CDPARANOIA@
 HAVE_X = @HAVE_X@
 HAVE_XSHM = @HAVE_XSHM@
 HAVE_ZLIB = @HAVE_ZLIB@
-HSTRERROR_LIBS = @HSTRERROR_LIBS@
 HTML_DIR = @HTML_DIR@
 INSTALL = @INSTALL@
 INSTALL_DATA = @INSTALL_DATA@
@@ -299,6 +292,7 @@ LTLIBINTL = @LTLIBINTL@
 LTLIBOBJS = @LTLIBOBJS@
 MAINT = @MAINT@
 MAKEINFO = @MAKEINFO@
+MANIFEST_TOOL = @MANIFEST_TOOL@
 MKDIR_P = @MKDIR_P@
 MSGFMT = @MSGFMT@
 MSGFMT_015 = @MSGFMT_015@
@@ -360,7 +354,6 @@ VORBIS_CFLAGS = @VORBIS_CFLAGS@
 VORBIS_LIBS = @VORBIS_LIBS@
 WARNING_CFLAGS = @WARNING_CFLAGS@
 WARNING_CXXFLAGS = @WARNING_CXXFLAGS@
-WIN32_LIBS = @WIN32_LIBS@
 XGETTEXT = @XGETTEXT@
 XGETTEXT_015 = @XGETTEXT_015@
 XGETTEXT_EXTRA_OPTIONS = @XGETTEXT_EXTRA_OPTIONS@
@@ -377,6 +370,7 @@ abs_builddir = @abs_builddir@
 abs_srcdir = @abs_srcdir@
 abs_top_builddir = @abs_top_builddir@
 abs_top_srcdir = @abs_top_srcdir@
+ac_ct_AR = @ac_ct_AR@
 ac_ct_CC = @ac_ct_CC@
 ac_ct_CXX = @ac_ct_CXX@
 ac_ct_DUMPBIN = @ac_ct_DUMPBIN@
@@ -410,7 +404,6 @@ libdir = @libdir@
 libexecdir = @libexecdir@
 localedir = @localedir@
 localstatedir = @localstatedir@
-lt_ECHO = @lt_ECHO@
 mandir = @mandir@
 mkdir_p = @mkdir_p@
 oldincludedir = @oldincludedir@
@@ -436,10 +429,8 @@ top_srcdir = @top_srcdir@
 pcverfiles = \
 	gstreamer-audio-@GST_MAJORMINOR@.pc \
 	gstreamer-app-@GST_MAJORMINOR@.pc \
-	gstreamer-cdda-@GST_MAJORMINOR@.pc \
 	gstreamer-fft-@GST_MAJORMINOR@.pc \
 	gstreamer-interfaces-@GST_MAJORMINOR@.pc \
-	gstreamer-netbuffer-@GST_MAJORMINOR@.pc \
 	gstreamer-pbutils-@GST_MAJORMINOR@.pc \
 	gstreamer-riff-@GST_MAJORMINOR@.pc \
 	gstreamer-rtp-@GST_MAJORMINOR@.pc \
@@ -452,10 +443,8 @@ pcverfiles = \
 pcverfiles_uninstalled = \
 	gstreamer-audio-@GST_MAJORMINOR@-uninstalled.pc \
 	gstreamer-app-@GST_MAJORMINOR@-uninstalled.pc \
-	gstreamer-cdda-@GST_MAJORMINOR@-uninstalled.pc \
 	gstreamer-fft-@GST_MAJORMINOR@-uninstalled.pc \
 	gstreamer-interfaces-@GST_MAJORMINOR@-uninstalled.pc \
-	gstreamer-netbuffer-@GST_MAJORMINOR@-uninstalled.pc \
 	gstreamer-pbutils-@GST_MAJORMINOR@-uninstalled.pc \
 	gstreamer-riff-@GST_MAJORMINOR@-uninstalled.pc \
 	gstreamer-rtp-@GST_MAJORMINOR@-uninstalled.pc \
@@ -474,10 +463,8 @@ CLEANFILES = $(pcverfiles) $(pcverfiles_uninstalled)
 pcinfiles = \
            gstreamer-audio.pc.in gstreamer-audio-uninstalled.pc.in \
            gstreamer-app.pc.in gstreamer-app-uninstalled.pc.in \
-           gstreamer-cdda.pc.in gstreamer-cdda-uninstalled.pc.in \
            gstreamer-fft.pc.in gstreamer-fft-uninstalled.pc.in \
            gstreamer-interfaces.pc.in gstreamer-interfaces-uninstalled.pc.in \
-           gstreamer-netbuffer.pc.in gstreamer-netbuffer-uninstalled.pc.in \
            gstreamer-pbutils.pc.in gstreamer-pbutils-uninstalled.pc.in \
            gstreamer-riff.pc.in gstreamer-riff-uninstalled.pc.in \
            gstreamer-rtp.pc.in gstreamer-rtp-uninstalled.pc.in \
@@ -530,10 +517,6 @@ gstreamer-app.pc: $(top_builddir)/config.status $(srcdir)/gstreamer-app.pc.in
 	cd $(top_builddir) && $(SHELL) ./config.status $(subdir)/$@
 gstreamer-app-uninstalled.pc: $(top_builddir)/config.status $(srcdir)/gstreamer-app-uninstalled.pc.in
 	cd $(top_builddir) && $(SHELL) ./config.status $(subdir)/$@
-gstreamer-cdda.pc: $(top_builddir)/config.status $(srcdir)/gstreamer-cdda.pc.in
-	cd $(top_builddir) && $(SHELL) ./config.status $(subdir)/$@
-gstreamer-cdda-uninstalled.pc: $(top_builddir)/config.status $(srcdir)/gstreamer-cdda-uninstalled.pc.in
-	cd $(top_builddir) && $(SHELL) ./config.status $(subdir)/$@
 gstreamer-fft.pc: $(top_builddir)/config.status $(srcdir)/gstreamer-fft.pc.in
 	cd $(top_builddir) && $(SHELL) ./config.status $(subdir)/$@
 gstreamer-fft-uninstalled.pc: $(top_builddir)/config.status $(srcdir)/gstreamer-fft-uninstalled.pc.in
@@ -541,10 +524,6 @@ gstreamer-fft-uninstalled.pc: $(top_builddir)/config.status $(srcdir)/gstreamer-
 gstreamer-interfaces.pc: $(top_builddir)/config.status $(srcdir)/gstreamer-interfaces.pc.in
 	cd $(top_builddir) && $(SHELL) ./config.status $(subdir)/$@
 gstreamer-interfaces-uninstalled.pc: $(top_builddir)/config.status $(srcdir)/gstreamer-interfaces-uninstalled.pc.in
-	cd $(top_builddir) && $(SHELL) ./config.status $(subdir)/$@
-gstreamer-netbuffer.pc: $(top_builddir)/config.status $(srcdir)/gstreamer-netbuffer.pc.in
-	cd $(top_builddir) && $(SHELL) ./config.status $(subdir)/$@
-gstreamer-netbuffer-uninstalled.pc: $(top_builddir)/config.status $(srcdir)/gstreamer-netbuffer-uninstalled.pc.in
 	cd $(top_builddir) && $(SHELL) ./config.status $(subdir)/$@
 gstreamer-pbutils.pc: $(top_builddir)/config.status $(srcdir)/gstreamer-pbutils.pc.in
 	cd $(top_builddir) && $(SHELL) ./config.status $(subdir)/$@

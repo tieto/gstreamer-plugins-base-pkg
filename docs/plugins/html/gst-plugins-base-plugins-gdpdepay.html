@@ -45,10 +45,10 @@
 <div class="refsect1">
 <a name="gst-plugins-base-plugins-gdpdepay.object-hierarchy"></a><h2>Object Hierarchy</h2>
 <pre class="synopsis">
-  <a href="http://library.gnome.org/devel/gobject/unstable/gobject-The-Base-Object-Type.html#GObject">GObject</a>
-   +----<a href="http://library.gnome.org/devel/gobject/unstable/gobject-The-Base-Object-Type.html#GInitiallyUnowned">GInitiallyUnowned</a>
-         +----<a href="http://gstreamer.freedesktop.org/data/doc/gstreamer/head/gstreamer/html/GstObject.html">GstObject</a>
-               +----<a href="http://gstreamer.freedesktop.org/data/doc/gstreamer/head/gstreamer/html/GstElement.html">GstElement</a>
+  GObject
+   +----GInitiallyUnowned
+         +----GstObject
+               +----GstElement
                      +----GstGDPDepay
 </pre>
 </div>
@@ -61,7 +61,7 @@ buffers and events.
 <p>
 </p>
 <div class="refsect2">
-<a name="id477795"></a><div class="informalexample"><pre class="programlisting">
+<a name="idp8288944"></a><div class="informalexample"><pre class="programlisting">
 gst-launch -v -m filesrc location=test.gdp ! gdpdepay ! xvimagesink
 </pre></div> This pipeline plays back a serialized video stream as created in the
 example for gdppay.
@@ -71,7 +71,7 @@ example for gdppay.
 <div class="refsynopsisdiv">
 <h2>Synopsis</h2>
 <div class="refsect2">
-<a name="id505139"></a><h3>Element Information</h3>
+<a name="idp5625888"></a><h3>Element Information</h3>
 <div class="variablelist"><table border="0">
 <col align="left" valign="top">
 <tbody>
@@ -94,7 +94,7 @@ example for gdppay.
 </div>
 <hr>
 <div class="refsect2">
-<a name="id498695"></a><h3>Element Pads</h3>
+<a name="idp8207136"></a><h3>Element Pads</h3>
 <div class="variablelist"><table border="0">
 <col align="left" valign="top">
 <tbody>

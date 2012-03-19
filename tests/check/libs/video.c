@@ -2,7 +2,7 @@
  *
  * Copyright (C) <2003> David A. Schleef <ds@schleef.org>
  * Copyright (C) <2006> Jan Schmidt <thaytan@mad.scientist.com>
- * Copyright (C) <2008> Tim-Philipp Müller <tim centricular net>
+ * Copyright (C) <2008,2011> Tim-Philipp Müller <tim centricular net>
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Library General Public
@@ -29,6 +29,9 @@
 #include <gst/check/gstcheck.h>
 
 #include <gst/video/video.h>
+#if 0
+#include <gst/video/video-overlay-composition.h>
+#endif
 #include <string.h>
 
 /* These are from the current/old videotestsrc; we check our new public API
@@ -66,7 +69,7 @@ static void paint_setup_YVYU (paintinfo * p, unsigned char *dest);
 static void paint_setup_IYU2 (paintinfo * p, unsigned char *dest);
 static void paint_setup_Y41B (paintinfo * p, unsigned char *dest);
 static void paint_setup_Y42B (paintinfo * p, unsigned char *dest);
-static void paint_setup_Y800 (paintinfo * p, unsigned char *dest);
+static void paint_setup_GRAY8 (paintinfo * p, unsigned char *dest);
 static void paint_setup_AYUV (paintinfo * p, unsigned char *dest);
 
 #if 0
@@ -135,8 +138,8 @@ struct fourcc_list_struct fourcc_list[] = {
   {"Y41B", "Y41B", 12, paint_setup_Y41B},
   /* Y42B */
   {"Y42B", "Y42B", 16, paint_setup_Y42B},
-  /* Y800 grayscale */
-  {"Y800", "Y800", 8, paint_setup_Y800}
+  /* GRAY8 grayscale */
+  {"GRAY8", "GRAY8", 8, paint_setup_GRAY8}
 };
 
 /* returns the size in bytes for one video frame of the given dimensions
@@ -256,7 +259,7 @@ paint_setup_Y42B (paintinfo * p, unsigned char *dest)
 }
 
 static void
-paint_setup_Y800 (paintinfo * p, unsigned char *dest)
+paint_setup_GRAY8 (paintinfo * p, unsigned char *dest)
 {
   /* untested */
   p->yp = dest;
@@ -331,7 +334,7 @@ video_format_is_packed (GstVideoFormat fmt)
     case GST_VIDEO_FORMAT_YV12:
     case GST_VIDEO_FORMAT_Y41B:
     case GST_VIDEO_FORMAT_Y42B:
-    case GST_VIDEO_FORMAT_Y800:
+    case GST_VIDEO_FORMAT_GRAY8:
     case GST_VIDEO_FORMAT_YUV9:
     case GST_VIDEO_FORMAT_YVU9:
       return FALSE;
@@ -410,15 +413,17 @@ GST_START_TEST (test_video_formats)
     fourcc = GST_MAKE_FOURCC (s[0], s[1], s[2], s[3]);
     fmt = gst_video_format_from_fourcc (fourcc);
 
-    if (fmt == GST_VIDEO_FORMAT_UNKNOWN)
+    if (fmt == GST_VIDEO_FORMAT_UNKNOWN) {
+      GST_DEBUG ("Unknown format %s, skipping tests", fourcc_list[i].fourcc);
       continue;
+    }
 
     vf_info = gst_video_format_get_info (fmt);
     fail_unless (vf_info != NULL);
 
     fail_unless_equals_int (GST_VIDEO_FORMAT_INFO_FORMAT (vf_info), fmt);
 
-    GST_INFO ("Fourcc %s, packed=%", fourcc_list[i].fourcc,
+    GST_INFO ("Fourcc %s, packed=%d", fourcc_list[i].fourcc,
         gst_video_format_is_packed (fmt));
 
     fail_unless (GST_VIDEO_FORMAT_INFO_IS_YUV (vf_info));
@@ -439,6 +444,7 @@ GST_START_TEST (test_video_formats)
         GstVideoInfo vinfo;
         paintinfo paintinfo = { 0, };
         guint off0, off1, off2, off3;
+        guint cs0, cs1, cs2, cs3;
         guint size;
 
         GST_LOG ("%s, %dx%d", fourcc_list[i].fourcc, w, h);
@@ -452,7 +458,7 @@ GST_START_TEST (test_video_formats)
         fail_unless_equals_int (GST_VIDEO_INFO_COMP_STRIDE (&vinfo, 0),
             paintinfo.ystride);
         if (!gst_video_format_is_packed (fmt)
-            && !GST_VIDEO_FORMAT_INFO_IS_GRAY (vf_info)) {
+            && !GST_VIDEO_INFO_N_PLANES (&vinfo) > 2) {
           /* planar */
           fail_unless_equals_int (GST_VIDEO_INFO_COMP_STRIDE (&vinfo, 1),
               paintinfo.ustride);
@@ -466,6 +472,11 @@ GST_START_TEST (test_video_formats)
         off1 = GST_VIDEO_INFO_COMP_OFFSET (&vinfo, 1);
         off2 = GST_VIDEO_INFO_COMP_OFFSET (&vinfo, 2);
 
+        GST_INFO ("size %d <> %d", size, paintinfo.endptr);
+        GST_INFO ("off0 %d <> %d", off0, paintinfo.yp);
+        GST_INFO ("off1 %d <> %d", off1, paintinfo.up);
+        GST_INFO ("off2 %d <> %d", off2, paintinfo.vp);
+
         fail_unless_equals_int (size, (unsigned long) paintinfo.endptr);
         fail_unless_equals_int (off0, (unsigned long) paintinfo.yp);
         fail_unless_equals_int (off1, (unsigned long) paintinfo.up);
@@ -475,46 +486,39 @@ GST_START_TEST (test_video_formats)
         off3 = GST_VIDEO_INFO_COMP_OFFSET (&vinfo, 3);
         fail_unless_equals_int (off3, (unsigned long) paintinfo.ap);
 
-        /* some gstvideo checks ... (FIXME: fails for Y41B and Y42B; not sure
-         * if the check or the _get_component_size implementation is wrong) */
-        if (fmt != GST_VIDEO_FORMAT_Y41B && fmt != GST_VIDEO_FORMAT_Y42B
-            && fmt != GST_VIDEO_FORMAT_Y800) {
-          guint cs0, cs1, cs2, cs3;
+        cs0 = GST_VIDEO_INFO_COMP_WIDTH (&vinfo, 0) *
+            GST_VIDEO_INFO_COMP_HEIGHT (&vinfo, 0);
+        cs1 = GST_VIDEO_INFO_COMP_WIDTH (&vinfo, 1) *
+            GST_VIDEO_INFO_COMP_HEIGHT (&vinfo, 1);
+        cs2 = GST_VIDEO_INFO_COMP_WIDTH (&vinfo, 2) *
+            GST_VIDEO_INFO_COMP_HEIGHT (&vinfo, 2);
 
-          cs0 = GST_VIDEO_INFO_COMP_WIDTH (&vinfo, 0) *
-              GST_VIDEO_INFO_COMP_HEIGHT (&vinfo, 0);
-          cs1 = GST_VIDEO_INFO_COMP_WIDTH (&vinfo, 1) *
-              GST_VIDEO_INFO_COMP_HEIGHT (&vinfo, 1);
-          cs2 = GST_VIDEO_INFO_COMP_WIDTH (&vinfo, 2) *
+        /* GST_LOG ("cs0=%d,cs1=%d,cs2=%d,off0=%d,off1=%d,off2=%d,size=%d",
+           cs0, cs1, cs2, off0, off1, off2, size); */
+
+        if (!gst_video_format_is_packed (fmt))
+          fail_unless (cs0 <= off1);
+
+        if (GST_VIDEO_FORMAT_INFO_HAS_ALPHA (vinfo.finfo)) {
+          cs3 = GST_VIDEO_INFO_COMP_WIDTH (&vinfo, 3) *
               GST_VIDEO_INFO_COMP_HEIGHT (&vinfo, 2);
+          fail_unless (cs3 < size);
+          /* U/V/alpha shouldn't take up more space than the Y component */
+          fail_if (cs1 > cs0, "cs1 (%d) should be <= cs0 (%d)", cs1, cs0);
+          fail_if (cs2 > cs0, "cs2 (%d) should be <= cs0 (%d)", cs2, cs0);
+          fail_if (cs3 > cs0, "cs3 (%d) should be <= cs0 (%d)", cs3, cs0);
 
-          /* GST_LOG ("cs0=%d,cs1=%d,cs2=%d,off0=%d,off1=%d,off2=%d,size=%d",
-             cs0, cs1, cs2, off0, off1, off2, size); */
+          /* all components together shouldn't take up more space than size */
+          fail_unless (cs0 + cs1 + cs2 + cs3 <= size);
+        } else {
+          /* U/V shouldn't take up more space than the Y component */
+          fail_if (cs1 > cs0, "cs1 (%d) should be <= cs0 (%d)", cs1, cs0);
+          fail_if (cs2 > cs0, "cs2 (%d) should be <= cs0 (%d)", cs2, cs0);
 
-          if (!gst_video_format_is_packed (fmt))
-            fail_unless (cs0 <= off1);
-
-          if (GST_VIDEO_FORMAT_INFO_HAS_ALPHA (vinfo.finfo)) {
-            cs3 = GST_VIDEO_INFO_COMP_WIDTH (&vinfo, 3) *
-                GST_VIDEO_INFO_COMP_HEIGHT (&vinfo, 2);
-            fail_unless (cs3 < size);
-            /* U/V/alpha shouldn't take up more space than the Y component */
-            fail_if (cs1 > cs0, "cs1 (%d) should be <= cs0 (%d)", cs1, cs0);
-            fail_if (cs2 > cs0, "cs2 (%d) should be <= cs0 (%d)", cs2, cs0);
-            fail_if (cs3 > cs0, "cs3 (%d) should be <= cs0 (%d)", cs3, cs0);
-
-            /* all components together shouldn't take up more space than size */
-            fail_unless (cs0 + cs1 + cs2 + cs3 <= size);
-          } else {
-            /* U/V shouldn't take up more space than the Y component */
-            fail_if (cs1 > cs0, "cs1 (%d) should be <= cs0 (%d)", cs1, cs0);
-            fail_if (cs2 > cs0, "cs2 (%d) should be <= cs0 (%d)", cs2, cs0);
-
-            /* all components together shouldn't take up more space than size */
-            fail_unless (cs0 + cs1 + cs2 <= size,
-                "cs0 (%d) + cs1 (%d) + cs2 (%d) should be <= size (%d)",
-                cs0, cs1, cs2, size);
-          }
+          /* all components together shouldn't take up more space than size */
+          fail_unless (cs0 + cs1 + cs2 <= size,
+              "cs0 (%d) + cs1 (%d) + cs2 (%d) should be <= size (%d)",
+              cs0, cs1, cs2, size);
         }
       }
     }
@@ -603,7 +607,13 @@ GST_START_TEST (test_parse_caps_rgb)
     GST_VIDEO_CAPS_MAKE ("RGBA"), GST_VIDEO_FORMAT_RGBA}, {
     GST_VIDEO_CAPS_MAKE ("ARGB"), GST_VIDEO_FORMAT_ARGB}, {
     GST_VIDEO_CAPS_MAKE ("BGRA"), GST_VIDEO_FORMAT_BGRA}, {
-    GST_VIDEO_CAPS_MAKE ("ABGR"), GST_VIDEO_FORMAT_ABGR}
+    GST_VIDEO_CAPS_MAKE ("ABGR"), GST_VIDEO_FORMAT_ABGR},
+        /* 16 bit */
+    {
+    GST_VIDEO_CAPS_MAKE ("RGB16"), GST_VIDEO_FORMAT_RGB16}, {
+    GST_VIDEO_CAPS_MAKE ("BGR16"), GST_VIDEO_FORMAT_BGR16}, {
+    GST_VIDEO_CAPS_MAKE ("RGB15"), GST_VIDEO_FORMAT_RGB15}, {
+    GST_VIDEO_CAPS_MAKE ("BGR15"), GST_VIDEO_FORMAT_BGR15}
   };
   gint i;
 
@@ -614,7 +624,8 @@ GST_START_TEST (test_parse_caps_rgb)
     caps = gst_caps_from_string (formats[i].tmpl_caps_string);
     gst_caps_set_simple (caps, "width", G_TYPE_INT, 2 * (i + 1), "height",
         G_TYPE_INT, i + 1, "framerate", GST_TYPE_FRACTION, 15, 1,
-        "pixel-aspect-ratio", GST_TYPE_FRACTION, 1, 1, NULL);
+        "pixel-aspect-ratio", GST_TYPE_FRACTION, 1, 1,
+        "interlace-mode", G_TYPE_STRING, "progressive", NULL);
     g_assert (gst_caps_is_fixed (caps));
 
     GST_DEBUG ("testing caps: %" GST_PTR_FORMAT, caps);
@@ -628,7 +639,9 @@ GST_START_TEST (test_parse_caps_rgb)
     /* make sure they're serialised back correctly */
     caps2 = gst_video_info_to_caps (&vinfo);
     fail_unless (caps != NULL);
-    fail_unless (gst_caps_is_equal (caps, caps2));
+    fail_unless (gst_caps_is_equal (caps, caps2),
+        "caps [%" GST_PTR_FORMAT "] not equal to caps2 [%" GST_PTR_FORMAT "]",
+        caps, caps2);
 
     gst_caps_unref (caps);
     gst_caps_unref (caps2);
@@ -667,23 +680,24 @@ GST_START_TEST (test_convert_frame)
 {
   GstVideoInfo vinfo;
   GstCaps *from_caps, *to_caps;
-  GstBuffer *from_buffer, *to_buffer;
+  GstBuffer *from_buffer;
+  GstSample *from_sample, *to_sample;
   GError *error = NULL;
   gint i;
-  guint8 *data;
+  GstMapInfo map;
 
   gst_debug_set_threshold_for_name ("default", GST_LEVEL_NONE);
 
   from_buffer = gst_buffer_new_and_alloc (640 * 480 * 4);
 
-  data = gst_buffer_map (from_buffer, NULL, NULL, GST_MAP_WRITE);
+  gst_buffer_map (from_buffer, &map, GST_MAP_WRITE);
   for (i = 0; i < 640 * 480; i++) {
-    data[4 * i + 0] = 0;        /* x */
-    data[4 * i + 1] = 255;      /* R */
-    data[4 * i + 2] = 0;        /* G */
-    data[4 * i + 3] = 0;        /* B */
+    map.data[4 * i + 0] = 0;    /* x */
+    map.data[4 * i + 1] = 255;  /* R */
+    map.data[4 * i + 2] = 0;    /* G */
+    map.data[4 * i + 3] = 0;    /* B */
   }
-  gst_buffer_unmap (from_buffer, data, 640 * 480 * 4);
+  gst_buffer_unmap (from_buffer, &map);
 
   gst_video_info_init (&vinfo);
   gst_video_info_set_format (&vinfo, GST_VIDEO_FORMAT_xRGB, 640, 480);
@@ -693,14 +707,16 @@ GST_START_TEST (test_convert_frame)
   vinfo.par_d = 1;
   from_caps = gst_video_info_to_caps (&vinfo);
 
+  from_sample = gst_sample_new (from_buffer, from_caps, NULL, NULL);
+
   to_caps =
       gst_caps_from_string
       ("something/that, does=(string)not, exist=(boolean)FALSE");
 
-  to_buffer =
-      gst_video_convert_frame (from_buffer, from_caps, to_caps,
+  to_sample =
+      gst_video_convert_sample (from_sample, to_caps,
       GST_CLOCK_TIME_NONE, &error);
-  fail_if (to_buffer != NULL);
+  fail_if (to_sample != NULL);
   fail_unless (error != NULL);
   g_error_free (error);
   error = NULL;
@@ -713,15 +729,16 @@ GST_START_TEST (test_convert_frame)
   vinfo.par_d = 2;
   to_caps = gst_video_info_to_caps (&vinfo);
 
-  to_buffer =
-      gst_video_convert_frame (from_buffer, from_caps, to_caps,
+  to_sample =
+      gst_video_convert_sample (from_sample, to_caps,
       GST_CLOCK_TIME_NONE, &error);
-  fail_unless (to_buffer != NULL);
+  fail_unless (to_sample != NULL);
   fail_unless (error == NULL);
 
   gst_buffer_unref (from_buffer);
   gst_caps_unref (from_caps);
-  gst_buffer_unref (to_buffer);
+  gst_sample_unref (from_sample);
+  gst_sample_unref (to_sample);
   gst_caps_unref (to_caps);
 }
 
@@ -730,15 +747,15 @@ GST_END_TEST;
 typedef struct
 {
   GMainLoop *loop;
-  GstBuffer *buffer;
+  GstSample *sample;
   GError *error;
 } ConvertFrameContext;
 
 static void
-convert_frame_async_callback (GstBuffer * buf, GError * err,
+convert_sample_async_callback (GstSample * sample, GError * err,
     ConvertFrameContext * cf_data)
 {
-  cf_data->buffer = buf;
+  cf_data->sample = sample;
   cf_data->error = err;
 
   g_main_loop_quit (cf_data->loop);
@@ -749,8 +766,9 @@ GST_START_TEST (test_convert_frame_async)
   GstVideoInfo vinfo;
   GstCaps *from_caps, *to_caps;
   GstBuffer *from_buffer;
+  GstSample *from_sample;
   gint i;
-  guint8 *data;
+  GstMapInfo map;
   GMainLoop *loop;
   ConvertFrameContext cf_data = { NULL, NULL, NULL };
 
@@ -758,14 +776,14 @@ GST_START_TEST (test_convert_frame_async)
 
   from_buffer = gst_buffer_new_and_alloc (640 * 480 * 4);
 
-  data = gst_buffer_map (from_buffer, NULL, NULL, GST_MAP_WRITE);
+  gst_buffer_map (from_buffer, &map, GST_MAP_WRITE);
   for (i = 0; i < 640 * 480; i++) {
-    data[4 * i + 0] = 0;        /* x */
-    data[4 * i + 1] = 255;      /* R */
-    data[4 * i + 2] = 0;        /* G */
-    data[4 * i + 3] = 0;        /* B */
+    map.data[4 * i + 0] = 0;    /* x */
+    map.data[4 * i + 1] = 255;  /* R */
+    map.data[4 * i + 2] = 0;    /* G */
+    map.data[4 * i + 3] = 0;    /* B */
   }
-  gst_buffer_unmap (from_buffer, data, 640 * 480 * 4);
+  gst_buffer_unmap (from_buffer, &map);
 
   gst_video_info_init (&vinfo);
   gst_video_info_set_format (&vinfo, GST_VIDEO_FORMAT_xRGB, 640, 470);
@@ -781,14 +799,18 @@ GST_START_TEST (test_convert_frame_async)
 
   loop = cf_data.loop = g_main_loop_new (NULL, FALSE);
 
-  gst_video_convert_frame_async (from_buffer, from_caps, to_caps,
+  from_sample = gst_sample_new (from_buffer, from_caps, NULL, NULL);
+  gst_buffer_unref (from_buffer);
+  gst_caps_unref (from_caps);
+
+  gst_video_convert_sample_async (from_sample, to_caps,
       GST_CLOCK_TIME_NONE,
-      (GstVideoConvertFrameCallback) convert_frame_async_callback, &cf_data,
+      (GstVideoConvertSampleCallback) convert_sample_async_callback, &cf_data,
       NULL);
 
   g_main_loop_run (loop);
 
-  fail_if (cf_data.buffer != NULL);
+  fail_if (cf_data.sample != NULL);
   fail_unless (cf_data.error != NULL);
   g_error_free (cf_data.error);
   cf_data.error = NULL;
@@ -801,17 +823,15 @@ GST_START_TEST (test_convert_frame_async)
   vinfo.fps_n = 25;
   vinfo.fps_d = 1;
   to_caps = gst_video_info_to_caps (&vinfo);
-  gst_video_convert_frame_async (from_buffer, from_caps, to_caps,
+  gst_video_convert_sample_async (from_sample, to_caps,
       GST_CLOCK_TIME_NONE,
-      (GstVideoConvertFrameCallback) convert_frame_async_callback, &cf_data,
+      (GstVideoConvertSampleCallback) convert_sample_async_callback, &cf_data,
       NULL);
   g_main_loop_run (loop);
-  fail_unless (cf_data.buffer != NULL);
+  fail_unless (cf_data.sample != NULL);
   fail_unless (cf_data.error == NULL);
 
-  gst_buffer_unref (from_buffer);
-  gst_caps_unref (from_caps);
-  gst_buffer_unref (cf_data.buffer);
+  gst_sample_unref (cf_data.sample);
   gst_caps_unref (to_caps);
 
   g_main_loop_unref (loop);
@@ -838,6 +858,154 @@ GST_START_TEST (test_video_size_from_caps)
 
 GST_END_TEST;
 
+#undef ASSERT_CRITICAL
+#define ASSERT_CRITICAL(code) while(0){}        /* nothing */
+
+#if 0
+/* FIXME 0.11: port overlay composition to buffer meta */
+GST_START_TEST (test_overlay_composition)
+{
+  GstVideoOverlayComposition *comp1, *comp2;
+  GstVideoOverlayRectangle *rect1, *rect2;
+  GstBuffer *pix1, *pix2, *buf;
+  guint seq1, seq2;
+  guint w, h, stride;
+  gint x, y;
+
+  pix1 = gst_buffer_new_and_alloc (200 * sizeof (guint32) * 50);
+  memset (GST_BUFFER_DATA (pix1), 0, GST_BUFFER_SIZE (pix1));
+
+  rect1 = gst_video_overlay_rectangle_new_argb (pix1, 200, 50, 200 * 4,
+      600, 50, 300, 50, GST_VIDEO_OVERLAY_FORMAT_FLAG_NONE);
+
+  gst_buffer_unref (pix1);
+  pix1 = NULL;
+
+  comp1 = gst_video_overlay_composition_new (rect1);
+  fail_unless (gst_video_overlay_composition_n_rectangles (comp1) == 1);
+  fail_unless (gst_video_overlay_composition_get_rectangle (comp1, 0) == rect1);
+  fail_unless (gst_video_overlay_composition_get_rectangle (comp1, 1) == NULL);
+
+  /* rectangle was created first, sequence number should be smaller */
+  seq1 = gst_video_overlay_rectangle_get_seqnum (rect1);
+  seq2 = gst_video_overlay_composition_get_seqnum (comp1);
+  fail_unless (seq1 < seq2);
+
+  /* composition took own ref, so refcount is 2 now, so this should fail */
+  ASSERT_CRITICAL (gst_video_overlay_rectangle_set_render_rectangle (rect1, 50,
+          600, 300, 50));
+
+  /* drop our ref, so refcount is 1 (we know it will continue to be valid) */
+  gst_video_overlay_rectangle_unref (rect1);
+  gst_video_overlay_rectangle_set_render_rectangle (rect1, 50, 600, 300, 50);
+
+  comp2 = gst_video_overlay_composition_new (rect1);
+  fail_unless (gst_video_overlay_composition_n_rectangles (comp2) == 1);
+  fail_unless (gst_video_overlay_composition_get_rectangle (comp2, 0) == rect1);
+  fail_unless (gst_video_overlay_composition_get_rectangle (comp2, 1) == NULL);
+
+  fail_unless (seq1 < gst_video_overlay_composition_get_seqnum (comp2));
+  fail_unless (seq2 < gst_video_overlay_composition_get_seqnum (comp2));
+
+  /* now refcount is 2 again because comp2 has also taken a ref, so must fail */
+  ASSERT_CRITICAL (gst_video_overlay_rectangle_set_render_rectangle (rect1, 0,
+          0, 1, 1));
+
+  /* this should make a copy of the rectangles so drop the original
+   * second ref on rect1 */
+  comp2 = gst_video_overlay_composition_make_writable (comp2);
+  gst_video_overlay_rectangle_set_render_rectangle (rect1, 51, 601, 301, 51);
+
+  rect2 = gst_video_overlay_composition_get_rectangle (comp2, 0);
+  fail_unless (gst_video_overlay_composition_n_rectangles (comp2) == 1);
+  fail_unless (gst_video_overlay_composition_get_rectangle (comp2, 0) == rect2);
+  fail_unless (gst_video_overlay_composition_get_rectangle (comp2, 1) == NULL);
+  fail_unless (rect1 != rect2);
+
+  gst_video_overlay_composition_add_rectangle (comp1, rect2);
+  gst_video_overlay_composition_ref (comp1);
+  ASSERT_CRITICAL (gst_video_overlay_composition_add_rectangle (comp1, rect2));
+  gst_video_overlay_composition_unref (comp1);
+
+  /* make sure the copy really worked */
+  gst_video_overlay_rectangle_get_render_rectangle (rect1, &x, &y, &w, &h);
+  fail_unless_equals_int (x, 51);
+  fail_unless_equals_int (y, 601);
+  fail_unless_equals_int (w, 301);
+  fail_unless_equals_int (h, 51);
+
+  /* get scaled pixbuf and touch last byte */
+  pix1 = gst_video_overlay_rectangle_get_pixels_argb (rect1, &stride,
+      GST_VIDEO_OVERLAY_FORMAT_FLAG_NONE);
+  fail_unless (GST_BUFFER_SIZE (pix1) > ((h - 1) * stride + (w * 4) - 1),
+      "size %u vs. last pixel offset %u", GST_BUFFER_SIZE (pix1),
+      ((h - 1) * stride + (w * 4) - 1));
+  fail_unless_equals_int (*(GST_BUFFER_DATA (pix1) + ((h - 1) * stride +
+              (w * 4) - 1)), 0);
+
+  gst_video_overlay_rectangle_get_render_rectangle (rect2, &x, &y, &w, &h);
+  fail_unless_equals_int (x, 50);
+  fail_unless_equals_int (y, 600);
+  fail_unless_equals_int (w, 300);
+  fail_unless_equals_int (h, 50);
+
+  /* get scaled pixbuf and touch last byte */
+  pix2 = gst_video_overlay_rectangle_get_pixels_argb (rect2, &stride,
+      GST_VIDEO_OVERLAY_FORMAT_FLAG_NONE);
+  fail_unless (GST_BUFFER_SIZE (pix2) > ((h - 1) * stride + (w * 4) - 1),
+      "size %u vs. last pixel offset %u", GST_BUFFER_SIZE (pix1),
+      ((h - 1) * stride + (w * 4) - 1));
+  fail_unless_equals_int (*(GST_BUFFER_DATA (pix2) + ((h - 1) * stride +
+              (w * 4) - 1)), 0);
+
+  /* get scaled pixbuf again, should be the same buffer as before (caching) */
+  pix1 = gst_video_overlay_rectangle_get_pixels_argb (rect2, &stride,
+      GST_VIDEO_OVERLAY_FORMAT_FLAG_NONE);
+  fail_unless (pix1 == pix2);
+
+  /* now compare the original unscaled ones */
+  pix1 = gst_video_overlay_rectangle_get_pixels_unscaled_argb (rect1, &w, &h,
+      &stride, GST_VIDEO_OVERLAY_FORMAT_FLAG_NONE);
+  pix2 = gst_video_overlay_rectangle_get_pixels_unscaled_argb (rect2, &w, &h,
+      &stride, GST_VIDEO_OVERLAY_FORMAT_FLAG_NONE);
+
+  /* the original pixel buffers should be identical */
+  fail_unless (pix1 == pix2);
+  fail_unless_equals_int (w, 200);
+  fail_unless_equals_int (h, 50);
+
+  /* touch last byte */
+  fail_unless (GST_BUFFER_SIZE (pix1) > ((h - 1) * stride + (w * 4) - 1),
+      "size %u vs. last pixel offset %u", GST_BUFFER_SIZE (pix1),
+      ((h - 1) * stride + (w * 4) - 1));
+  fail_unless_equals_int (*(GST_BUFFER_DATA (pix1) + ((h - 1) * stride +
+              (w * 4) - 1)), 0);
+
+  /* test attaching and retrieving of compositions to/from buffers */
+  buf = gst_buffer_new ();
+  fail_unless (gst_video_buffer_get_overlay_composition (buf) == NULL);
+
+  gst_buffer_ref (buf);
+  ASSERT_CRITICAL (gst_video_buffer_set_overlay_composition (buf, comp1));
+  gst_buffer_unref (buf);
+  gst_video_buffer_set_overlay_composition (buf, comp1);
+  fail_unless (gst_video_buffer_get_overlay_composition (buf) == comp1);
+  gst_video_buffer_set_overlay_composition (buf, comp2);
+  fail_unless (gst_video_buffer_get_overlay_composition (buf) == comp2);
+  gst_video_buffer_set_overlay_composition (buf, NULL);
+  fail_unless (gst_video_buffer_get_overlay_composition (buf) == NULL);
+
+  /* make sure the buffer cleans up its composition ref when unreffed */
+  gst_video_buffer_set_overlay_composition (buf, comp2);
+  gst_buffer_unref (buf);
+
+  gst_video_overlay_composition_unref (comp2);
+  gst_video_overlay_composition_unref (comp1);
+}
+
+GST_END_TEST;
+#endif
+
 static Suite *
 video_suite (void)
 {
@@ -854,6 +1022,10 @@ video_suite (void)
   tcase_add_test (tc_chain, test_convert_frame);
   tcase_add_test (tc_chain, test_convert_frame_async);
   tcase_add_test (tc_chain, test_video_size_from_caps);
+#if 0
+  /* FIXME 0.11: port overlay compositions */
+  tcase_add_test (tc_chain, test_overlay_composition);
+#endif
 
   return s;
 }

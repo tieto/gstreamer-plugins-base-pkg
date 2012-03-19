@@ -1,60 +1,75 @@
 # variables used for enum/marshal generation
 glib_enum_headers= 		\
-	multichannel.h		\
-	gstringbuffer.h
+	audio.h			\
+	gstaudioringbuffer.h
 
 glib_enum_define = GST_AUDIO
 glib_gen_prefix = gst_audio
 glib_gen_basename = audio
 
-built_sources = audio-enumtypes.c
-built_headers = audio-enumtypes.h
+built_sources = audio-enumtypes.c audio-marshal.c
+built_headers = audio-enumtypes.h audio-marshal.h
 BUILT_SOURCES = $(built_sources) $(built_headers)
 
 lib_LTLIBRARIES = \
 	libgstaudio-@GST_MAJORMINOR@.la
+
+EXTRA_DIST = audio-marshal.list
 
 CLEANFILES = $(BUILT_SOURCES)
 
 # FIXME 0.11: rename GstBaseAudioSink to GstAudioBaseSink or merge with GstAudioSink
 libgstaudio_@GST_MAJORMINOR@_la_SOURCES = \
 	audio.c \
-	gstringbuffer.c \
+	gstaudioringbuffer.c \
 	gstaudioclock.c \
+	mixer.c \
+	mixeroptions.c \
+	mixertrack.c \
 	mixerutils.c \
-	multichannel.c \
+	gstaudiocdsrc.c \
 	gstaudiodecoder.c \
 	gstaudioencoder.c \
-	gstbaseaudiosink.c \
-	gstbaseaudiosrc.c \
+	gstaudiobasesink.c \
+	gstaudiobasesrc.c \
 	gstaudiofilter.c \
+	gstaudiometa.c \
 	gstaudiosink.c \
 	gstaudiosrc.c \
+	streamvolume.c \
 	gstaudioiec61937.c
+
 nodist_libgstaudio_@GST_MAJORMINOR@_la_SOURCES = $(built_sources) $(built_headers)
 
 libgstaudio_@GST_MAJORMINOR@includedir = $(includedir)/gstreamer-@GST_MAJORMINOR@/gst/audio
 libgstaudio_@GST_MAJORMINOR@include_HEADERS = \
 	audio.h \
-	gstringbuffer.h \
+	gstaudioringbuffer.h \
 	gstaudioclock.h \
 	gstaudiofilter.h \
+	gstaudiocdsrc.h \
 	gstaudiodecoder.h \
 	gstaudioencoder.h \
-	gstbaseaudiosink.h \
-	gstbaseaudiosrc.h \
+	gstaudiobasesink.h \
+	gstaudiobasesrc.h \
+	gstaudiometa.h \
 	gstaudiosink.h \
 	gstaudiosrc.h \
+	mixer.h \
+	mixeroptions.h \
+	mixertrack.h \
 	mixerutils.h \
-	multichannel.h \
+	streamvolume.h \
 	gstaudioiec61937.h
 
 nodist_libgstaudio_@GST_MAJORMINOR@include_HEADERS = \
 	audio-enumtypes.h
 
 libgstaudio_@GST_MAJORMINOR@_la_CFLAGS = $(GST_PLUGINS_BASE_CFLAGS) $(GST_BASE_CFLAGS) $(GST_CFLAGS)
-libgstaudio_@GST_MAJORMINOR@_la_LIBADD = $(GST_BASE_LIBS) $(GST_LIBS) \
-  $(top_builddir)/gst-libs/gst/interfaces/libgstinterfaces-@GST_MAJORMINOR@.la
+libgstaudio_@GST_MAJORMINOR@_la_LIBADD = \
+  $(top_builddir)/gst-libs/gst/interfaces/libgstinterfaces-@GST_MAJORMINOR@.la \
+  $(top_builddir)/gst-libs/gst/tag/libgsttag-@GST_MAJORMINOR@.la \
+  $(GST_BASE_LIBS) $(GST_LIBS)
 libgstaudio_@GST_MAJORMINOR@_la_LDFLAGS = $(GST_LIB_LDFLAGS) $(GST_ALL_LDFLAGS) $(GST_LT_LDFLAGS)
 
 include $(top_srcdir)/common/gst-glib-gen.mak
@@ -76,7 +91,6 @@ GstAudio-@GST_MAJORMINOR@.gir: $(INTROSPECTION_SCANNER) libgstaudio-@GST_MAJORMI
 		--nsversion=@GST_MAJORMINOR@ \
 		--warn-all \
 		--strip-prefix=Gst \
-		-DGST_USE_UNSTABLE_API \
 		-I$(top_srcdir)/gst-libs \
 		-I$(top_builddir)/gst-libs \
 		$(gir_cincludes) \

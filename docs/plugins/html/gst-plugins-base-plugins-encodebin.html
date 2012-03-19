@@ -51,11 +51,11 @@
 <div class="refsect1">
 <a name="gst-plugins-base-plugins-encodebin.object-hierarchy"></a><h2>Object Hierarchy</h2>
 <pre class="synopsis">
-  <a href="http://library.gnome.org/devel/gobject/unstable/gobject-The-Base-Object-Type.html#GObject">GObject</a>
-   +----<a href="http://library.gnome.org/devel/gobject/unstable/gobject-The-Base-Object-Type.html#GInitiallyUnowned">GInitiallyUnowned</a>
-         +----<a href="http://gstreamer.freedesktop.org/data/doc/gstreamer/head/gstreamer/html/GstObject.html">GstObject</a>
-               +----<a href="http://gstreamer.freedesktop.org/data/doc/gstreamer/head/gstreamer/html/GstElement.html">GstElement</a>
-                     +----<a href="http://gstreamer.freedesktop.org/data/doc/gstreamer/head/gstreamer/html/GstBin.html">GstBin</a>
+  GObject
+   +----GInitiallyUnowned
+         +----GstObject
+               +----GstElement
+                     +----GstBin
                            +----GstEncodeBin
 </pre>
 </div>
@@ -63,23 +63,24 @@
 <a name="gst-plugins-base-plugins-encodebin.implemented-interfaces"></a><h2>Implemented Interfaces</h2>
 <p>
 GstEncodeBin implements
- <a href="http://gstreamer.freedesktop.org/data/doc/gstreamer/head/gstreamer/html/GstChildProxy.html">GstChildProxy</a>.</p>
+ GstChildProxy.</p>
 </div>
 <div class="refsect1">
 <a name="gst-plugins-base-plugins-encodebin.properties"></a><h2>Properties</h2>
 <pre class="synopsis">
-  "<a class="link" href="gst-plugins-base-plugins-encodebin.html#GstEncodeBin--audio-jitter-tolerance" title='The "audio-jitter-tolerance" property'>audio-jitter-tolerance</a>"   <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#guint64"><span class="type">guint64</span></a>               : Read / Write
-  "<a class="link" href="gst-plugins-base-plugins-encodebin.html#GstEncodeBin--avoid-reencoding" title='The "avoid-reencoding" property'>avoid-reencoding</a>"         <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="type">gboolean</span></a>              : Read / Write
+  "<a class="link" href="gst-plugins-base-plugins-encodebin.html#GstEncodeBin--audio-jitter-tolerance" title='The "audio-jitter-tolerance" property'>audio-jitter-tolerance</a>"   <span class="type">guint64</span>               : Read / Write
+  "<a class="link" href="gst-plugins-base-plugins-encodebin.html#GstEncodeBin--avoid-reencoding" title='The "avoid-reencoding" property'>avoid-reencoding</a>"         <span class="type">gboolean</span>              : Read / Write
   "<a class="link" href="gst-plugins-base-plugins-encodebin.html#GstEncodeBin--profile" title='The "profile" property'>profile</a>"                  <a href="../gst-plugins-base-libs-0.11/gst-plugins-base-libs-encoding-profile.html#GstEncodingProfile"><span class="type">GstEncodingProfile</span></a>*   : Read / Write
-  "<a class="link" href="gst-plugins-base-plugins-encodebin.html#GstEncodeBin--queue-buffers-max" title='The "queue-buffers-max" property'>queue-buffers-max</a>"        <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#guint"><span class="type">guint</span></a>                 : Read / Write
-  "<a class="link" href="gst-plugins-base-plugins-encodebin.html#GstEncodeBin--queue-bytes-max" title='The "queue-bytes-max" property'>queue-bytes-max</a>"          <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#guint"><span class="type">guint</span></a>                 : Read / Write
-  "<a class="link" href="gst-plugins-base-plugins-encodebin.html#GstEncodeBin--queue-time-max" title='The "queue-time-max" property'>queue-time-max</a>"           <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#guint64"><span class="type">guint64</span></a>               : Read / Write
+  "<a class="link" href="gst-plugins-base-plugins-encodebin.html#GstEncodeBin--queue-buffers-max" title='The "queue-buffers-max" property'>queue-buffers-max</a>"        <span class="type">guint</span>                 : Read / Write
+  "<a class="link" href="gst-plugins-base-plugins-encodebin.html#GstEncodeBin--queue-bytes-max" title='The "queue-bytes-max" property'>queue-bytes-max</a>"          <span class="type">guint</span>                 : Read / Write
+  "<a class="link" href="gst-plugins-base-plugins-encodebin.html#GstEncodeBin--queue-time-max" title='The "queue-time-max" property'>queue-time-max</a>"           <span class="type">guint64</span>               : Read / Write
+  "<a class="link" href="gst-plugins-base-plugins-encodebin.html#GstEncodeBin--flags" title='The "flags" property'>flags</a>"                    <span class="type">GstEncFlags</span>           : Read / Write
 </pre>
 </div>
 <div class="refsect1">
 <a name="gst-plugins-base-plugins-encodebin.signals"></a><h2>Signals</h2>
 <pre class="synopsis">
-  "<a class="link" href="gst-plugins-base-plugins-encodebin.html#GstEncodeBin-request-pad" title='The "request-pad" signal'>request-pad</a>"                                    : <a href="http://library.gnome.org/devel/gobject/unstable/gobject-Signals.html#G-SIGNAL-ACTION:CAPS"><code class="literal">Action</code></a>
+  "<a class="link" href="gst-plugins-base-plugins-encodebin.html#GstEncodeBin-request-pad" title='The "request-pad" signal'>request-pad</a>"                                    : <code class="literal">Action</code>
 </pre>
 </div>
 <div class="refsect1">
@@ -98,7 +99,7 @@ encoded/muxed/converted stream in output.
 <p>
 </p>
 <div class="refsect2">
-<a name="id511302"></a><h3>Features</h3>
+<a name="idp4830688"></a><h3>Features</h3>
 <div class="itemizedlist"><ul class="itemizedlist" type="disc">
 <li class="listitem">
 Automatic encoder and muxer selection based on elements available on the
@@ -151,9 +152,9 @@ the GOP will be decoded/reencoded when needed to produce an encoded output
 that fits exactly within the request GstSegment.
 </li>
 <li class="listitem">
-Missing plugin support. If a <a href="http://gstreamer.freedesktop.org/data/doc/gstreamer/head/gstreamer/html/GstElement.html"><span class="type">GstElement</span></a> is missing to encode/mux to the
-request profile formats, a missing-plugin <a href="http://gstreamer.freedesktop.org/data/doc/gstreamer/head/gstreamer/html/gstreamer-GstMessage.html#GstMessage"><span class="type">GstMessage</span></a> will be posted on the
-<a href="http://gstreamer.freedesktop.org/data/doc/gstreamer/head/gstreamer/html/GstBus.html"><span class="type">GstBus</span></a>, allowing systems that support the missing-plugin system to offer the
+Missing plugin support. If a <span class="type">GstElement</span> is missing to encode/mux to the
+request profile formats, a missing-plugin <span class="type">GstMessage</span> will be posted on the
+<span class="type">GstBus</span>, allowing systems that support the missing-plugin system to offer the
 user a way to install the missing element.
 </li>
 </ul></div>
@@ -163,7 +164,7 @@ user a way to install the missing element.
 <div class="refsynopsisdiv">
 <h2>Synopsis</h2>
 <div class="refsect2">
-<a name="id524019"></a><h3>Element Information</h3>
+<a name="idp10931152"></a><h3>Element Information</h3>
 <div class="variablelist"><table border="0">
 <col align="left" valign="top">
 <tbody>
@@ -186,13 +187,13 @@ user a way to install the missing element.
 </div>
 <hr>
 <div class="refsect2">
-<a name="id524080"></a><h3>Element Pads</h3>
+<a name="idp10938560"></a><h3>Element Pads</h3>
 <div class="variablelist"><table border="0">
 <col align="left" valign="top">
 <tbody>
 <tr>
 <td><p><span class="term">name</span></p></td>
-<td>audio_%d</td>
+<td>audio_%u</td>
 </tr>
 <tr>
 <td><p><span class="term">direction</span></p></td>
@@ -213,7 +214,7 @@ user a way to install the missing element.
 <tbody>
 <tr>
 <td><p><span class="term">name</span></p></td>
-<td>private_%d</td>
+<td>private_%u</td>
 </tr>
 <tr>
 <td><p><span class="term">direction</span></p></td>
@@ -234,7 +235,7 @@ user a way to install the missing element.
 <tbody>
 <tr>
 <td><p><span class="term">name</span></p></td>
-<td>video_%d</td>
+<td>video_%u</td>
 </tr>
 <tr>
 <td><p><span class="term">direction</span></p></td>
@@ -289,14 +290,14 @@ user a way to install the missing element.
 <a name="gst-plugins-base-plugins-encodebin.property-details"></a><h2>Property Details</h2>
 <div class="refsect2">
 <a name="GstEncodeBin--audio-jitter-tolerance"></a><h3>The <code class="literal">"audio-jitter-tolerance"</code> property</h3>
-<pre class="programlisting">  "audio-jitter-tolerance"   <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#guint64"><span class="type">guint64</span></a>               : Read / Write</pre>
+<pre class="programlisting">  "audio-jitter-tolerance"   <span class="type">guint64</span>               : Read / Write</pre>
 <p>Amount of timestamp jitter/imperfection to allow on audio streams before inserting/dropping samples (ns).</p>
 <p>Default value: 20000000</p>
 </div>
 <hr>
 <div class="refsect2">
 <a name="GstEncodeBin--avoid-reencoding"></a><h3>The <code class="literal">"avoid-reencoding"</code> property</h3>
-<pre class="programlisting">  "avoid-reencoding"         <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="type">gboolean</span></a>              : Read / Write</pre>
+<pre class="programlisting">  "avoid-reencoding"         <span class="type">gboolean</span>              : Read / Write</pre>
 <p>Whether to re-encode portions of compatible video streams that lay on segment boundaries.</p>
 <p>Default value: FALSE</p>
 </div>
@@ -306,42 +307,50 @@ user a way to install the missing element.
 <pre class="programlisting">  "profile"                  <a href="../gst-plugins-base-libs-0.11/gst-plugins-base-libs-encoding-profile.html#GstEncodingProfile"><span class="type">GstEncodingProfile</span></a>*   : Read / Write</pre>
 <p>
 The <a href="../gst-plugins-base-libs-0.11/gst-plugins-base-libs-encoding-profile.html#GstEncodingProfile"><span class="type">GstEncodingProfile</span></a> to use. This property must be set before going
-to <a href="http://gstreamer.freedesktop.org/data/doc/gstreamer/head/gstreamer/html/GstElement.html#GST-STATE-PAUSED:CAPS"><code class="literal">GST_STATE_PAUSED</code></a> or higher.
+to <code class="literal">GST_STATE_PAUSED</code> or higher.
 </p>
 </div>
 <hr>
 <div class="refsect2">
 <a name="GstEncodeBin--queue-buffers-max"></a><h3>The <code class="literal">"queue-buffers-max"</code> property</h3>
-<pre class="programlisting">  "queue-buffers-max"        <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#guint"><span class="type">guint</span></a>                 : Read / Write</pre>
+<pre class="programlisting">  "queue-buffers-max"        <span class="type">guint</span>                 : Read / Write</pre>
 <p>Max. number of buffers in the queue (0=disable).</p>
 <p>Default value: 200</p>
 </div>
 <hr>
 <div class="refsect2">
 <a name="GstEncodeBin--queue-bytes-max"></a><h3>The <code class="literal">"queue-bytes-max"</code> property</h3>
-<pre class="programlisting">  "queue-bytes-max"          <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#guint"><span class="type">guint</span></a>                 : Read / Write</pre>
+<pre class="programlisting">  "queue-bytes-max"          <span class="type">guint</span>                 : Read / Write</pre>
 <p>Max. amount of data in the queue (bytes, 0=disable).</p>
 <p>Default value: 10485760</p>
 </div>
 <hr>
 <div class="refsect2">
 <a name="GstEncodeBin--queue-time-max"></a><h3>The <code class="literal">"queue-time-max"</code> property</h3>
-<pre class="programlisting">  "queue-time-max"           <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#guint64"><span class="type">guint64</span></a>               : Read / Write</pre>
+<pre class="programlisting">  "queue-time-max"           <span class="type">guint64</span>               : Read / Write</pre>
 <p>Max. amount of data in the queue (in ns, 0=disable).</p>
 <p>Default value: 1000000000</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="GstEncodeBin--flags"></a><h3>The <code class="literal">"flags"</code> property</h3>
+<pre class="programlisting">  "flags"                    <span class="type">GstEncFlags</span>           : Read / Write</pre>
+<p>
+Control the behaviour of encodebin.
+</p>
 </div>
 </div>
 <div class="refsect1">
 <a name="gst-plugins-base-plugins-encodebin.signal-details"></a><h2>Signal Details</h2>
 <div class="refsect2">
 <a name="GstEncodeBin-request-pad"></a><h3>The <code class="literal">"request-pad"</code> signal</h3>
-<pre class="programlisting"><a href="http://gstreamer.freedesktop.org/data/doc/gstreamer/head/gstreamer/html/GstPad.html"><span class="returnvalue">GstPad</span></a>*             user_function                      (<a class="link" href="gst-plugins-base-plugins-encodebin.html#GstEncodeBin"><span class="type">GstEncodeBin</span></a> *encodebin,
-                                                        <a href="http://gstreamer.freedesktop.org/data/doc/gstreamer/head/gstreamer/html/gstreamer-GstCaps.html#GstCaps"><span class="type">GstCaps</span></a>      *caps,
-                                                        <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a>      user_data)      : <a href="http://library.gnome.org/devel/gobject/unstable/gobject-Signals.html#G-SIGNAL-ACTION:CAPS"><code class="literal">Action</code></a></pre>
+<pre class="programlisting"><span class="returnvalue">GstPad</span>*             user_function                      (<a class="link" href="gst-plugins-base-plugins-encodebin.html#GstEncodeBin"><span class="type">GstEncodeBin</span></a> *encodebin,
+                                                        <span class="type">GstCaps</span>      *caps,
+                                                        <span class="type">gpointer</span>      user_data)      : <code class="literal">Action</code></pre>
 <p>
-Use this method to request an unused sink request <a href="http://gstreamer.freedesktop.org/data/doc/gstreamer/head/gstreamer/html/GstPad.html"><span class="type">GstPad</span></a> that can take the
+Use this method to request an unused sink request <span class="type">GstPad</span> that can take the
 provided <em class="parameter"><code>caps</code></em> as input. You must release the pad with
-<a href="http://gstreamer.freedesktop.org/data/doc/gstreamer/head/gstreamer/html/GstElement.html#gst-element-release-request-pad"><code class="function">gst_element_release_request_pad()</code></a> when you are done with it.
+<code class="function">gst_element_release_request_pad()</code> when you are done with it.
 </p>
 <div class="variablelist"><table border="0">
 <col align="left" valign="top">
@@ -352,7 +361,7 @@ provided <em class="parameter"><code>caps</code></em> as input. You must release
 </tr>
 <tr>
 <td><p><span class="term"><em class="parameter"><code>caps</code></em> :</span></p></td>
-<td>a <a href="http://gstreamer.freedesktop.org/data/doc/gstreamer/head/gstreamer/html/gstreamer-GstCaps.html#GstCaps"><span class="type">GstCaps</span></a>
+<td>a <span class="type">GstCaps</span>
 </td>
 </tr>
 <tr>
@@ -361,7 +370,7 @@ provided <em class="parameter"><code>caps</code></em> as input. You must release
 </tr>
 <tr>
 <td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
-<td>A compatible <a href="http://gstreamer.freedesktop.org/data/doc/gstreamer/head/gstreamer/html/GstPad.html"><span class="type">GstPad</span></a>, or <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a> if no compatible <a href="http://gstreamer.freedesktop.org/data/doc/gstreamer/head/gstreamer/html/GstPad.html"><span class="type">GstPad</span></a> could be
+<td>A compatible <span class="type">GstPad</span>, or <code class="literal">NULL</code> if no compatible <span class="type">GstPad</span> could be
 created or is available.</td>
 </tr>
 </tbody>

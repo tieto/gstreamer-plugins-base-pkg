@@ -35,12 +35,6 @@ else
 check_alsa =
 endif
 
-if USE_GIO
-check_gio = pipelines/gio
-else
-check_gio =
-endif
-
 if USE_LIBVISUAL
 check_libvisual = elements/libvisual
 else
@@ -100,11 +94,8 @@ else
 cxx_checks =
 endif
 
-# FIXME 0.11: convert elements/ffmpegcolorspace to videoconvert or remove
-
 check_PROGRAMS = \
 	$(check_alsa) \
-	$(check_gio) \
 	$(check_ogg) \
 	$(check_vorbis) \
 	elements/audioconvert \
@@ -116,12 +107,11 @@ check_PROGRAMS = \
 	gst/typefindfunctions \
 	libs/libsabi \
 	libs/audio \
-	libs/cddabasesrc \
+	libs/audiocdsrc \
 	libs/discoverer \
 	libs/fft \
 	libs/mixer \
 	libs/navigation \
-	libs/netbuffer \
 	libs/pbutils \
 	libs/profile \
 	libs/rtp \
@@ -131,7 +121,29 @@ check_PROGRAMS = \
 	libs/xmpwriter \
 	$(cxx_checks) \
 	$(check_orc) \
-	pipelines/simple-launch-lines
+	pipelines/simple-launch-lines \
+	pipelines/streamheader \
+	pipelines/basetime \
+	pipelines/capsfilter-renegotiation \
+	pipelines/gio \
+	elements/appsink            \
+	elements/appsrc             \
+	elements/audiorate          \
+	elements/audioresample      \
+	elements/gdpdepay           \
+	elements/gdppay             \
+	elements/multifdsink        \
+	elements/multisocketsink    \
+	elements/playbin            \
+	elements/playbin-compressed \
+	$(check_pango)              \
+	$(check_subparse)           \
+	elements/videorate          \
+	elements/videoscale         \
+	elements/videotestsrc       \
+	elements/volume
+	elements/adder	       \
+	$(check_theora)
 
 # TORTURE_TO_FIX = \
 #       elements/adder
@@ -141,34 +153,8 @@ VALGRIND_TO_FIX = \
 	elements/videoconvert \
 	libs/video
 
-# FIXME 0.11: these tests don't even build at the moment
-ZERO_11_TO_PORT = \
-	pipelines/streamheader \
-	pipelines/basetime \
-	pipelines/capsfilter-renegotiation \
-	elements/appsink            \
-	elements/appsrc             \
-	elements/audiorate          \
-	elements/audioresample      \
-	elements/gdpdepay           \
-	elements/gdppay             \
-	elements/multifdsink        \
-	elements/playbin            \
-	elements/playbin-compressed \
-	$(check_pango)              \
-	$(check_subparse)           \
-	elements/videorate          \
-	elements/videoscale         \
-	elements/videotestsrc       \
-	elements/volume
-
-# FIXME 0.11: these tests don't pass at the moment
-ZERO_11_TO_FIX = \
-	elements/adder	       \
-	$(check_theora)
-
 # these tests don't even pass
-noinst_PROGRAMS = $(check_libvisual) $(ZERO_11_TO_FIX)
+noinst_PROGRAMS = $(check_libvisual)
 
 noinst_HEADERS = \
 	libs/struct_arm.h     \
@@ -199,10 +185,8 @@ libs_libsabi_CFLAGS = \
 libs_libsabi_LDADD = \
 	$(top_builddir)/gst-libs/gst/app/libgstapp-@GST_MAJORMINOR@.la \
 	$(top_builddir)/gst-libs/gst/audio/libgstaudio-@GST_MAJORMINOR@.la \
-	$(top_builddir)/gst-libs/gst/cdda/libgstcdda-@GST_MAJORMINOR@.la \
 	$(top_builddir)/gst-libs/gst/fft/libgstfft-@GST_MAJORMINOR@.la \
 	$(top_builddir)/gst-libs/gst/interfaces/libgstinterfaces-@GST_MAJORMINOR@.la \
-	$(top_builddir)/gst-libs/gst/netbuffer/libgstnetbuffer-@GST_MAJORMINOR@.la \
 	$(top_builddir)/gst-libs/gst/pbutils/libgstpbutils-@GST_MAJORMINOR@.la \
 	$(top_builddir)/gst-libs/gst/rtp/libgstrtp-@GST_MAJORMINOR@.la \
 	$(top_builddir)/gst-libs/gst/rtsp/libgstrtsp-@GST_MAJORMINOR@.la \
@@ -222,13 +206,13 @@ libs_audio_LDADD = \
 	$(GST_BASE_LIBS) \
 	$(LDADD)
 
-libs_cddabasesrc_CFLAGS = \
+libs_audiocdsrc_CFLAGS = \
 	$(GST_PLUGINS_BASE_CFLAGS) \
 	$(GST_BASE_CFLAGS) \
 	$(AM_CFLAGS)
 
-libs_cddabasesrc_LDADD = \
-	$(top_builddir)/gst-libs/gst/cdda/libgstcdda-@GST_MAJORMINOR@.la \
+libs_audiocdsrc_LDADD = \
+	$(top_builddir)/gst-libs/gst/audio/libgstaudio-@GST_MAJORMINOR@.la \
 	$(top_builddir)/gst-libs/gst/tag/libgsttag-@GST_MAJORMINOR@.la \
 	$(GST_BASE_LIBS) \
 	$(LDADD)
@@ -257,7 +241,7 @@ libs_mixer_CFLAGS = \
         $(AM_CFLAGS)
 
 libs_mixer_LDADD = \
-	$(top_builddir)/gst-libs/gst/interfaces/libgstinterfaces-@GST_MAJORMINOR@.la \
+	$(top_builddir)/gst-libs/gst/audio/libgstaudio-@GST_MAJORMINOR@.la \
         $(GST_BASE_LIBS) \
         $(LDADD)
 
@@ -270,13 +254,6 @@ libs_navigation_LDADD = \
 	$(top_builddir)/gst-libs/gst/interfaces/libgstinterfaces-@GST_MAJORMINOR@.la \
         $(GST_BASE_LIBS) \
         $(LDADD)
-
-libs_netbuffer_CFLAGS = \
-	$(GST_PLUGINS_BASE_CFLAGS) \
-	$(AM_CFLAGS)
-libs_netbuffer_LDADD = \
-	$(top_builddir)/gst-libs/gst/netbuffer/libgstnetbuffer-@GST_MAJORMINOR@.la \
-	$(LDADD)
 
 libs_rtp_CFLAGS = \
 	$(GST_PLUGINS_BASE_CFLAGS) \
@@ -349,6 +326,7 @@ elements_alsa_CFLAGS = \
 
 elements_alsa_LDADD = \
 	$(top_builddir)/gst-libs/gst/interfaces/libgstinterfaces-@GST_MAJORMINOR@.la \
+	$(top_builddir)/gst-libs/gst/audio/libgstaudio-@GST_MAJORMINOR@.la \
 	$(LDADD)
 
 elements_audioconvert_CFLAGS = \
@@ -362,19 +340,23 @@ elements_audioconvert_LDADD = \
 	$(GST_BASE_LIBS) \
 	$(LDADD)
 
-elements_audiorate_LDADD =  $(LDADD)
+elements_audiorate_LDADD = \
+	$(top_builddir)/gst-libs/gst/audio/libgstaudio-@GST_MAJORMINOR@.la \
+	$(top_builddir)/gst-libs/gst/interfaces/libgstinterfaces-@GST_MAJORMINOR@.la \
+	$(GST_BASE_LIBS) \
+	$(LDADD)
 elements_audiorate_CFLAGS = $(GST_PLUGINS_BASE_CFLAGS) $(CFLAGS) $(AM_CFLAGS)
 
 elements_libvisual_LDADD =  $(LDADD)
 elements_libvisual_CFLAGS = $(CFLAGS) $(AM_CFLAGS)
 
-elements_gdpdepay_LDADD = $(GST_GDP_LIBS) $(LDADD)
-elements_gdppay_LDADD = $(GST_GDP_LIBS) $(LDADD)
+elements_gdpdepay_LDADD = $(LDADD)
+elements_gdppay_LDADD = $(LDADD)
 
 elements_playbin_LDADD = $(GST_BASE_LIBS) $(LDADD)
 elements_playbin_CFLAGS = $(GST_BASE_CFLAGS) $(AM_CFLAGS)
 
-elements_playbin_compressed_LDADD = $(top_builddir)/gst-libs/gst/interfaces/libgstinterfaces-@GST_MAJORMINOR@.la $(GST_BASE_LIBS) $(LDADD)
+elements_playbin_compressed_LDADD = $(top_builddir)/gst-libs/gst/audio/libgstaudio-@GST_MAJORMINOR@.la $(GST_BASE_LIBS) $(LDADD)
 elements_playbin_compressed_CFLAGS = $(GST_PLUGINS_BASE_CFLAGS) $(GST_BASE_CFLAGS) $(AM_CFLAGS)
 
 elements_decodebin_LDADD = $(GST_BASE_LIBS) $(LDADD)
@@ -402,7 +384,7 @@ elements_textoverlay_LDADD = $(GST_BASE_LIBS) $(LDADD)
 elements_textoverlay_CFLAGS = $(GST_BASE_CFLAGS) $(AM_CFLAGS)
 
 elements_volume_LDADD = \
-	$(top_builddir)/gst-libs/gst/interfaces/libgstinterfaces-@GST_MAJORMINOR@.la \
+	$(top_builddir)/gst-libs/gst/audio/libgstaudio-@GST_MAJORMINOR@.la \
 	$(GST_CONTROLLER_LIBS) \
 	$(GST_BASE_LIBS) \
 	$(LDADD)
@@ -456,8 +438,14 @@ libs_video_LDADD = \
 	$(GST_BASE_LIBS) \
 	$(LDADD)
 
+elements_multisocketsink_CFLAGS = $(GIO_CFLAGS) $(AM_CFLAGS)
+elements_multisocketsink_LDADD = $(GIO_LIBS) $(LDADD)
+
 pipelines_gio_CFLAGS = $(GIO_CFLAGS) $(AM_CFLAGS)
 pipelines_gio_LDADD = $(GIO_LIBS) $(LDADD)
+
+pipelines_streamheader_CFLAGS = $(GIO_CFLAGS) $(AM_CFLAGS)
+pipelines_streamheader_LDADD = $(GIO_LIBS) $(LDADD)
 
 pipelines_vorbisenc_CFLAGS = \
         $(GST_PLUGINS_BASE_CFLAGS) \

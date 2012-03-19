@@ -22,7 +22,7 @@
  * SECTION:element-xvimagesink
  *
  * XvImageSink renders video frames to a drawable (XWindow) on a local display
- * using the XVideo extension. Rendering to a remote display is theorically
+ * using the XVideo extension. Rendering to a remote display is theoretically
  * possible but i doubt that the XVideo extension is actually available when
  * connecting to a remote display. This element can receive a Window ID from the
  * application through the XOverlay interface and will then render video frames
@@ -115,17 +115,18 @@
 
 /* Our interfaces */
 #include <gst/interfaces/navigation.h>
-#include <gst/interfaces/videooverlay.h>
-#include <gst/interfaces/colorbalance.h>
-#include <gst/interfaces/propertyprobe.h>
+#include <gst/video/videooverlay.h>
+#include <gst/video/colorbalance.h>
 /* Helper functions */
-#include <gst/video/gstmetavideo.h>
+#include <gst/video/gstvideometa.h>
 
 /* Object header */
 #include "xvimagesink.h"
 
 /* Debugging category */
 #include <gst/gstinfo.h>
+
+#include "gst/glib-compat-private.h"
 
 GST_DEBUG_CATEGORY_EXTERN (gst_debug_xvimagesink);
 GST_DEBUG_CATEGORY_EXTERN (GST_CAT_PERFORMANCE);
@@ -194,10 +195,9 @@ enum
 /*                                             */
 /* =========================================== */
 static void gst_xvimagesink_navigation_init (GstNavigationInterface * iface);
-static void gst_xvimagesink_video_overlay_init (GstVideoOverlayIface * iface);
-static void gst_xvimagesink_colorbalance_init (GstColorBalanceClass * iface);
-static void
-gst_xvimagesink_property_probe_interface_init (GstPropertyProbeInterface *
+static void gst_xvimagesink_video_overlay_init (GstVideoOverlayInterface *
+    iface);
+static void gst_xvimagesink_colorbalance_init (GstColorBalanceInterface *
     iface);
 #define gst_xvimagesink_parent_class parent_class
 G_DEFINE_TYPE_WITH_CODE (GstXvImageSink, gst_xvimagesink, GST_TYPE_VIDEO_SINK,
@@ -206,9 +206,7 @@ G_DEFINE_TYPE_WITH_CODE (GstXvImageSink, gst_xvimagesink, GST_TYPE_VIDEO_SINK,
     G_IMPLEMENT_INTERFACE (GST_TYPE_VIDEO_OVERLAY,
         gst_xvimagesink_video_overlay_init);
     G_IMPLEMENT_INTERFACE (GST_TYPE_COLOR_BALANCE,
-        gst_xvimagesink_colorbalance_init);
-    G_IMPLEMENT_INTERFACE (GST_TYPE_PROPERTY_PROBE,
-        gst_xvimagesink_property_probe_interface_init));
+        gst_xvimagesink_colorbalance_init));
 
 
 /* ============================================================= */
@@ -267,8 +265,8 @@ gst_xvimagesink_xwindow_draw_borders (GstXvImageSink * xvimagesink,
 static gboolean
 gst_xvimagesink_xvimage_put (GstXvImageSink * xvimagesink, GstBuffer * xvimage)
 {
-  GstMetaXvImage *meta;
-  GstMetaVideoCrop *crop;
+  GstXvImageMeta *meta;
+  GstVideoCropMeta *crop;
   GstVideoRectangle result;
   gboolean draw_border = FALSE;
   GstVideoRectangle src, dst;
@@ -309,9 +307,9 @@ gst_xvimagesink_xvimage_put (GstXvImageSink * xvimagesink, GstBuffer * xvimage)
     }
   }
 
-  meta = gst_buffer_get_meta_xvimage (xvimage);
+  meta = gst_buffer_get_xvimage_meta (xvimage);
 
-  crop = gst_buffer_get_meta_video_crop (xvimage);
+  crop = gst_buffer_get_video_crop_meta (xvimage);
 
   if (crop) {
     src.x = crop->x + meta->x;
@@ -1173,8 +1171,8 @@ gst_xvimagesink_manage_event_thread (GstXvImageSink * xvimagesink)
       GST_DEBUG_OBJECT (xvimagesink, "run xevent thread, expose %d, events %d",
           xvimagesink->handle_expose, xvimagesink->handle_events);
       xvimagesink->running = TRUE;
-      xvimagesink->event_thread = g_thread_create (
-          (GThreadFunc) gst_xvimagesink_event_thread, xvimagesink, TRUE, NULL);
+      xvimagesink->event_thread = g_thread_try_new ("xvimagesink-events",
+          (GThreadFunc) gst_xvimagesink_event_thread, xvimagesink, NULL);
     }
   } else {
     if (xvimagesink->event_thread) {
@@ -1801,12 +1799,12 @@ gst_xvimagesink_show_frame (GstVideoSink * vsink, GstBuffer * buf)
 {
   GstFlowReturn res;
   GstXvImageSink *xvimagesink;
-  GstMetaXvImage *meta;
+  GstXvImageMeta *meta;
   GstBuffer *to_put;
 
   xvimagesink = GST_XVIMAGESINK (vsink);
 
-  meta = gst_buffer_get_meta_xvimage (buf);
+  meta = gst_buffer_get_xvimage_meta (buf);
 
   if (meta && meta->sink == xvimagesink) {
     /* If this buffer has been allocated using our buffer management we simply
@@ -1934,10 +1932,7 @@ gst_xvimagesink_event (GstBaseSink * sink, GstEvent * event)
     default:
       break;
   }
-  if (GST_BASE_SINK_CLASS (parent_class)->event)
-    return GST_BASE_SINK_CLASS (parent_class)->event (sink, event);
-  else
-    return TRUE;
+  return GST_BASE_SINK_CLASS (parent_class)->event (sink, event);
 }
 
 static gboolean
@@ -1996,8 +1991,8 @@ gst_xvimagesink_propose_allocation (GstBaseSink * bsink, GstQuery * query)
   gst_query_set_allocation_params (query, size, 2, 0, 0, 0, pool);
 
   /* we also support various metadata */
-  gst_query_add_allocation_meta (query, GST_META_API_VIDEO);
-  gst_query_add_allocation_meta (query, GST_META_API_VIDEO_CROP);
+  gst_query_add_allocation_meta (query, GST_VIDEO_META_API);
+  gst_query_add_allocation_meta (query, GST_VIDEO_CROP_META_API);
 
   gst_object_unref (pool);
 
@@ -2240,7 +2235,7 @@ gst_xvimagesink_set_render_rectangle (GstVideoOverlay * overlay, gint x, gint y,
 }
 
 static void
-gst_xvimagesink_video_overlay_init (GstVideoOverlayIface * iface)
+gst_xvimagesink_video_overlay_init (GstVideoOverlayInterface * iface)
 {
   iface->set_window_handle = gst_xvimagesink_set_window_handle;
   iface->expose = gst_xvimagesink_expose;
@@ -2322,7 +2317,7 @@ gst_xvimagesink_colorbalance_get_value (GstColorBalance * balance,
 }
 
 static void
-gst_xvimagesink_colorbalance_init (GstColorBalanceClass * iface)
+gst_xvimagesink_colorbalance_init (GstColorBalanceInterface * iface)
 {
   GST_COLOR_BALANCE_TYPE (iface) = GST_COLOR_BALANCE_HARDWARE;
   iface->list_channels = gst_xvimagesink_colorbalance_list_channels;
@@ -2330,6 +2325,7 @@ gst_xvimagesink_colorbalance_init (GstColorBalanceClass * iface)
   iface->get_value = gst_xvimagesink_colorbalance_get_value;
 }
 
+#if 0
 static const GList *
 gst_xvimagesink_probe_get_properties (GstPropertyProbe * probe)
 {
@@ -2488,6 +2484,7 @@ gst_xvimagesink_property_probe_interface_init (GstPropertyProbeInterface *
   iface->needs_probe = gst_xvimagesink_probe_needs_probe;
   iface->get_values = gst_xvimagesink_probe_get_values;
 }
+#endif
 
 /* =========================================== */
 /*                                             */
@@ -2824,8 +2821,8 @@ gst_xvimagesink_class_init (GstXvImageSinkClass * klass)
           G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS));
   g_object_class_install_property (gobject_class, PROP_SYNCHRONOUS,
       g_param_spec_boolean ("synchronous", "Synchronous",
-          "When enabled, runs "
-          "the X display in synchronous mode. (used only for debugging)", FALSE,
+          "When enabled, runs the X display in synchronous mode. "
+          "(unrelated to A/V sync, used only for debugging)", FALSE,
           G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS));
   g_object_class_install_property (gobject_class, PROP_PIXEL_ASPECT_RATIO,
       g_param_spec_string ("pixel-aspect-ratio", "Pixel Aspect Ratio",

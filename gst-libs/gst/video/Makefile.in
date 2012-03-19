@@ -68,6 +68,7 @@ am__aclocal_m4_deps = $(top_srcdir)/common/m4/as-ac-expand.m4 \
 	$(top_srcdir)/common/m4/gst-gettext.m4 \
 	$(top_srcdir)/common/m4/gst-glib2.m4 \
 	$(top_srcdir)/common/m4/gst-package-release-datetime.m4 \
+	$(top_srcdir)/common/m4/gst-platform.m4 \
 	$(top_srcdir)/common/m4/gst-plugin-docs.m4 \
 	$(top_srcdir)/common/m4/gst-plugindir.m4 \
 	$(top_srcdir)/common/m4/gst-x11.m4 \
@@ -76,16 +77,16 @@ am__aclocal_m4_deps = $(top_srcdir)/common/m4/as-ac-expand.m4 \
 	$(top_srcdir)/common/m4/introspection.m4 \
 	$(top_srcdir)/common/m4/orc.m4 $(top_srcdir)/common/m4/pkg.m4 \
 	$(top_srcdir)/m4/freetype2.m4 $(top_srcdir)/m4/gettext.m4 \
-	$(top_srcdir)/m4/gst-alsa.m4 $(top_srcdir)/m4/gst-fionread.m4 \
-	$(top_srcdir)/m4/iconv.m4 $(top_srcdir)/m4/intlmacosx.m4 \
-	$(top_srcdir)/m4/lib-ld.m4 $(top_srcdir)/m4/lib-link.m4 \
-	$(top_srcdir)/m4/lib-prefix.m4 $(top_srcdir)/m4/libtool.m4 \
-	$(top_srcdir)/m4/lrint.m4 $(top_srcdir)/m4/lrintf.m4 \
-	$(top_srcdir)/m4/ltoptions.m4 $(top_srcdir)/m4/ltsugar.m4 \
-	$(top_srcdir)/m4/ltversion.m4 $(top_srcdir)/m4/lt~obsolete.m4 \
-	$(top_srcdir)/m4/nls.m4 $(top_srcdir)/m4/ogg.m4 \
-	$(top_srcdir)/m4/po.m4 $(top_srcdir)/m4/progtest.m4 \
-	$(top_srcdir)/m4/vorbis.m4 $(top_srcdir)/configure.ac
+	$(top_srcdir)/m4/gst-alsa.m4 $(top_srcdir)/m4/iconv.m4 \
+	$(top_srcdir)/m4/intlmacosx.m4 $(top_srcdir)/m4/lib-ld.m4 \
+	$(top_srcdir)/m4/lib-link.m4 $(top_srcdir)/m4/lib-prefix.m4 \
+	$(top_srcdir)/m4/libtool.m4 $(top_srcdir)/m4/lrint.m4 \
+	$(top_srcdir)/m4/lrintf.m4 $(top_srcdir)/m4/ltoptions.m4 \
+	$(top_srcdir)/m4/ltsugar.m4 $(top_srcdir)/m4/ltversion.m4 \
+	$(top_srcdir)/m4/lt~obsolete.m4 $(top_srcdir)/m4/nls.m4 \
+	$(top_srcdir)/m4/ogg.m4 $(top_srcdir)/m4/po.m4 \
+	$(top_srcdir)/m4/progtest.m4 $(top_srcdir)/m4/vorbis.m4 \
+	$(top_srcdir)/configure.ac
 am__configure_deps = $(am__aclocal_m4_deps) $(CONFIGURE_DEPENDENCIES) \
 	$(ACLOCAL_M4)
 mkinstalldirs = $(install_sh) -d
@@ -122,13 +123,18 @@ am__DEPENDENCIES_1 =
 libgstvideo_@GST_MAJORMINOR@_la_DEPENDENCIES = $(am__DEPENDENCIES_1) \
 	$(am__DEPENDENCIES_1)
 am_libgstvideo_@GST_MAJORMINOR@_la_OBJECTS =  \
+	libgstvideo_@GST_MAJORMINOR@_la-colorbalance.lo \
+	libgstvideo_@GST_MAJORMINOR@_la-colorbalancechannel.lo \
 	libgstvideo_@GST_MAJORMINOR@_la-video.lo \
 	libgstvideo_@GST_MAJORMINOR@_la-gstvideosink.lo \
 	libgstvideo_@GST_MAJORMINOR@_la-gstvideofilter.lo \
 	libgstvideo_@GST_MAJORMINOR@_la-convertframe.lo \
-	libgstvideo_@GST_MAJORMINOR@_la-gstmetavideo.lo \
-	libgstvideo_@GST_MAJORMINOR@_la-gstvideopool.lo
-am__objects_1 = libgstvideo_@GST_MAJORMINOR@_la-video-enumtypes.lo
+	libgstvideo_@GST_MAJORMINOR@_la-gstvideometa.lo \
+	libgstvideo_@GST_MAJORMINOR@_la-gstvideopool.lo \
+	libgstvideo_@GST_MAJORMINOR@_la-videoorientation.lo \
+	libgstvideo_@GST_MAJORMINOR@_la-videooverlay.lo
+am__objects_1 = libgstvideo_@GST_MAJORMINOR@_la-video-enumtypes.lo \
+	libgstvideo_@GST_MAJORMINOR@_la-video-marshal.lo
 am__objects_2 =
 am__objects_3 = $(am__objects_1) $(am__objects_2)
 nodist_libgstvideo_@GST_MAJORMINOR@_la_OBJECTS = $(am__objects_3)
@@ -237,6 +243,7 @@ GIO_CFLAGS = @GIO_CFLAGS@
 GIO_LDFLAGS = @GIO_LDFLAGS@
 GIO_LIBS = @GIO_LIBS@
 GLIB_CFLAGS = @GLIB_CFLAGS@
+GLIB_EXTRA_CFLAGS = @GLIB_EXTRA_CFLAGS@
 GLIB_LIBS = @GLIB_LIBS@
 GLIB_PREFIX = @GLIB_PREFIX@
 GLIB_REQ = @GLIB_REQ@
@@ -254,8 +261,6 @@ GST_CONTROLLER_CFLAGS = @GST_CONTROLLER_CFLAGS@
 GST_CONTROLLER_LIBS = @GST_CONTROLLER_LIBS@
 GST_CURRENT = @GST_CURRENT@
 GST_CXXFLAGS = @GST_CXXFLAGS@
-GST_GDP_CFLAGS = @GST_GDP_CFLAGS@
-GST_GDP_LIBS = @GST_GDP_LIBS@
 GST_INSTALL_PLUGINS_HELPER = @GST_INSTALL_PLUGINS_HELPER@
 GST_LEVEL_DEFAULT = @GST_LEVEL_DEFAULT@
 GST_LIBS = @GST_LIBS@
@@ -287,7 +292,6 @@ HAVE_CDPARANOIA = @HAVE_CDPARANOIA@
 HAVE_X = @HAVE_X@
 HAVE_XSHM = @HAVE_XSHM@
 HAVE_ZLIB = @HAVE_ZLIB@
-HSTRERROR_LIBS = @HSTRERROR_LIBS@
 HTML_DIR = @HTML_DIR@
 INSTALL = @INSTALL@
 INSTALL_DATA = @INSTALL_DATA@
@@ -324,6 +328,7 @@ LTLIBINTL = @LTLIBINTL@
 LTLIBOBJS = @LTLIBOBJS@
 MAINT = @MAINT@
 MAKEINFO = @MAKEINFO@
+MANIFEST_TOOL = @MANIFEST_TOOL@
 MKDIR_P = @MKDIR_P@
 MSGFMT = @MSGFMT@
 MSGFMT_015 = @MSGFMT_015@
@@ -385,7 +390,6 @@ VORBIS_CFLAGS = @VORBIS_CFLAGS@
 VORBIS_LIBS = @VORBIS_LIBS@
 WARNING_CFLAGS = @WARNING_CFLAGS@
 WARNING_CXXFLAGS = @WARNING_CXXFLAGS@
-WIN32_LIBS = @WIN32_LIBS@
 XGETTEXT = @XGETTEXT@
 XGETTEXT_015 = @XGETTEXT_015@
 XGETTEXT_EXTRA_OPTIONS = @XGETTEXT_EXTRA_OPTIONS@
@@ -402,6 +406,7 @@ abs_builddir = @abs_builddir@
 abs_srcdir = @abs_srcdir@
 abs_top_builddir = @abs_top_builddir@
 abs_top_srcdir = @abs_top_srcdir@
+ac_ct_AR = @ac_ct_AR@
 ac_ct_CC = @ac_ct_CC@
 ac_ct_CXX = @ac_ct_CXX@
 ac_ct_DUMPBIN = @ac_ct_DUMPBIN@
@@ -435,7 +440,6 @@ libdir = @libdir@
 libexecdir = @libexecdir@
 localedir = @localedir@
 localstatedir = @localstatedir@
-lt_ECHO = @lt_ECHO@
 mandir = @mandir@
 mkdir_p = @mkdir_p@
 oldincludedir = @oldincludedir@
@@ -458,22 +462,40 @@ top_builddir = @top_builddir@
 top_srcdir = @top_srcdir@
 
 # variables used for enum/marshal generation
-glib_enum_headers = video.h
+glib_enum_headers = video.h colorbalance.h
 glib_enum_define = GST_VIDEO
 glib_gen_prefix = gst_video
 glib_gen_basename = video
-built_sources = video-enumtypes.c
-built_headers = video-enumtypes.h
+built_sources = video-enumtypes.c video-marshal.c
+built_headers = video-enumtypes.h video-marshal.h
 BUILT_SOURCES = $(built_sources) $(built_headers)
 lib_LTLIBRARIES = libgstvideo-@GST_MAJORMINOR@.la
 CLEANFILES = $(BUILT_SOURCES) $(am__append_1)
+EXTRA_DIST = video-marshal.list
 libgstvideo_@GST_MAJORMINOR@_la_SOURCES = \
-	video.c gstvideosink.c gstvideofilter.c convertframe.c gstmetavideo.c gstvideopool.c
+	colorbalance.c   	\
+	colorbalancechannel.c   \
+	video.c          	\
+	gstvideosink.c   	\
+	gstvideofilter.c 	\
+	convertframe.c   	\
+	gstvideometa.c   	\
+	gstvideopool.c		\
+	videoorientation.c	\
+	videooverlay.c
 
 nodist_libgstvideo_@GST_MAJORMINOR@_la_SOURCES = $(BUILT_SOURCES)
 libgstvideo_@GST_MAJORMINOR@includedir = $(includedir)/gstreamer-@GST_MAJORMINOR@/gst/video
 libgstvideo_@GST_MAJORMINOR@include_HEADERS = \
-	video.h gstvideosink.h gstvideofilter.h gstmetavideo.h gstvideopool.h
+	colorbalance.h 		\
+	colorbalancechannel.h	\
+	video.h			\
+	gstvideosink.h 		\
+	gstvideofilter.h	\
+	gstvideometa.h		\
+	gstvideopool.h		\
+	videoorientation.h 	\
+	videooverlay.h
 
 nodist_libgstvideo_@GST_MAJORMINOR@include_HEADERS = $(built_headers)
 libgstvideo_@GST_MAJORMINOR@_la_CFLAGS = $(GST_PLUGINS_BASE_CFLAGS) $(GST_BASE_CFLAGS) $(GST_CFLAGS)
@@ -575,13 +597,18 @@ mostlyclean-compile:
 distclean-compile:
 	-rm -f *.tab.c
 
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libgstvideo_@GST_MAJORMINOR@_la-colorbalance.Plo@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libgstvideo_@GST_MAJORMINOR@_la-colorbalancechannel.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libgstvideo_@GST_MAJORMINOR@_la-convertframe.Plo@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libgstvideo_@GST_MAJORMINOR@_la-gstmetavideo.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libgstvideo_@GST_MAJORMINOR@_la-gstvideofilter.Plo@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libgstvideo_@GST_MAJORMINOR@_la-gstvideometa.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libgstvideo_@GST_MAJORMINOR@_la-gstvideopool.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libgstvideo_@GST_MAJORMINOR@_la-gstvideosink.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libgstvideo_@GST_MAJORMINOR@_la-video-enumtypes.Plo@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libgstvideo_@GST_MAJORMINOR@_la-video-marshal.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libgstvideo_@GST_MAJORMINOR@_la-video.Plo@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libgstvideo_@GST_MAJORMINOR@_la-videoorientation.Plo@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libgstvideo_@GST_MAJORMINOR@_la-videooverlay.Plo@am__quote@
 
 .c.o:
 @am__fastdepCC_TRUE@	$(AM_V_CC)$(COMPILE) -MT $@ -MD -MP -MF $(DEPDIR)/$*.Tpo -c -o $@ $<
@@ -606,6 +633,22 @@ distclean-compile:
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	source='$<' object='$@' libtool=yes @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
 @am__fastdepCC_FALSE@	$(LTCOMPILE) -c -o $@ $<
+
+libgstvideo_@GST_MAJORMINOR@_la-colorbalance.lo: colorbalance.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libgstvideo_@GST_MAJORMINOR@_la_CFLAGS) $(CFLAGS) -MT libgstvideo_@GST_MAJORMINOR@_la-colorbalance.lo -MD -MP -MF $(DEPDIR)/libgstvideo_@GST_MAJORMINOR@_la-colorbalance.Tpo -c -o libgstvideo_@GST_MAJORMINOR@_la-colorbalance.lo `test -f 'colorbalance.c' || echo '$(srcdir)/'`colorbalance.c
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/libgstvideo_@GST_MAJORMINOR@_la-colorbalance.Tpo $(DEPDIR)/libgstvideo_@GST_MAJORMINOR@_la-colorbalance.Plo
+@am__fastdepCC_FALSE@	$(AM_V_CC) @AM_BACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	source='colorbalance.c' object='libgstvideo_@GST_MAJORMINOR@_la-colorbalance.lo' libtool=yes @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libgstvideo_@GST_MAJORMINOR@_la_CFLAGS) $(CFLAGS) -c -o libgstvideo_@GST_MAJORMINOR@_la-colorbalance.lo `test -f 'colorbalance.c' || echo '$(srcdir)/'`colorbalance.c
+
+libgstvideo_@GST_MAJORMINOR@_la-colorbalancechannel.lo: colorbalancechannel.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libgstvideo_@GST_MAJORMINOR@_la_CFLAGS) $(CFLAGS) -MT libgstvideo_@GST_MAJORMINOR@_la-colorbalancechannel.lo -MD -MP -MF $(DEPDIR)/libgstvideo_@GST_MAJORMINOR@_la-colorbalancechannel.Tpo -c -o libgstvideo_@GST_MAJORMINOR@_la-colorbalancechannel.lo `test -f 'colorbalancechannel.c' || echo '$(srcdir)/'`colorbalancechannel.c
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/libgstvideo_@GST_MAJORMINOR@_la-colorbalancechannel.Tpo $(DEPDIR)/libgstvideo_@GST_MAJORMINOR@_la-colorbalancechannel.Plo
+@am__fastdepCC_FALSE@	$(AM_V_CC) @AM_BACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	source='colorbalancechannel.c' object='libgstvideo_@GST_MAJORMINOR@_la-colorbalancechannel.lo' libtool=yes @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libgstvideo_@GST_MAJORMINOR@_la_CFLAGS) $(CFLAGS) -c -o libgstvideo_@GST_MAJORMINOR@_la-colorbalancechannel.lo `test -f 'colorbalancechannel.c' || echo '$(srcdir)/'`colorbalancechannel.c
 
 libgstvideo_@GST_MAJORMINOR@_la-video.lo: video.c
 @am__fastdepCC_TRUE@	$(AM_V_CC)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libgstvideo_@GST_MAJORMINOR@_la_CFLAGS) $(CFLAGS) -MT libgstvideo_@GST_MAJORMINOR@_la-video.lo -MD -MP -MF $(DEPDIR)/libgstvideo_@GST_MAJORMINOR@_la-video.Tpo -c -o libgstvideo_@GST_MAJORMINOR@_la-video.lo `test -f 'video.c' || echo '$(srcdir)/'`video.c
@@ -639,13 +682,13 @@ libgstvideo_@GST_MAJORMINOR@_la-convertframe.lo: convertframe.c
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
 @am__fastdepCC_FALSE@	$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libgstvideo_@GST_MAJORMINOR@_la_CFLAGS) $(CFLAGS) -c -o libgstvideo_@GST_MAJORMINOR@_la-convertframe.lo `test -f 'convertframe.c' || echo '$(srcdir)/'`convertframe.c
 
-libgstvideo_@GST_MAJORMINOR@_la-gstmetavideo.lo: gstmetavideo.c
-@am__fastdepCC_TRUE@	$(AM_V_CC)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libgstvideo_@GST_MAJORMINOR@_la_CFLAGS) $(CFLAGS) -MT libgstvideo_@GST_MAJORMINOR@_la-gstmetavideo.lo -MD -MP -MF $(DEPDIR)/libgstvideo_@GST_MAJORMINOR@_la-gstmetavideo.Tpo -c -o libgstvideo_@GST_MAJORMINOR@_la-gstmetavideo.lo `test -f 'gstmetavideo.c' || echo '$(srcdir)/'`gstmetavideo.c
-@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/libgstvideo_@GST_MAJORMINOR@_la-gstmetavideo.Tpo $(DEPDIR)/libgstvideo_@GST_MAJORMINOR@_la-gstmetavideo.Plo
+libgstvideo_@GST_MAJORMINOR@_la-gstvideometa.lo: gstvideometa.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libgstvideo_@GST_MAJORMINOR@_la_CFLAGS) $(CFLAGS) -MT libgstvideo_@GST_MAJORMINOR@_la-gstvideometa.lo -MD -MP -MF $(DEPDIR)/libgstvideo_@GST_MAJORMINOR@_la-gstvideometa.Tpo -c -o libgstvideo_@GST_MAJORMINOR@_la-gstvideometa.lo `test -f 'gstvideometa.c' || echo '$(srcdir)/'`gstvideometa.c
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/libgstvideo_@GST_MAJORMINOR@_la-gstvideometa.Tpo $(DEPDIR)/libgstvideo_@GST_MAJORMINOR@_la-gstvideometa.Plo
 @am__fastdepCC_FALSE@	$(AM_V_CC) @AM_BACKSLASH@
-@AMDEP_TRUE@@am__fastdepCC_FALSE@	source='gstmetavideo.c' object='libgstvideo_@GST_MAJORMINOR@_la-gstmetavideo.lo' libtool=yes @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	source='gstvideometa.c' object='libgstvideo_@GST_MAJORMINOR@_la-gstvideometa.lo' libtool=yes @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCC_FALSE@	$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libgstvideo_@GST_MAJORMINOR@_la_CFLAGS) $(CFLAGS) -c -o libgstvideo_@GST_MAJORMINOR@_la-gstmetavideo.lo `test -f 'gstmetavideo.c' || echo '$(srcdir)/'`gstmetavideo.c
+@am__fastdepCC_FALSE@	$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libgstvideo_@GST_MAJORMINOR@_la_CFLAGS) $(CFLAGS) -c -o libgstvideo_@GST_MAJORMINOR@_la-gstvideometa.lo `test -f 'gstvideometa.c' || echo '$(srcdir)/'`gstvideometa.c
 
 libgstvideo_@GST_MAJORMINOR@_la-gstvideopool.lo: gstvideopool.c
 @am__fastdepCC_TRUE@	$(AM_V_CC)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libgstvideo_@GST_MAJORMINOR@_la_CFLAGS) $(CFLAGS) -MT libgstvideo_@GST_MAJORMINOR@_la-gstvideopool.lo -MD -MP -MF $(DEPDIR)/libgstvideo_@GST_MAJORMINOR@_la-gstvideopool.Tpo -c -o libgstvideo_@GST_MAJORMINOR@_la-gstvideopool.lo `test -f 'gstvideopool.c' || echo '$(srcdir)/'`gstvideopool.c
@@ -655,6 +698,22 @@ libgstvideo_@GST_MAJORMINOR@_la-gstvideopool.lo: gstvideopool.c
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
 @am__fastdepCC_FALSE@	$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libgstvideo_@GST_MAJORMINOR@_la_CFLAGS) $(CFLAGS) -c -o libgstvideo_@GST_MAJORMINOR@_la-gstvideopool.lo `test -f 'gstvideopool.c' || echo '$(srcdir)/'`gstvideopool.c
 
+libgstvideo_@GST_MAJORMINOR@_la-videoorientation.lo: videoorientation.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libgstvideo_@GST_MAJORMINOR@_la_CFLAGS) $(CFLAGS) -MT libgstvideo_@GST_MAJORMINOR@_la-videoorientation.lo -MD -MP -MF $(DEPDIR)/libgstvideo_@GST_MAJORMINOR@_la-videoorientation.Tpo -c -o libgstvideo_@GST_MAJORMINOR@_la-videoorientation.lo `test -f 'videoorientation.c' || echo '$(srcdir)/'`videoorientation.c
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/libgstvideo_@GST_MAJORMINOR@_la-videoorientation.Tpo $(DEPDIR)/libgstvideo_@GST_MAJORMINOR@_la-videoorientation.Plo
+@am__fastdepCC_FALSE@	$(AM_V_CC) @AM_BACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	source='videoorientation.c' object='libgstvideo_@GST_MAJORMINOR@_la-videoorientation.lo' libtool=yes @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libgstvideo_@GST_MAJORMINOR@_la_CFLAGS) $(CFLAGS) -c -o libgstvideo_@GST_MAJORMINOR@_la-videoorientation.lo `test -f 'videoorientation.c' || echo '$(srcdir)/'`videoorientation.c
+
+libgstvideo_@GST_MAJORMINOR@_la-videooverlay.lo: videooverlay.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libgstvideo_@GST_MAJORMINOR@_la_CFLAGS) $(CFLAGS) -MT libgstvideo_@GST_MAJORMINOR@_la-videooverlay.lo -MD -MP -MF $(DEPDIR)/libgstvideo_@GST_MAJORMINOR@_la-videooverlay.Tpo -c -o libgstvideo_@GST_MAJORMINOR@_la-videooverlay.lo `test -f 'videooverlay.c' || echo '$(srcdir)/'`videooverlay.c
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/libgstvideo_@GST_MAJORMINOR@_la-videooverlay.Tpo $(DEPDIR)/libgstvideo_@GST_MAJORMINOR@_la-videooverlay.Plo
+@am__fastdepCC_FALSE@	$(AM_V_CC) @AM_BACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	source='videooverlay.c' object='libgstvideo_@GST_MAJORMINOR@_la-videooverlay.lo' libtool=yes @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libgstvideo_@GST_MAJORMINOR@_la_CFLAGS) $(CFLAGS) -c -o libgstvideo_@GST_MAJORMINOR@_la-videooverlay.lo `test -f 'videooverlay.c' || echo '$(srcdir)/'`videooverlay.c
+
 libgstvideo_@GST_MAJORMINOR@_la-video-enumtypes.lo: video-enumtypes.c
 @am__fastdepCC_TRUE@	$(AM_V_CC)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libgstvideo_@GST_MAJORMINOR@_la_CFLAGS) $(CFLAGS) -MT libgstvideo_@GST_MAJORMINOR@_la-video-enumtypes.lo -MD -MP -MF $(DEPDIR)/libgstvideo_@GST_MAJORMINOR@_la-video-enumtypes.Tpo -c -o libgstvideo_@GST_MAJORMINOR@_la-video-enumtypes.lo `test -f 'video-enumtypes.c' || echo '$(srcdir)/'`video-enumtypes.c
 @am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/libgstvideo_@GST_MAJORMINOR@_la-video-enumtypes.Tpo $(DEPDIR)/libgstvideo_@GST_MAJORMINOR@_la-video-enumtypes.Plo
@@ -662,6 +721,14 @@ libgstvideo_@GST_MAJORMINOR@_la-video-enumtypes.lo: video-enumtypes.c
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	source='video-enumtypes.c' object='libgstvideo_@GST_MAJORMINOR@_la-video-enumtypes.lo' libtool=yes @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
 @am__fastdepCC_FALSE@	$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libgstvideo_@GST_MAJORMINOR@_la_CFLAGS) $(CFLAGS) -c -o libgstvideo_@GST_MAJORMINOR@_la-video-enumtypes.lo `test -f 'video-enumtypes.c' || echo '$(srcdir)/'`video-enumtypes.c
+
+libgstvideo_@GST_MAJORMINOR@_la-video-marshal.lo: video-marshal.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libgstvideo_@GST_MAJORMINOR@_la_CFLAGS) $(CFLAGS) -MT libgstvideo_@GST_MAJORMINOR@_la-video-marshal.lo -MD -MP -MF $(DEPDIR)/libgstvideo_@GST_MAJORMINOR@_la-video-marshal.Tpo -c -o libgstvideo_@GST_MAJORMINOR@_la-video-marshal.lo `test -f 'video-marshal.c' || echo '$(srcdir)/'`video-marshal.c
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/libgstvideo_@GST_MAJORMINOR@_la-video-marshal.Tpo $(DEPDIR)/libgstvideo_@GST_MAJORMINOR@_la-video-marshal.Plo
+@am__fastdepCC_FALSE@	$(AM_V_CC) @AM_BACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	source='video-marshal.c' object='libgstvideo_@GST_MAJORMINOR@_la-video-marshal.lo' libtool=yes @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libgstvideo_@GST_MAJORMINOR@_la_CFLAGS) $(CFLAGS) -c -o libgstvideo_@GST_MAJORMINOR@_la-video-marshal.lo `test -f 'video-marshal.c' || echo '$(srcdir)/'`video-marshal.c
 
 mostlyclean-libtool:
 	-rm -f *.lo
@@ -1010,6 +1077,7 @@ $(glib_gen_basename)-enumtypes.c: $(glib_enum_headers)
 @HAVE_INTROSPECTION_TRUE@		$(INTROSPECTION_SCANNER) -v --namespace GstVideo \
 @HAVE_INTROSPECTION_TRUE@		--nsversion=@GST_MAJORMINOR@ \
 @HAVE_INTROSPECTION_TRUE@		--strip-prefix=Gst \
+@HAVE_INTROSPECTION_TRUE@		--warn-all \
 @HAVE_INTROSPECTION_TRUE@		$(gir_cincludes) \
 @HAVE_INTROSPECTION_TRUE@		-DGST_USE_UNSTABLE_API \
 @HAVE_INTROSPECTION_TRUE@		-I$(top_srcdir)/gst-libs \
@@ -1043,7 +1111,7 @@ Android.mk: Makefile.am $(BUILT_SOURCES)
          -:REL_TOP $(top_srcdir) -:ABS_TOP $(abs_top_srcdir) \
 	 -:SOURCES $(libgstvideo_@GST_MAJORMINOR@_la_SOURCES) \
 	           $(nodist_libgstvideo_@GST_MAJORMINOR@_la_SOURCES) \
-	 -:CFLAGS $(DEFS) $(libgstvideo_@GST_MAJORMINOR@_la_CFLAGS) \
+	 -:CFLAGS $(DEFS) $(DEFAULT_INCLUDES) $(libgstvideo_@GST_MAJORMINOR@_la_CFLAGS) \
 	 -:LDFLAGS $(libgstvideo_@GST_MAJORMINOR@_la_LDFLAGS) \
 	           $(libgstvideo_@GST_MAJORMINOR@_la_LIBADD) \
 	           -ldl \

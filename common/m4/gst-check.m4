@@ -10,8 +10,8 @@ dnl specific:
 dnl AG_GST_CHECK_GST([MAJMIN], [MINVER], [REQUIRED])
 dnl   also sets/ACSUBSTs GST_TOOLS_DIR and GST_PLUGINS_DIR
 dnl AG_GST_CHECK_GST_BASE([MAJMIN], [MINVER], [REQUIRED])
-dnl AG_GST_CHECK_GST_GDP([MAJMIN], [MINVER], [REQUIRED])
 dnl AG_GST_CHECK_GST_CONTROLLER([MAJMIN], [MINVER], [REQUIRED])
+dnl AG_GST_CHECK_GST_NET([MAJMIN], [MINVER], [REQUIRED])
 dnl AG_GST_CHECK_GST_CHECK([MAJMIN], [MINVER], [REQUIRED])
 dnl AG_GST_CHECK_GST_PLUGINS_BASE([MAJMIN], [MINVER], [REQUIRED])
 dnl   also sets/ACSUBSTs GSTPB_PLUGINS_DIR
@@ -98,22 +98,54 @@ AC_DEFUN([AG_GST_CHECK_GST_BASE],
     [GStreamer Base Libraries], [$3])
 ])
 
-AC_DEFUN([AG_GST_CHECK_GST_GDP],
-[
-  AG_GST_CHECK_MODULES(GST_GDP, gstreamer-dataprotocol-[$1], [$2],
-    [GStreamer Data Protocol Library], [$3])
-])
-
 AC_DEFUN([AG_GST_CHECK_GST_CONTROLLER],
 [
   AG_GST_CHECK_MODULES(GST_CONTROLLER, gstreamer-controller-[$1], [$2],
     [GStreamer Controller Library], [$3])
 ])
 
+AC_DEFUN([AG_GST_CHECK_GST_NET],
+[
+  AG_GST_CHECK_MODULES(GST_NET, gstreamer-net-[$1], [$2],
+    [GStreamer Network Library], [$3])
+])
+
 AC_DEFUN([AG_GST_CHECK_GST_CHECK],
 [
   AG_GST_CHECK_MODULES(GST_CHECK, gstreamer-check-[$1], [$2],
     [GStreamer Check unittest Library], [$3])
+])
+
+dnl ===========================================================================
+dnl AG_GST_CHECK_UNINSTALLED_SETUP([ACTION-IF-UNINSTALLED], [ACTION-IF-NOT])
+dnl
+dnl ACTION-IF-UNINSTALLED  (optional) extra actions to perform if the setup
+dnl                        is an uninstalled setup
+dnl ACTION-IF-NOT          (optional) extra actions to perform if the setup
+dnl                        is not an uninstalled setup
+dnl ===========================================================================
+AC_DEFUN([AG_GST_CHECK_UNINSTALLED_SETUP],
+[
+  AC_MSG_CHECKING([whether this is an uninstalled GStreamer setup])
+  AC_CACHE_VAL(gst_cv_is_uninstalled_setup,[
+    gst_cv_is_uninstalled_setup=no
+    if (set -u; : $GST_PLUGIN_SYSTEM_PATH) 2>/dev/null ; then
+      if test -z "$GST_PLUGIN_SYSTEM_PATH" \
+           -a -n "$GST_PLUGIN_SCANNER"     \
+           -a -n "$GST_PLUGIN_PATH"        \
+           -a -n "$GST_REGISTRY"           \
+           -a -n "$DYLD_LIBRARY_PATH"      \
+           -a -n "$LD_LIBRARY_PATH"; then
+        gst_cv_is_uninstalled_setup=yes;
+      fi
+    fi
+  ])
+  AC_MSG_RESULT($gst_cv_is_uninstalled_setup)
+  if test "x$gst_cv_is_uninstalled_setup" = "xyes"; then
+    ifelse([$1], , :, [$1])
+  else
+    ifelse([$2], , :, [$2])
+  fi
 ])
 
 dnl ===========================================================================

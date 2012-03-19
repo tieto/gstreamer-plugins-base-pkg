@@ -21,7 +21,7 @@
 /**
  * SECTION:element-videotestsrc
  *
- * The videotestsrc element is used to produce test video data in a wide variaty
+ * The videotestsrc element is used to produce test video data in a wide variety
  * of formats. The video test data produced can be controlled with the "pattern"
  * property.
  *
@@ -620,7 +620,7 @@ gst_video_test_src_decide_allocation (GstBaseSrc * bsrc, GstQuery * query)
 
     config = gst_buffer_pool_get_config (pool);
     gst_buffer_pool_config_add_option (config,
-        GST_BUFFER_POOL_OPTION_META_VIDEO);
+        GST_BUFFER_POOL_OPTION_VIDEO_META);
     gst_buffer_pool_set_config (pool, config);
   }
   gst_query_set_allocation_params (query, size, min, max, prefix,
@@ -829,7 +829,7 @@ not_negotiated:
 eos:
   {
     GST_DEBUG_OBJECT (src, "eos: 0 framerate, frame %d", (gint) src->n_frames);
-    return GST_FLOW_UNEXPECTED;
+    return GST_FLOW_EOS;
   }
 invalid_frame:
   {

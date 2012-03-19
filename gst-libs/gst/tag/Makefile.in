@@ -59,6 +59,7 @@ am__aclocal_m4_deps = $(top_srcdir)/common/m4/as-ac-expand.m4 \
 	$(top_srcdir)/common/m4/gst-gettext.m4 \
 	$(top_srcdir)/common/m4/gst-glib2.m4 \
 	$(top_srcdir)/common/m4/gst-package-release-datetime.m4 \
+	$(top_srcdir)/common/m4/gst-platform.m4 \
 	$(top_srcdir)/common/m4/gst-plugin-docs.m4 \
 	$(top_srcdir)/common/m4/gst-plugindir.m4 \
 	$(top_srcdir)/common/m4/gst-x11.m4 \
@@ -67,16 +68,16 @@ am__aclocal_m4_deps = $(top_srcdir)/common/m4/as-ac-expand.m4 \
 	$(top_srcdir)/common/m4/introspection.m4 \
 	$(top_srcdir)/common/m4/orc.m4 $(top_srcdir)/common/m4/pkg.m4 \
 	$(top_srcdir)/m4/freetype2.m4 $(top_srcdir)/m4/gettext.m4 \
-	$(top_srcdir)/m4/gst-alsa.m4 $(top_srcdir)/m4/gst-fionread.m4 \
-	$(top_srcdir)/m4/iconv.m4 $(top_srcdir)/m4/intlmacosx.m4 \
-	$(top_srcdir)/m4/lib-ld.m4 $(top_srcdir)/m4/lib-link.m4 \
-	$(top_srcdir)/m4/lib-prefix.m4 $(top_srcdir)/m4/libtool.m4 \
-	$(top_srcdir)/m4/lrint.m4 $(top_srcdir)/m4/lrintf.m4 \
-	$(top_srcdir)/m4/ltoptions.m4 $(top_srcdir)/m4/ltsugar.m4 \
-	$(top_srcdir)/m4/ltversion.m4 $(top_srcdir)/m4/lt~obsolete.m4 \
-	$(top_srcdir)/m4/nls.m4 $(top_srcdir)/m4/ogg.m4 \
-	$(top_srcdir)/m4/po.m4 $(top_srcdir)/m4/progtest.m4 \
-	$(top_srcdir)/m4/vorbis.m4 $(top_srcdir)/configure.ac
+	$(top_srcdir)/m4/gst-alsa.m4 $(top_srcdir)/m4/iconv.m4 \
+	$(top_srcdir)/m4/intlmacosx.m4 $(top_srcdir)/m4/lib-ld.m4 \
+	$(top_srcdir)/m4/lib-link.m4 $(top_srcdir)/m4/lib-prefix.m4 \
+	$(top_srcdir)/m4/libtool.m4 $(top_srcdir)/m4/lrint.m4 \
+	$(top_srcdir)/m4/lrintf.m4 $(top_srcdir)/m4/ltoptions.m4 \
+	$(top_srcdir)/m4/ltsugar.m4 $(top_srcdir)/m4/ltversion.m4 \
+	$(top_srcdir)/m4/lt~obsolete.m4 $(top_srcdir)/m4/nls.m4 \
+	$(top_srcdir)/m4/ogg.m4 $(top_srcdir)/m4/po.m4 \
+	$(top_srcdir)/m4/progtest.m4 $(top_srcdir)/m4/vorbis.m4 \
+	$(top_srcdir)/configure.ac
 am__configure_deps = $(am__aclocal_m4_deps) $(CONFIGURE_DEPENDENCIES) \
 	$(ACLOCAL_M4)
 mkinstalldirs = $(install_sh) -d
@@ -244,6 +245,7 @@ GIO_CFLAGS = @GIO_CFLAGS@
 GIO_LDFLAGS = @GIO_LDFLAGS@
 GIO_LIBS = @GIO_LIBS@
 GLIB_CFLAGS = @GLIB_CFLAGS@
+GLIB_EXTRA_CFLAGS = @GLIB_EXTRA_CFLAGS@
 GLIB_LIBS = @GLIB_LIBS@
 GLIB_PREFIX = @GLIB_PREFIX@
 GLIB_REQ = @GLIB_REQ@
@@ -261,8 +263,6 @@ GST_CONTROLLER_CFLAGS = @GST_CONTROLLER_CFLAGS@
 GST_CONTROLLER_LIBS = @GST_CONTROLLER_LIBS@
 GST_CURRENT = @GST_CURRENT@
 GST_CXXFLAGS = @GST_CXXFLAGS@
-GST_GDP_CFLAGS = @GST_GDP_CFLAGS@
-GST_GDP_LIBS = @GST_GDP_LIBS@
 GST_INSTALL_PLUGINS_HELPER = @GST_INSTALL_PLUGINS_HELPER@
 GST_LEVEL_DEFAULT = @GST_LEVEL_DEFAULT@
 GST_LIBS = @GST_LIBS@
@@ -294,7 +294,6 @@ HAVE_CDPARANOIA = @HAVE_CDPARANOIA@
 HAVE_X = @HAVE_X@
 HAVE_XSHM = @HAVE_XSHM@
 HAVE_ZLIB = @HAVE_ZLIB@
-HSTRERROR_LIBS = @HSTRERROR_LIBS@
 HTML_DIR = @HTML_DIR@
 INSTALL = @INSTALL@
 INSTALL_DATA = @INSTALL_DATA@
@@ -331,6 +330,7 @@ LTLIBINTL = @LTLIBINTL@
 LTLIBOBJS = @LTLIBOBJS@
 MAINT = @MAINT@
 MAKEINFO = @MAKEINFO@
+MANIFEST_TOOL = @MANIFEST_TOOL@
 MKDIR_P = @MKDIR_P@
 MSGFMT = @MSGFMT@
 MSGFMT_015 = @MSGFMT_015@
@@ -392,7 +392,6 @@ VORBIS_CFLAGS = @VORBIS_CFLAGS@
 VORBIS_LIBS = @VORBIS_LIBS@
 WARNING_CFLAGS = @WARNING_CFLAGS@
 WARNING_CXXFLAGS = @WARNING_CXXFLAGS@
-WIN32_LIBS = @WIN32_LIBS@
 XGETTEXT = @XGETTEXT@
 XGETTEXT_015 = @XGETTEXT_015@
 XGETTEXT_EXTRA_OPTIONS = @XGETTEXT_EXTRA_OPTIONS@
@@ -409,6 +408,7 @@ abs_builddir = @abs_builddir@
 abs_srcdir = @abs_srcdir@
 abs_top_builddir = @abs_top_builddir@
 abs_top_srcdir = @abs_top_srcdir@
+ac_ct_AR = @ac_ct_AR@
 ac_ct_CC = @ac_ct_CC@
 ac_ct_CXX = @ac_ct_CXX@
 ac_ct_DUMPBIN = @ac_ct_DUMPBIN@
@@ -442,7 +442,6 @@ libdir = @libdir@
 libexecdir = @libexecdir@
 localedir = @localedir@
 localstatedir = @localstatedir@
-lt_ECHO = @lt_ECHO@
 mandir = @mandir@
 mkdir_p = @mkdir_p@
 oldincludedir = @oldincludedir@
@@ -477,7 +476,7 @@ libgsttag_@GST_MAJORMINOR@_la_SOURCES = \
 
 libgsttag_@GST_MAJORMINOR@_la_CFLAGS = $(GST_PLUGINS_BASE_CFLAGS) \
 	$(GST_BASE_CFLAGS) $(GST_CFLAGS) $(ZLIB_CFLAGS) \
-	-DLICENSE_TRANSLATIONS_PATH=\"$(pkgdatadir)/license-translations.dict\"
+	-DLICENSE_TRANSLATIONS_PATH=\"$(pkgdatadir)/@GST_MAJORMINOR@/license-translations.dict\"
 
 libgsttag_@GST_MAJORMINOR@_la_LIBADD = $(GST_BASE_LIBS) $(GST_LIBS) $(LIBM) $(ZLIB_LIBS)
 libgsttag_@GST_MAJORMINOR@_la_LDFLAGS = $(GST_LIB_LDFLAGS) $(GST_ALL_LDFLAGS) $(GST_LT_LDFLAGS)
@@ -514,7 +513,7 @@ mklicensestables_LDADD = $(GST_LIBS)
 # translations come from an external source here, so we don't want the
 # strings retranslated, but also we don't want to create 30 1kB .mo files,
 # so just do something for now, we can change it later if someone really cares.
-licensetransdir = $(pkgdatadir)
+licensetransdir = $(pkgdatadir)/@GST_MAJORMINOR@
 licensetrans_DATA = $(srcdir)/license-translations.dict
 all: all-am
 
@@ -1074,6 +1073,7 @@ uninstall-am: uninstall-girDATA uninstall-libLTLIBRARIES \
 @HAVE_INTROSPECTION_TRUE@		$(INTROSPECTION_SCANNER) -v --namespace GstTag \
 @HAVE_INTROSPECTION_TRUE@		--nsversion=@GST_MAJORMINOR@ \
 @HAVE_INTROSPECTION_TRUE@		--strip-prefix=Gst \
+@HAVE_INTROSPECTION_TRUE@		--warn-all \
 @HAVE_INTROSPECTION_TRUE@		$(gir_cincludes) \
 @HAVE_INTROSPECTION_TRUE@		-DGST_USE_UNSTABLE_API \
 @HAVE_INTROSPECTION_TRUE@		--add-include-path=`$(PKG_CONFIG) --variable=girdir gstreamer-@GST_MAJORMINOR@` \
@@ -1115,7 +1115,7 @@ Android.mk: Makefile.am
 	 -:TAGS eng debug \
          -:REL_TOP $(top_srcdir) -:ABS_TOP $(abs_top_srcdir) \
 	 -:SOURCES $(libgsttag_@GST_MAJORMINOR@_la_SOURCES) \
-	 -:CFLAGS $(DEFS) $(libgsttag_@GST_MAJORMINOR@_la_CFLAGS) \
+	 -:CFLAGS $(DEFS) $(DEFAULT_INCLUDES) $(libgsttag_@GST_MAJORMINOR@_la_CFLAGS) \
 	 -:LDFLAGS $(libgsttag_@GST_MAJORMINOR@_la_LDFLAGS) \
 	           $(libgsttag_@GST_MAJORMINOR@_la_LIBADD) \
 	           -ldl \

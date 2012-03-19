@@ -49,11 +49,11 @@
 <div class="refsect1">
 <a name="gst-plugins-base-plugins-giosink.object-hierarchy"></a><h2>Object Hierarchy</h2>
 <pre class="synopsis">
-  <a href="http://library.gnome.org/devel/gobject/unstable/gobject-The-Base-Object-Type.html#GObject">GObject</a>
-   +----<a href="http://library.gnome.org/devel/gobject/unstable/gobject-The-Base-Object-Type.html#GInitiallyUnowned">GInitiallyUnowned</a>
-         +----<a href="http://gstreamer.freedesktop.org/data/doc/gstreamer/head/gstreamer/html/GstObject.html">GstObject</a>
-               +----<a href="http://gstreamer.freedesktop.org/data/doc/gstreamer/head/gstreamer/html/GstElement.html">GstElement</a>
-                     +----<a href="http://gstreamer.freedesktop.org/data/doc/gstreamer/head/gstreamer-libs/html/GstBaseSink.html">GstBaseSink</a>
+  GObject
+   +----GInitiallyUnowned
+         +----GstObject
+               +----GstElement
+                     +----GstBaseSink
                            +----GstGioBaseSink
                                  +----GstGioSink
 </pre>
@@ -62,21 +62,65 @@
 <a name="gst-plugins-base-plugins-giosink.implemented-interfaces"></a><h2>Implemented Interfaces</h2>
 <p>
 GstGioSink implements
- <a href="http://gstreamer.freedesktop.org/data/doc/gstreamer/head/gstreamer/html/gstreamer-GstUriHandler.html#GstURIHandler">GstURIHandler</a>.</p>
+ GstURIHandler.</p>
 </div>
 <div class="refsect1">
 <a name="gst-plugins-base-plugins-giosink.properties"></a><h2>Properties</h2>
 <pre class="synopsis">
-  "<a class="link" href="gst-plugins-base-plugins-giosink.html#GstGioSink--location" title='The "location" property'>location</a>"                 <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a>*                : Read / Write
-  "<a class="link" href="gst-plugins-base-plugins-giosink.html#GstGioSink--file" title='The "file" property'>file</a>"                     <a href="http://library.gnome.org/devel/gio/unstable/GFile.html"><span class="type">GFile</span></a>*                : Read / Write
+  "<a class="link" href="gst-plugins-base-plugins-giosink.html#GstGioSink--location" title='The "location" property'>location</a>"                 <span class="type">gchar</span>*                : Read / Write
+  "<a class="link" href="gst-plugins-base-plugins-giosink.html#GstGioSink--file" title='The "file" property'>file</a>"                     <span class="type">GFile</span>*                : Read / Write
 </pre>
 </div>
 <div class="refsect1">
 <a name="gst-plugins-base-plugins-giosink.description"></a><h2>Description</h2>
+<p>
+This plugin writes incoming data to a local or remote location specified
+by an URI. This location can be specified using any protocol supported by
+the GIO library or it's VFS backends. Common protocols are 'file', 'ftp',
+or 'smb'.
+</p>
+<p>
+If the URI or <span class="type">GFile</span> already exists giosink will post a message of
+type <code class="literal">GST_MESSAGE_ELEMENT</code> with name "file-exists" on the bus. The message
+also contains the <span class="type">GFile</span> and the corresponding URI.
+Applications can use the "file-exists" message to notify the user about
+the problem and to set a different target location or to remove the
+existing file. Note that right after the "file-exists" message a normal
+error message is posted on the bus which should be ignored if "file-exists"
+is handled by the application, for example by calling
+gst_bus_set_flushing(bus, TRUE) after the "file-exists" message was
+received and gst_bus_set_flushing(bus, FALSE) after the problem is
+resolved.
+</p>
+<p>
+Similar to the "file-exist" message a "not-mounted" message is posted
+on the bus if the target location is not mounted yet and needs to be
+mounted. This message can be used by application to mount the location
+and retry after the location was mounted successfully.
+</p>
+<p>
+</p>
+<div class="refsect2">
+<a name="idp8725872"></a><h3>Example pipelines</h3>
+<div class="informalexample"><pre class="programlisting">
+gst-launch -v filesrc location=input.xyz ! giosink location=file:///home/joe/out.xyz
+</pre></div> The above pipeline will simply copy a local file. Instead of giosink,
+we could just as well have used the filesink element here.
+<div class="informalexample"><pre class="programlisting">
+gst-launch -v filesrc location=foo.mp3 ! mad ! flacenc ! giosink location=smb://othercomputer/foo.flac
+</pre></div> The above pipeline will re-encode an mp3 file into FLAC format and store
+it on a remote host using the Samba protocol.
+<div class="informalexample"><pre class="programlisting">
+gst-launch -v audiotestsrc num-buffers=100 ! vorbisenc ! oggmux ! giosink location=file:///home/foo/bar.ogg
+</pre></div> The above pipeline will encode a 440Hz sine wave to Ogg Vorbis and stores
+it in the home directory of user foo.
+</div>
+<p>
+</p>
 <div class="refsynopsisdiv">
 <h2>Synopsis</h2>
 <div class="refsect2">
-<a name="id488791"></a><h3>Element Information</h3>
+<a name="idp5180592"></a><h3>Element Information</h3>
 <div class="variablelist"><table border="0">
 <col align="left" valign="top">
 <tbody>
@@ -99,7 +143,7 @@ GstGioSink implements
 </div>
 <hr>
 <div class="refsect2">
-<a name="id525824"></a><h3>Element Pads</h3>
+<a name="idp5188112"></a><h3>Element Pads</h3>
 <div class="variablelist"><table border="0">
 <col align="left" valign="top">
 <tbody>
@@ -132,6 +176,7 @@ GstGioSink implements
 <a name="GstGioSink-struct"></a><h3>struct GstGioSink</h3>
 <pre class="programlisting">struct GstGioSink;</pre>
 <p>
+Opaque data structure.
 </p>
 </div>
 </div>
@@ -139,16 +184,23 @@ GstGioSink implements
 <a name="gst-plugins-base-plugins-giosink.property-details"></a><h2>Property Details</h2>
 <div class="refsect2">
 <a name="GstGioSink--location"></a><h3>The <code class="literal">"location"</code> property</h3>
-<pre class="programlisting">  "location"                 <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a>*                : Read / Write</pre>
+<pre class="programlisting">  "location"                 <span class="type">gchar</span>*                : Read / Write</pre>
 <p>URI location to write to.</p>
 <p>Default value: NULL</p>
 </div>
 <hr>
 <div class="refsect2">
 <a name="GstGioSink--file"></a><h3>The <code class="literal">"file"</code> property</h3>
-<pre class="programlisting">  "file"                     <a href="http://library.gnome.org/devel/gio/unstable/GFile.html"><span class="type">GFile</span></a>*                : Read / Write</pre>
-<p>GFile to write to.</p>
+<pre class="programlisting">  "file"                     <span class="type">GFile</span>*                : Read / Write</pre>
+<p>
+<code class="literal">GFile</code> to write to.
+</p>
+<p class="since">Since 0.10.20</p>
 </div>
+</div>
+<div class="refsect1">
+<a name="gst-plugins-base-plugins-giosink.see-also"></a><h2>See Also</h2>
+<span class="type">GstFileSink</span>, <span class="type">GstGnomeVFSSink</span>, <a class="link" href="gst-plugins-base-plugins-giosrc.html#GstGioSrc"><span class="type">GstGioSrc</span></a>
 </div>
 </div>
 <div class="footer">

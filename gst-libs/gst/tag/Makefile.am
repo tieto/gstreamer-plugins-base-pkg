@@ -13,7 +13,7 @@ libgsttag_@GST_MAJORMINOR@_la_SOURCES = \
 
 libgsttag_@GST_MAJORMINOR@_la_CFLAGS = $(GST_PLUGINS_BASE_CFLAGS) \
 	$(GST_BASE_CFLAGS) $(GST_CFLAGS) $(ZLIB_CFLAGS) \
-	-DLICENSE_TRANSLATIONS_PATH=\"$(pkgdatadir)/license-translations.dict\"
+	-DLICENSE_TRANSLATIONS_PATH=\"$(pkgdatadir)/@GST_MAJORMINOR@/license-translations.dict\"
 libgsttag_@GST_MAJORMINOR@_la_LIBADD = $(GST_BASE_LIBS) $(GST_LIBS) $(LIBM) $(ZLIB_LIBS)
 libgsttag_@GST_MAJORMINOR@_la_LDFLAGS = $(GST_LIB_LDFLAGS) $(GST_ALL_LDFLAGS) $(GST_LT_LDFLAGS)
 
@@ -36,6 +36,7 @@ GstTag-@GST_MAJORMINOR@.gir: $(INTROSPECTION_SCANNER) libgsttag-@GST_MAJORMINOR@
 		$(INTROSPECTION_SCANNER) -v --namespace GstTag \
 		--nsversion=@GST_MAJORMINOR@ \
 		--strip-prefix=Gst \
+		--warn-all \
 		$(gir_cincludes) \
 		-DGST_USE_UNSTABLE_API \
 		--add-include-path=`$(PKG_CONFIG) --variable=girdir gstreamer-@GST_MAJORMINOR@` \
@@ -101,7 +102,7 @@ update-licenses: mklicensestables
 # translations come from an external source here, so we don't want the
 # strings retranslated, but also we don't want to create 30 1kB .mo files,
 # so just do something for now, we can change it later if someone really cares.
-licensetransdir = $(pkgdatadir)
+licensetransdir = $(pkgdatadir)/@GST_MAJORMINOR@
 licensetrans_DATA = $(srcdir)/license-translations.dict
 #endif
 
@@ -110,7 +111,7 @@ Android.mk: Makefile.am
 	 -:TAGS eng debug \
          -:REL_TOP $(top_srcdir) -:ABS_TOP $(abs_top_srcdir) \
 	 -:SOURCES $(libgsttag_@GST_MAJORMINOR@_la_SOURCES) \
-	 -:CFLAGS $(DEFS) $(libgsttag_@GST_MAJORMINOR@_la_CFLAGS) \
+	 -:CFLAGS $(DEFS) $(DEFAULT_INCLUDES) $(libgsttag_@GST_MAJORMINOR@_la_CFLAGS) \
 	 -:LDFLAGS $(libgsttag_@GST_MAJORMINOR@_la_LDFLAGS) \
 	           $(libgsttag_@GST_MAJORMINOR@_la_LIBADD) \
 	           -ldl \

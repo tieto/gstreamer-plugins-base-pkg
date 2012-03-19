@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gst-plugins-0.8.3\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/\n"
-"POT-Creation-Date: 2011-09-29 17:27+0200\n"
+"POT-Creation-Date: 2012-02-17 09:59+0100\n"
 "PO-Revision-Date: 2004-09-27 13:32+0530\n"
 "Last-Translator: Gora Mohanty <gora_mohanty@yahoo.co.in>\n"
 "Language-Team: Oriya <gora_mohanty@yahoo.co.in>\n"
@@ -193,8 +193,7 @@ msgstr ""
 msgid "Error while sending data to \"%s:%d\"."
 msgstr "\"%s\" ଫାଇଲ ବନ୍ଦ କରିବାରେ ତ୍ରୁଟି."
 
-#, c-format
-msgid "Connection to %s:%d refused."
+msgid "This CD has no audio tracks"
 msgstr ""
 
 msgid "Can't record audio fast enough"
@@ -358,9 +357,6 @@ msgid "ID3v2 frame"
 msgstr ""
 
 msgid "unparsed id3v2 tag frame"
-msgstr ""
-
-msgid "This CD has no audio tracks"
 msgstr ""
 
 msgid "ID3 tag"

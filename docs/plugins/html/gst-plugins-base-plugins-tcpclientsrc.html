@@ -47,21 +47,21 @@
 <div class="refsect1">
 <a name="gst-plugins-base-plugins-tcpclientsrc.object-hierarchy"></a><h2>Object Hierarchy</h2>
 <pre class="synopsis">
-  <a href="http://library.gnome.org/devel/gobject/unstable/gobject-The-Base-Object-Type.html#GObject">GObject</a>
-   +----<a href="http://library.gnome.org/devel/gobject/unstable/gobject-The-Base-Object-Type.html#GInitiallyUnowned">GInitiallyUnowned</a>
-         +----<a href="http://gstreamer.freedesktop.org/data/doc/gstreamer/head/gstreamer/html/GstObject.html">GstObject</a>
-               +----<a href="http://gstreamer.freedesktop.org/data/doc/gstreamer/head/gstreamer/html/GstElement.html">GstElement</a>
-                     +----<a href="http://gstreamer.freedesktop.org/data/doc/gstreamer/head/gstreamer-libs/html/GstBaseSrc.html">GstBaseSrc</a>
-                           +----<a href="http://gstreamer.freedesktop.org/data/doc/gstreamer/head/gstreamer-libs/html/GstPushSrc.html">GstPushSrc</a>
+  GObject
+   +----GInitiallyUnowned
+         +----GstObject
+               +----GstElement
+                     +----GstBaseSrc
+                           +----GstPushSrc
                                  +----GstTCPClientSrc
 </pre>
 </div>
 <div class="refsect1">
 <a name="gst-plugins-base-plugins-tcpclientsrc.properties"></a><h2>Properties</h2>
 <pre class="synopsis">
-  "<a class="link" href="gst-plugins-base-plugins-tcpclientsrc.html#GstTCPClientSrc--host" title='The "host" property'>host</a>"                     <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a>*                : Read / Write
-  "<a class="link" href="gst-plugins-base-plugins-tcpclientsrc.html#GstTCPClientSrc--port" title='The "port" property'>port</a>"                     <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gint"><span class="type">gint</span></a>                  : Read / Write
-  "<a class="link" href="gst-plugins-base-plugins-tcpclientsrc.html#GstTCPClientSrc--protocol" title='The "protocol" property'>protocol</a>"                 <a href="http://gstreamer.freedesktop.org/data/doc/gstreamer/head/gst-plugins-base/html/gst-plugins-base-plugins-multifdsink.html#GstTCPProtocol"><span class="type">GstTCPProtocol</span></a>        : Read / Write
+  "<a class="link" href="gst-plugins-base-plugins-tcpclientsrc.html#GstTCPClientSrc--host" title='The "host" property'>host</a>"                     <span class="type">gchar</span>*                : Read / Write
+  "<a class="link" href="gst-plugins-base-plugins-tcpclientsrc.html#GstTCPClientSrc--port" title='The "port" property'>port</a>"                     <span class="type">gint</span>                  : Read / Write
+  "<a class="link" href="gst-plugins-base-plugins-tcpclientsrc.html#GstTCPClientSrc--protocol" title='The "protocol" property'>protocol</a>"                 <span class="type">GstTCPProtocol</span>        : Read / Write
 </pre>
 </div>
 <div class="refsect1">
@@ -69,12 +69,12 @@
 <p>
 </p>
 <div class="refsect2">
-<a name="id535377"></a><h3>Example launch line</h3>
+<a name="idp13388992"></a><h3>Example launch line</h3>
 <div class="informalexample"><pre class="programlisting">
 # server:
 nc -l -p 3000
 # client:
-gst-launch tcpclientsrc protocol=none port=3000 ! fdsink fd=2
+gst-launch tcpclientsrc port=3000 ! fdsink fd=2
 </pre></div> everything you type in the server is shown on the client
 </div>
 <p>
@@ -82,7 +82,7 @@ gst-launch tcpclientsrc protocol=none port=3000 ! fdsink fd=2
 <div class="refsynopsisdiv">
 <h2>Synopsis</h2>
 <div class="refsect2">
-<a name="id535400"></a><h3>Element Information</h3>
+<a name="idp13391600"></a><h3>Element Information</h3>
 <div class="variablelist"><table border="0">
 <col align="left" valign="top">
 <tbody>
@@ -105,7 +105,7 @@ gst-launch tcpclientsrc protocol=none port=3000 ! fdsink fd=2
 </div>
 <hr>
 <div class="refsect2">
-<a name="id530891"></a><h3>Element Pads</h3>
+<a name="idp13399008"></a><h3>Element Pads</h3>
 <div class="variablelist"><table border="0">
 <col align="left" valign="top">
 <tbody>
@@ -145,14 +145,14 @@ gst-launch tcpclientsrc protocol=none port=3000 ! fdsink fd=2
 <a name="gst-plugins-base-plugins-tcpclientsrc.property-details"></a><h2>Property Details</h2>
 <div class="refsect2">
 <a name="GstTCPClientSrc--host"></a><h3>The <code class="literal">"host"</code> property</h3>
-<pre class="programlisting">  "host"                     <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a>*                : Read / Write</pre>
+<pre class="programlisting">  "host"                     <span class="type">gchar</span>*                : Read / Write</pre>
 <p>The host IP address to receive packets from.</p>
 <p>Default value: "localhost"</p>
 </div>
 <hr>
 <div class="refsect2">
 <a name="GstTCPClientSrc--port"></a><h3>The <code class="literal">"port"</code> property</h3>
-<pre class="programlisting">  "port"                     <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gint"><span class="type">gint</span></a>                  : Read / Write</pre>
+<pre class="programlisting">  "port"                     <span class="type">gint</span>                  : Read / Write</pre>
 <p>The port to receive packets from.</p>
 <p>Allowed values: [0,65535]</p>
 <p>Default value: 4953</p>
@@ -160,7 +160,7 @@ gst-launch tcpclientsrc protocol=none port=3000 ! fdsink fd=2
 <hr>
 <div class="refsect2">
 <a name="GstTCPClientSrc--protocol"></a><h3>The <code class="literal">"protocol"</code> property</h3>
-<pre class="programlisting">  "protocol"                 <a href="http://gstreamer.freedesktop.org/data/doc/gstreamer/head/gst-plugins-base/html/gst-plugins-base-plugins-multifdsink.html#GstTCPProtocol"><span class="type">GstTCPProtocol</span></a>        : Read / Write</pre>
+<pre class="programlisting">  "protocol"                 <span class="type">GstTCPProtocol</span>        : Read / Write</pre>
 <p>The protocol to wrap data in.</p>
 <p>Default value: GST_TCP_PROTOCOL_NONE</p>
 </div>

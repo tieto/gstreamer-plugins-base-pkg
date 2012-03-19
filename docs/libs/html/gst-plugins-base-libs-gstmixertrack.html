@@ -5,9 +5,9 @@
 <title>gstmixertrack</title>
 <meta name="generator" content="DocBook XSL Stylesheets V1.75.2">
 <link rel="home" href="index.html" title="GStreamer Base Plugins 0.11 Library Reference Manual">
-<link rel="up" href="gstreamer-interfaces.html" title="Interfaces Library">
+<link rel="up" href="gstreamer-audio.html" title="Audio Library">
 <link rel="prev" href="gst-plugins-base-libs-gstmixeroptions.html" title="gstmixeroptions">
-<link rel="next" href="gst-plugins-base-libs-gstnavigation.html" title="gstnavigation">
+<link rel="next" href="gstreamer-ffft.html" title="FFT Library">
 <meta name="generator" content="GTK-Doc V1.18 (XML mode)">
 <link rel="stylesheet" href="style.css" type="text/css">
 </head>
@@ -15,10 +15,10 @@
 <table class="navigation" id="top" width="100%" summary="Navigation header" cellpadding="2" cellspacing="2">
 <tr valign="middle">
 <td><a accesskey="p" href="gst-plugins-base-libs-gstmixeroptions.html"><img src="left.png" width="24" height="24" border="0" alt="Prev"></a></td>
-<td><a accesskey="u" href="gstreamer-interfaces.html"><img src="up.png" width="24" height="24" border="0" alt="Up"></a></td>
+<td><a accesskey="u" href="gstreamer-audio.html"><img src="up.png" width="24" height="24" border="0" alt="Up"></a></td>
 <td><a accesskey="h" href="index.html"><img src="home.png" width="24" height="24" border="0" alt="Home"></a></td>
 <th width="100%" align="center">GStreamer Base Plugins 0.11 Library Reference Manual</th>
-<td><a accesskey="n" href="gst-plugins-base-libs-gstnavigation.html"><img src="right.png" width="24" height="24" border="0" alt="Next"></a></td>
+<td><a accesskey="n" href="gstreamer-ffft.html"><img src="right.png" width="24" height="24" border="0" alt="Next"></a></td>
 </tr>
 <tr><td colspan="5" class="shortcuts">
 <a href="#gst-plugins-base-libs-gstmixertrack.synopsis" class="shortcut">Top</a>
@@ -42,7 +42,7 @@
 <div class="refsynopsisdiv">
 <a name="gst-plugins-base-libs-gstmixertrack.synopsis"></a><h2>Synopsis</h2>
 <a name="GstMixerTrack"></a><pre class="synopsis">
-#include &lt;gst/interfaces/mixer.h&gt;
+#include &lt;gst/audio/mixer.h&gt;
 
 struct              <a class="link" href="gst-plugins-base-libs-gstmixertrack.html#GstMixerTrack-struct" title="struct GstMixerTrack">GstMixerTrack</a>;
 enum                <a class="link" href="gst-plugins-base-libs-gstmixertrack.html#GstMixerTrackFlags" title="enum GstMixerTrackFlags">GstMixerTrackFlags</a>;
@@ -53,7 +53,7 @@ enum                <a class="link" href="gst-plugins-base-libs-gstmixertrack.ht
 <div class="refsect1">
 <a name="gst-plugins-base-libs-gstmixertrack.object-hierarchy"></a><h2>Object Hierarchy</h2>
 <pre class="synopsis">
-  <a href="http://library.gnome.org/devel/gobject/unstable/gobject-The-Base-Object-Type.html#GObject">GObject</a>
+  GObject
    +----GstMixerTrack
          +----<a class="link" href="gst-plugins-base-libs-gstmixeroptions.html#GstMixerOptions">GstMixerOptions</a>
 </pre>
@@ -61,13 +61,13 @@ enum                <a class="link" href="gst-plugins-base-libs-gstmixertrack.ht
 <div class="refsect1">
 <a name="gst-plugins-base-libs-gstmixertrack.properties"></a><h2>Properties</h2>
 <pre class="synopsis">
-  "<a class="link" href="gst-plugins-base-libs-gstmixertrack.html#GstMixerTrack--flags" title='The "flags" property'>flags</a>"                    <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#guint"><span class="type">guint</span></a>                 : Read
-  "<a class="link" href="gst-plugins-base-libs-gstmixertrack.html#GstMixerTrack--index" title='The "index" property'>index</a>"                    <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#guint"><span class="type">guint</span></a>                 : Read / Write / Construct Only
-  "<a class="link" href="gst-plugins-base-libs-gstmixertrack.html#GstMixerTrack--label" title='The "label" property'>label</a>"                    <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a>*                : Read
-  "<a class="link" href="gst-plugins-base-libs-gstmixertrack.html#GstMixerTrack--max-volume" title='The "max-volume" property'>max-volume</a>"               <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gint"><span class="type">gint</span></a>                  : Read
-  "<a class="link" href="gst-plugins-base-libs-gstmixertrack.html#GstMixerTrack--min-volume" title='The "min-volume" property'>min-volume</a>"               <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gint"><span class="type">gint</span></a>                  : Read
-  "<a class="link" href="gst-plugins-base-libs-gstmixertrack.html#GstMixerTrack--num-channels" title='The "num-channels" property'>num-channels</a>"             <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gint"><span class="type">gint</span></a>                  : Read
-  "<a class="link" href="gst-plugins-base-libs-gstmixertrack.html#GstMixerTrack--untranslated-label" title='The "untranslated-label" property'>untranslated-label</a>"       <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a>*                : Read / Write / Construct Only
+  "<a class="link" href="gst-plugins-base-libs-gstmixertrack.html#GstMixerTrack--flags" title='The "flags" property'>flags</a>"                    <span class="type">guint</span>                 : Read
+  "<a class="link" href="gst-plugins-base-libs-gstmixertrack.html#GstMixerTrack--index" title='The "index" property'>index</a>"                    <span class="type">guint</span>                 : Read / Write / Construct Only
+  "<a class="link" href="gst-plugins-base-libs-gstmixertrack.html#GstMixerTrack--label" title='The "label" property'>label</a>"                    <span class="type">gchar</span>*                : Read
+  "<a class="link" href="gst-plugins-base-libs-gstmixertrack.html#GstMixerTrack--max-volume" title='The "max-volume" property'>max-volume</a>"               <span class="type">gint</span>                  : Read
+  "<a class="link" href="gst-plugins-base-libs-gstmixertrack.html#GstMixerTrack--min-volume" title='The "min-volume" property'>min-volume</a>"               <span class="type">gint</span>                  : Read
+  "<a class="link" href="gst-plugins-base-libs-gstmixertrack.html#GstMixerTrack--num-channels" title='The "num-channels" property'>num-channels</a>"             <span class="type">gint</span>                  : Read
+  "<a class="link" href="gst-plugins-base-libs-gstmixertrack.html#GstMixerTrack--untranslated-label" title='The "untranslated-label" property'>untranslated-label</a>"       <span class="type">gchar</span>*                : Read / Write / Construct Only
 </pre>
 </div>
 <div class="refsect1">
@@ -96,17 +96,17 @@ value.
 <div class="refsect2">
 <a name="GstMixerTrackFlags"></a><h3>enum GstMixerTrackFlags</h3>
 <pre class="programlisting">typedef enum {
-  GST_MIXER_TRACK_INPUT  = (1&lt;&lt;0),
-  GST_MIXER_TRACK_OUTPUT = (1&lt;&lt;1),
-  GST_MIXER_TRACK_MUTE   = (1&lt;&lt;2),
-  GST_MIXER_TRACK_RECORD = (1&lt;&lt;3),
-  GST_MIXER_TRACK_MASTER = (1&lt;&lt;4),
-  GST_MIXER_TRACK_SOFTWARE = (1&lt;&lt;5),
-  GST_MIXER_TRACK_NO_RECORD = (1&lt;&lt;6),
-  GST_MIXER_TRACK_NO_MUTE = (1&lt;&lt;7),
-  GST_MIXER_TRACK_WHITELIST = (1&lt;&lt;8),
-  GST_MIXER_TRACK_READONLY = (1&lt;&lt;9),
-  GST_MIXER_TRACK_WRITEONLY = (1&lt;&lt;10)
+  GST_MIXER_TRACK_INPUT     = (1 &lt;&lt; 0),
+  GST_MIXER_TRACK_OUTPUT    = (1 &lt;&lt; 1),
+  GST_MIXER_TRACK_MUTE      = (1 &lt;&lt; 2),
+  GST_MIXER_TRACK_RECORD    = (1 &lt;&lt; 3),
+  GST_MIXER_TRACK_MASTER    = (1 &lt;&lt; 4),
+  GST_MIXER_TRACK_SOFTWARE  = (1 &lt;&lt; 5),
+  GST_MIXER_TRACK_NO_RECORD = (1 &lt;&lt; 6),
+  GST_MIXER_TRACK_NO_MUTE   = (1 &lt;&lt; 7),
+  GST_MIXER_TRACK_WHITELIST = (1 &lt;&lt; 8),
+  GST_MIXER_TRACK_READABLE  = (1 &lt;&lt; 9),
+  GST_MIXER_TRACK_WRITABLE  = (1 &lt;&lt; 10)
 } GstMixerTrackFlags;
 </pre>
 <p>
@@ -165,12 +165,12 @@ Mixer track flags.
 </td>
 </tr>
 <tr>
-<td><p><a name="GST-MIXER-TRACK-READONLY:CAPS"></a><span class="term"><code class="literal">GST_MIXER_TRACK_READONLY</code></span></p></td>
+<td><p><a name="GST-MIXER-TRACK-READABLE:CAPS"></a><span class="term"><code class="literal">GST_MIXER_TRACK_READABLE</code></span></p></td>
 <td>track is read-only. Since: 0.10.25
 </td>
 </tr>
 <tr>
-<td><p><a name="GST-MIXER-TRACK-WRITEONLY:CAPS"></a><span class="term"><code class="literal">GST_MIXER_TRACK_WRITEONLY</code></span></p></td>
+<td><p><a name="GST-MIXER-TRACK-WRITABLE:CAPS"></a><span class="term"><code class="literal">GST_MIXER_TRACK_WRITABLE</code></span></p></td>
 <td>track is write-only. Since: 0.10.25
 </td>
 </tr>
@@ -187,14 +187,14 @@ Mixer track flags.
 <a name="gst-plugins-base-libs-gstmixertrack.property-details"></a><h2>Property Details</h2>
 <div class="refsect2">
 <a name="GstMixerTrack--flags"></a><h3>The <code class="literal">"flags"</code> property</h3>
-<pre class="programlisting">  "flags"                    <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#guint"><span class="type">guint</span></a>                 : Read</pre>
+<pre class="programlisting">  "flags"                    <span class="type">guint</span>                 : Read</pre>
 <p>Flags indicating the type of mixer track.</p>
 <p>Default value: 0</p>
 </div>
 <hr>
 <div class="refsect2">
 <a name="GstMixerTrack--index"></a><h3>The <code class="literal">"index"</code> property</h3>
-<pre class="programlisting">  "index"                    <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#guint"><span class="type">guint</span></a>                 : Read / Write / Construct Only</pre>
+<pre class="programlisting">  "index"                    <span class="type">guint</span>                 : Read / Write / Construct Only</pre>
 <p>
 Index of the mixer track, if available. Mixer track implementations
 must set this at construct time. This can be used to discern between
@@ -206,28 +206,28 @@ multiple tracks with identical labels.
 <hr>
 <div class="refsect2">
 <a name="GstMixerTrack--label"></a><h3>The <code class="literal">"label"</code> property</h3>
-<pre class="programlisting">  "label"                    <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a>*                : Read</pre>
+<pre class="programlisting">  "label"                    <span class="type">gchar</span>*                : Read</pre>
 <p>The label assigned to the track (may be translated).</p>
 <p>Default value: NULL</p>
 </div>
 <hr>
 <div class="refsect2">
 <a name="GstMixerTrack--max-volume"></a><h3>The <code class="literal">"max-volume"</code> property</h3>
-<pre class="programlisting">  "max-volume"               <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gint"><span class="type">gint</span></a>                  : Read</pre>
+<pre class="programlisting">  "max-volume"               <span class="type">gint</span>                  : Read</pre>
 <p>The maximum possible volume level.</p>
 <p>Default value: 0</p>
 </div>
 <hr>
 <div class="refsect2">
 <a name="GstMixerTrack--min-volume"></a><h3>The <code class="literal">"min-volume"</code> property</h3>
-<pre class="programlisting">  "min-volume"               <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gint"><span class="type">gint</span></a>                  : Read</pre>
+<pre class="programlisting">  "min-volume"               <span class="type">gint</span>                  : Read</pre>
 <p>The minimum possible volume level.</p>
 <p>Default value: 0</p>
 </div>
 <hr>
 <div class="refsect2">
 <a name="GstMixerTrack--num-channels"></a><h3>The <code class="literal">"num-channels"</code> property</h3>
-<pre class="programlisting">  "num-channels"             <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gint"><span class="type">gint</span></a>                  : Read</pre>
+<pre class="programlisting">  "num-channels"             <span class="type">gint</span>                  : Read</pre>
 <p>The number of channels contained within the track.</p>
 <p>Allowed values: &gt;= 0</p>
 <p>Default value: 0</p>
@@ -235,7 +235,7 @@ multiple tracks with identical labels.
 <hr>
 <div class="refsect2">
 <a name="GstMixerTrack--untranslated-label"></a><h3>The <code class="literal">"untranslated-label"</code> property</h3>
-<pre class="programlisting">  "untranslated-label"       <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a>*                : Read / Write / Construct Only</pre>
+<pre class="programlisting">  "untranslated-label"       <span class="type">gchar</span>*                : Read / Write / Construct Only</pre>
 <p>
 The untranslated label of the mixer track, if available. Mixer track
 implementations must set this at construct time. Applications may find

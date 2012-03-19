@@ -22,11 +22,6 @@
 #ifndef __GST_AUDIO_ENCODER_H__
 #define __GST_AUDIO_ENCODER_H__
 
-#ifndef GST_USE_UNSTABLE_API
-#warning "GstAudioEncoder is unstable API and may change in future."
-#warning "You can define GST_USE_UNSTABLE_API to avoid this warning."
-#endif
-
 #include <gst/gst.h>
 #include <gst/audio/audio.h>
 
@@ -87,8 +82,8 @@ G_BEGIN_DECLS
  */
 #define GST_AUDIO_ENCODER_SEGMENT(obj)     (GST_AUDIO_ENCODER_CAST (obj)->segment)
 
-#define GST_AUDIO_ENCODER_STREAM_LOCK(enc) g_static_rec_mutex_lock (&GST_AUDIO_ENCODER (enc)->stream_lock)
-#define GST_AUDIO_ENCODER_STREAM_UNLOCK(enc) g_static_rec_mutex_unlock (&GST_AUDIO_ENCODER (enc)->stream_lock)
+#define GST_AUDIO_ENCODER_STREAM_LOCK(enc)   g_rec_mutex_lock (&GST_AUDIO_ENCODER (enc)->stream_lock)
+#define GST_AUDIO_ENCODER_STREAM_UNLOCK(enc) g_rec_mutex_unlock (&GST_AUDIO_ENCODER (enc)->stream_lock)
 
 typedef struct _GstAudioEncoder GstAudioEncoder;
 typedef struct _GstAudioEncoderClass GstAudioEncoderClass;
@@ -113,13 +108,14 @@ struct _GstAudioEncoder {
   /* protects all data processing, i.e. is locked
    * in the chain function, finish_frame and when
    * processing serialized events */
-  GStaticRecMutex stream_lock;
+  GRecMutex       stream_lock;
 
   /* MT-protected (with STREAM_LOCK) */
   GstSegment      segment;
 
   /*< private >*/
   GstAudioEncoderPrivate *priv;
+
   gpointer       _gst_reserved[GST_PADDING_LARGE];
 };
 
@@ -137,7 +133,9 @@ struct _GstAudioEncoder {
  * @handle_frame:   Provides input samples (or NULL to clear any remaining data)
  *                  according to directions as configured by the subclass
  *                  using the API.  Input data ref management is performed
- *                  by base class, subclass should not care or intervene.
+ *                  by base class, subclass should not care or intervene,
+ *                  and input data is only valid until next call to base class,
+ *                  most notably a call to gst_audio_encoder_finish_frame().
  * @flush:          Optional.
  *                  Instructs subclass to clear any codec caches and discard
  *                  any pending samples and not yet returned encoded data.
@@ -199,6 +197,9 @@ GstFlowReturn   gst_audio_encoder_finish_frame (GstAudioEncoder * enc,
 GstCaps *       gst_audio_encoder_proxy_getcaps (GstAudioEncoder * enc,
                                                  GstCaps         * caps);
 
+gboolean        gst_audio_encoder_set_output_format  (GstAudioEncoder    * enc,
+                                                      GstCaps            * caps);
+
 
 /* context parameters */
 GstAudioInfo  * gst_audio_encoder_get_audio_info (GstAudioEncoder * enc);
@@ -248,6 +249,16 @@ void            gst_audio_encoder_set_tolerance (GstAudioEncoder * enc,
                                                  gint64            tolerance);
 
 gint64          gst_audio_encoder_get_tolerance (GstAudioEncoder * enc);
+
+void            gst_audio_encoder_set_hard_min (GstAudioEncoder * enc,
+                                                gboolean enabled);
+
+gboolean        gst_audio_encoder_get_hard_min (GstAudioEncoder * enc);
+
+void            gst_audio_encoder_set_drainable (GstAudioEncoder * enc,
+                                                 gboolean enabled);
+
+gboolean        gst_audio_encoder_get_drainable (GstAudioEncoder * enc);
 
 void            gst_audio_encoder_merge_tags (GstAudioEncoder * enc,
                                               const GstTagList * tags, GstTagMergeMode mode);

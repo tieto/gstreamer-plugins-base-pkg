@@ -105,15 +105,17 @@
 
 /* Our interfaces */
 #include <gst/interfaces/navigation.h>
-#include <gst/interfaces/videooverlay.h>
+#include <gst/video/videooverlay.h>
 
-#include <gst/video/gstmetavideo.h>
+#include <gst/video/gstvideometa.h>
 
 /* Object header */
 #include "ximagesink.h"
 
 /* Debugging category */
 #include <gst/gstinfo.h>
+
+#include "gst/glib-compat-private.h"
 
 GST_DEBUG_CATEGORY_EXTERN (gst_debug_ximagesink);
 GST_DEBUG_CATEGORY_EXTERN (GST_CAT_PERFORMANCE);
@@ -168,8 +170,9 @@ enum
 /*          Object typing & Creation           */
 /*                                             */
 /* =========================================== */
-static void gst_ximagesink_navigation_init (GstNavigationInterface * klass);
-static void gst_ximagesink_video_overlay_init (GstVideoOverlayIface * iface);
+static void gst_ximagesink_navigation_init (GstNavigationInterface * iface);
+static void gst_ximagesink_video_overlay_init (GstVideoOverlayInterface *
+    iface);
 #define gst_ximagesink_parent_class parent_class
 G_DEFINE_TYPE_WITH_CODE (GstXImageSink, gst_ximagesink, GST_TYPE_VIDEO_SINK,
     G_IMPLEMENT_INTERFACE (GST_TYPE_NAVIGATION, gst_ximagesink_navigation_init);
@@ -224,8 +227,8 @@ gst_ximagesink_xwindow_draw_borders (GstXImageSink * ximagesink,
 static gboolean
 gst_ximagesink_ximage_put (GstXImageSink * ximagesink, GstBuffer * ximage)
 {
-  GstMetaXImage *meta;
-  GstMetaVideoCrop *crop;
+  GstXImageMeta *meta;
+  GstVideoCropMeta *crop;
   GstVideoRectangle src, dst, result;
   gboolean draw_border = FALSE;
 
@@ -265,8 +268,8 @@ gst_ximagesink_ximage_put (GstXImageSink * ximagesink, GstBuffer * ximage)
     }
   }
 
-  meta = gst_buffer_get_meta_ximage (ximage);
-  crop = gst_buffer_get_meta_video_crop (ximage);
+  meta = gst_buffer_get_ximage_meta (ximage);
+  crop = gst_buffer_get_video_crop_meta (ximage);
 
   if (crop) {
     src.x = crop->x + meta->x;
@@ -737,8 +740,8 @@ gst_ximagesink_manage_event_thread (GstXImageSink * ximagesink)
       GST_DEBUG_OBJECT (ximagesink, "run xevent thread, expose %d, events %d",
           ximagesink->handle_expose, ximagesink->handle_events);
       ximagesink->running = TRUE;
-      ximagesink->event_thread = g_thread_create (
-          (GThreadFunc) gst_ximagesink_event_thread, ximagesink, TRUE, NULL);
+      ximagesink->event_thread = g_thread_try_new ("ximagesink-events",
+          (GThreadFunc) gst_ximagesink_event_thread, ximagesink, NULL);
     }
   } else {
     if (ximagesink->event_thread) {
@@ -1287,12 +1290,12 @@ gst_ximagesink_show_frame (GstVideoSink * vsink, GstBuffer * buf)
 {
   GstFlowReturn res;
   GstXImageSink *ximagesink;
-  GstMetaXImage *meta;
+  GstXImageMeta *meta;
   GstBuffer *to_put = NULL;
 
   ximagesink = GST_XIMAGESINK (vsink);
 
-  meta = gst_buffer_get_meta_ximage (buf);
+  meta = gst_buffer_get_ximage_meta (buf);
 
   if (meta && meta->sink == ximagesink) {
     /* If this buffer has been allocated using our buffer management we simply
@@ -1419,10 +1422,7 @@ gst_ximagesink_event (GstBaseSink * sink, GstEvent * event)
     default:
       break;
   }
-  if (GST_BASE_SINK_CLASS (parent_class)->event)
-    return GST_BASE_SINK_CLASS (parent_class)->event (sink, event);
-  else
-    return TRUE;
+  return GST_BASE_SINK_CLASS (parent_class)->event (sink, event);
 }
 
 static gboolean
@@ -1482,8 +1482,8 @@ gst_ximagesink_propose_allocation (GstBaseSink * bsink, GstQuery * query)
   gst_query_set_allocation_params (query, size, 2, 0, 0, 0, pool);
 
   /* we also support various metadata */
-  gst_query_add_allocation_meta (query, GST_META_API_VIDEO);
-  gst_query_add_allocation_meta (query, GST_META_API_VIDEO_CROP);
+  gst_query_add_allocation_meta (query, GST_VIDEO_META_API);
+  gst_query_add_allocation_meta (query, GST_VIDEO_CROP_META_API);
 
   gst_object_unref (pool);
 
@@ -1679,7 +1679,7 @@ gst_ximagesink_set_event_handling (GstVideoOverlay * overlay,
 }
 
 static void
-gst_ximagesink_video_overlay_init (GstVideoOverlayIface * iface)
+gst_ximagesink_video_overlay_init (GstVideoOverlayInterface * iface)
 {
   iface->set_window_handle = gst_ximagesink_set_window_handle;
   iface->expose = gst_ximagesink_expose;
@@ -1919,8 +1919,9 @@ gst_ximagesink_class_init (GstXImageSinkClass * klass)
       g_param_spec_string ("display", "Display", "X Display name",
           NULL, G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS));
   g_object_class_install_property (gobject_class, PROP_SYNCHRONOUS,
-      g_param_spec_boolean ("synchronous", "Synchronous", "When enabled, runs "
-          "the X display in synchronous mode. (used only for debugging)", FALSE,
+      g_param_spec_boolean ("synchronous", "Synchronous",
+          "When enabled, runs the X display in synchronous mode. "
+          "(unrelated to A/V sync, used only for debugging)", FALSE,
           G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS));
   g_object_class_install_property (gobject_class, PROP_FORCE_ASPECT_RATIO,
       g_param_spec_boolean ("force-aspect-ratio", "Force aspect ratio",

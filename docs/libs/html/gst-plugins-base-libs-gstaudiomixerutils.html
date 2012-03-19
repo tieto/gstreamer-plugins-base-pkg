@@ -41,12 +41,12 @@
 <pre class="synopsis">
 #include &lt;gst/audio/mixerutils.h&gt;
 
-<a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            (<a class="link" href="gst-plugins-base-libs-gstaudiomixerutils.html#GstAudioMixerFilterFunc" title="GstAudioMixerFilterFunc ()">*GstAudioMixerFilterFunc</a>)          (<em class="parameter"><code><a class="link" href="gst-plugins-base-libs-gstmixer.html#GstMixer"><span class="type">GstMixer</span></a> *mixer</code></em>,
-                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a> user_data</code></em>);
-<a href="http://library.gnome.org/devel/glib/unstable/glib-Doubly-Linked-Lists.html#GList"><span class="returnvalue">GList</span></a> *             <a class="link" href="gst-plugins-base-libs-gstaudiomixerutils.html#gst-audio-default-registry-mixer-filter" title="gst_audio_default_registry_mixer_filter ()">gst_audio_default_registry_mixer_filter</a>
+<span class="returnvalue">gboolean</span>            (<a class="link" href="gst-plugins-base-libs-gstaudiomixerutils.html#GstAudioMixerFilterFunc" title="GstAudioMixerFilterFunc ()">*GstAudioMixerFilterFunc</a>)          (<em class="parameter"><code><a class="link" href="gst-plugins-base-libs-gstmixer.html#GstMixer"><span class="type">GstMixer</span></a> *mixer</code></em>,
+                                                         <em class="parameter"><code><span class="type">gpointer</span> user_data</code></em>);
+<span class="returnvalue">GList</span> *             <a class="link" href="gst-plugins-base-libs-gstaudiomixerutils.html#gst-audio-default-registry-mixer-filter" title="gst_audio_default_registry_mixer_filter ()">gst_audio_default_registry_mixer_filter</a>
                                                         (<em class="parameter"><code><a class="link" href="gst-plugins-base-libs-gstaudiomixerutils.html#GstAudioMixerFilterFunc" title="GstAudioMixerFilterFunc ()"><span class="type">GstAudioMixerFilterFunc</span></a> filter_func</code></em>,
-                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="type">gboolean</span></a> first</code></em>,
-                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a> user_data</code></em>);
+                                                         <em class="parameter"><code><span class="type">gboolean</span> first</code></em>,
+                                                         <em class="parameter"><code><span class="type">gpointer</span> user_data</code></em>);
 </pre>
 </div>
 <div class="refsect1">
@@ -54,7 +54,7 @@
 <p>
 </p>
 <div class="refsect2">
-<a name="id439560"></a><p>
+<a name="idp10462736"></a><p>
 Provides some utility functions to detect available audio mixers
 on the system.
 </p>
@@ -66,8 +66,8 @@ on the system.
 <a name="gst-plugins-base-libs-gstaudiomixerutils.details"></a><h2>Details</h2>
 <div class="refsect2">
 <a name="GstAudioMixerFilterFunc"></a><h3>GstAudioMixerFilterFunc ()</h3>
-<pre class="programlisting"><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            (*GstAudioMixerFilterFunc)          (<em class="parameter"><code><a class="link" href="gst-plugins-base-libs-gstmixer.html#GstMixer"><span class="type">GstMixer</span></a> *mixer</code></em>,
-                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a> user_data</code></em>);</pre>
+<pre class="programlisting"><span class="returnvalue">gboolean</span>            (*GstAudioMixerFilterFunc)          (<em class="parameter"><code><a class="link" href="gst-plugins-base-libs-gstmixer.html#GstMixer"><span class="type">GstMixer</span></a> *mixer</code></em>,
+                                                         <em class="parameter"><code><span class="type">gpointer</span> user_data</code></em>);</pre>
 <p>
 Function that will be called by <a class="link" href="gst-plugins-base-libs-gstaudiomixerutils.html#gst-audio-default-registry-mixer-filter" title="gst_audio_default_registry_mixer_filter ()"><code class="function">gst_audio_default_registry_mixer_filter()</code></a>
 so the caller can decide which mixer elements should be kept and returned.
@@ -80,7 +80,7 @@ back to NULL state yourself (unless you want to keep it opened of course).
 <tbody>
 <tr>
 <td><p><span class="term"><em class="parameter"><code>mixer</code></em> :</span></p></td>
-<td>a <a href="http://gstreamer.freedesktop.org/data/doc/gstreamer/head/gstreamer/html/GstElement.html"><span class="type">GstElement</span></a> implementing the <a class="link" href="gst-plugins-base-libs-gstmixer.html#GstMixer"><span class="type">GstMixer</span></a> interface</td>
+<td>a <span class="type">GstElement</span> implementing the <a class="link" href="gst-plugins-base-libs-gstmixer.html#GstMixer"><span class="type">GstMixer</span></a> interface</td>
 </tr>
 <tr>
 <td><p><span class="term"><em class="parameter"><code>user_data</code></em> :</span></p></td>
@@ -96,10 +96,10 @@ back to NULL state yourself (unless you want to keep it opened of course).
 <hr>
 <div class="refsect2">
 <a name="gst-audio-default-registry-mixer-filter"></a><h3>gst_audio_default_registry_mixer_filter ()</h3>
-<pre class="programlisting"><a href="http://library.gnome.org/devel/glib/unstable/glib-Doubly-Linked-Lists.html#GList"><span class="returnvalue">GList</span></a> *             gst_audio_default_registry_mixer_filter
+<pre class="programlisting"><span class="returnvalue">GList</span> *             gst_audio_default_registry_mixer_filter
                                                         (<em class="parameter"><code><a class="link" href="gst-plugins-base-libs-gstaudiomixerutils.html#GstAudioMixerFilterFunc" title="GstAudioMixerFilterFunc ()"><span class="type">GstAudioMixerFilterFunc</span></a> filter_func</code></em>,
-                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="type">gboolean</span></a> first</code></em>,
-                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a> user_data</code></em>);</pre>
+                                                         <em class="parameter"><code><span class="type">gboolean</span> first</code></em>,
+                                                         <em class="parameter"><code><span class="type">gpointer</span> user_data</code></em>);</pre>
 <p>
 Utility function to find audio mixer elements.
 </p>
@@ -113,12 +113,12 @@ the selection by specifying a filter function.
 <tbody>
 <tr>
 <td><p><span class="term"><em class="parameter"><code>filter_func</code></em> :</span></p></td>
-<td>filter function, or <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#NULL:CAPS"><span class="type">NULL</span></a>
+<td>filter function, or <span class="type">NULL</span>
 </td>
 </tr>
 <tr>
 <td><p><span class="term"><em class="parameter"><code>first</code></em> :</span></p></td>
-<td>set to <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#TRUE:CAPS"><span class="type">TRUE</span></a> if you only want the first suitable mixer element</td>
+<td>set to <span class="type">TRUE</span> if you only want the first suitable mixer element</td>
 </tr>
 <tr>
 <td><p><span class="term"><em class="parameter"><code>user_data</code></em> :</span></p></td>
@@ -126,10 +126,10 @@ the selection by specifying a filter function.
 </tr>
 <tr>
 <td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
-<td>a <a href="http://library.gnome.org/devel/glib/unstable/glib-Doubly-Linked-Lists.html#GList"><span class="type">GList</span></a> of audio mixer <a href="http://gstreamer.freedesktop.org/data/doc/gstreamer/head/gstreamer/html/GstElement.html"><span class="type">GstElement</span></a>s. You must free each
+<td>a <span class="type">GList</span> of audio mixer <span class="type">GstElement</span>s. You must free each
 element in the list by setting it to NULL state and calling
-<a href="http://gstreamer.freedesktop.org/data/doc/gstreamer/head/gstreamer/html/GstObject.html#gst-object-unref"><code class="function">gst_object_unref()</code></a>. After that the list itself should be freed
-using <a href="http://library.gnome.org/devel/glib/unstable/glib-Doubly-Linked-Lists.html#g-list-free"><code class="function">g_list_free()</code></a>.</td>
+<code class="function">gst_object_unref()</code>. After that the list itself should be freed
+using <code class="function">g_list_free()</code>.</td>
 </tr>
 </tbody>
 </table></div>

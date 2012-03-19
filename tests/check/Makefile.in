@@ -38,19 +38,29 @@ host_triplet = @host@
 DIST_COMMON = $(noinst_HEADERS) $(srcdir)/Makefile.am \
 	$(srcdir)/Makefile.in $(top_srcdir)/common/check.mak
 check_PROGRAMS = $(am__EXEEXT_1) $(am__EXEEXT_2) $(am__EXEEXT_3) \
-	$(am__EXEEXT_4) elements/audioconvert$(EXEEXT) \
-	elements/audiotestsrc$(EXEEXT) elements/decodebin$(EXEEXT) \
-	$(am__EXEEXT_5) generic/clock-selection$(EXEEXT) \
-	generic/states$(EXEEXT) gst/typefindfunctions$(EXEEXT) \
-	libs/libsabi$(EXEEXT) libs/audio$(EXEEXT) \
-	libs/cddabasesrc$(EXEEXT) libs/discoverer$(EXEEXT) \
-	libs/fft$(EXEEXT) libs/mixer$(EXEEXT) libs/navigation$(EXEEXT) \
-	libs/netbuffer$(EXEEXT) libs/pbutils$(EXEEXT) \
+	elements/audioconvert$(EXEEXT) elements/audiotestsrc$(EXEEXT) \
+	elements/decodebin$(EXEEXT) $(am__EXEEXT_4) \
+	generic/clock-selection$(EXEEXT) generic/states$(EXEEXT) \
+	gst/typefindfunctions$(EXEEXT) libs/libsabi$(EXEEXT) \
+	libs/audio$(EXEEXT) libs/audiocdsrc$(EXEEXT) \
+	libs/discoverer$(EXEEXT) libs/fft$(EXEEXT) libs/mixer$(EXEEXT) \
+	libs/navigation$(EXEEXT) libs/pbutils$(EXEEXT) \
 	libs/profile$(EXEEXT) libs/rtp$(EXEEXT) libs/rtsp$(EXEEXT) \
 	libs/tag$(EXEEXT) libs/video$(EXEEXT) libs/xmpwriter$(EXEEXT) \
-	$(am__EXEEXT_6) $(am__EXEEXT_7) \
-	pipelines/simple-launch-lines$(EXEEXT)
-noinst_PROGRAMS = $(am__EXEEXT_8) $(am__EXEEXT_10)
+	$(am__EXEEXT_5) $(am__EXEEXT_6) \
+	pipelines/simple-launch-lines$(EXEEXT) \
+	pipelines/streamheader$(EXEEXT) pipelines/basetime$(EXEEXT) \
+	pipelines/capsfilter-renegotiation$(EXEEXT) \
+	pipelines/gio$(EXEEXT) elements/appsink$(EXEEXT) \
+	elements/appsrc$(EXEEXT) elements/audiorate$(EXEEXT) \
+	elements/audioresample$(EXEEXT) elements/gdpdepay$(EXEEXT) \
+	elements/gdppay$(EXEEXT) elements/multifdsink$(EXEEXT) \
+	elements/multisocketsink$(EXEEXT) elements/playbin$(EXEEXT) \
+	elements/playbin-compressed$(EXEEXT) $(am__EXEEXT_7) \
+	$(am__EXEEXT_8) elements/videorate$(EXEEXT) \
+	elements/videoscale$(EXEEXT) elements/videotestsrc$(EXEEXT) \
+	elements/volume$(EXEEXT)
+noinst_PROGRAMS = $(am__EXEEXT_9)
 subdir = tests/check
 ACLOCAL_M4 = $(top_srcdir)/aclocal.m4
 am__aclocal_m4_deps = $(top_srcdir)/common/m4/as-ac-expand.m4 \
@@ -71,6 +81,7 @@ am__aclocal_m4_deps = $(top_srcdir)/common/m4/as-ac-expand.m4 \
 	$(top_srcdir)/common/m4/gst-gettext.m4 \
 	$(top_srcdir)/common/m4/gst-glib2.m4 \
 	$(top_srcdir)/common/m4/gst-package-release-datetime.m4 \
+	$(top_srcdir)/common/m4/gst-platform.m4 \
 	$(top_srcdir)/common/m4/gst-plugin-docs.m4 \
 	$(top_srcdir)/common/m4/gst-plugindir.m4 \
 	$(top_srcdir)/common/m4/gst-x11.m4 \
@@ -79,16 +90,16 @@ am__aclocal_m4_deps = $(top_srcdir)/common/m4/as-ac-expand.m4 \
 	$(top_srcdir)/common/m4/introspection.m4 \
 	$(top_srcdir)/common/m4/orc.m4 $(top_srcdir)/common/m4/pkg.m4 \
 	$(top_srcdir)/m4/freetype2.m4 $(top_srcdir)/m4/gettext.m4 \
-	$(top_srcdir)/m4/gst-alsa.m4 $(top_srcdir)/m4/gst-fionread.m4 \
-	$(top_srcdir)/m4/iconv.m4 $(top_srcdir)/m4/intlmacosx.m4 \
-	$(top_srcdir)/m4/lib-ld.m4 $(top_srcdir)/m4/lib-link.m4 \
-	$(top_srcdir)/m4/lib-prefix.m4 $(top_srcdir)/m4/libtool.m4 \
-	$(top_srcdir)/m4/lrint.m4 $(top_srcdir)/m4/lrintf.m4 \
-	$(top_srcdir)/m4/ltoptions.m4 $(top_srcdir)/m4/ltsugar.m4 \
-	$(top_srcdir)/m4/ltversion.m4 $(top_srcdir)/m4/lt~obsolete.m4 \
-	$(top_srcdir)/m4/nls.m4 $(top_srcdir)/m4/ogg.m4 \
-	$(top_srcdir)/m4/po.m4 $(top_srcdir)/m4/progtest.m4 \
-	$(top_srcdir)/m4/vorbis.m4 $(top_srcdir)/configure.ac
+	$(top_srcdir)/m4/gst-alsa.m4 $(top_srcdir)/m4/iconv.m4 \
+	$(top_srcdir)/m4/intlmacosx.m4 $(top_srcdir)/m4/lib-ld.m4 \
+	$(top_srcdir)/m4/lib-link.m4 $(top_srcdir)/m4/lib-prefix.m4 \
+	$(top_srcdir)/m4/libtool.m4 $(top_srcdir)/m4/lrint.m4 \
+	$(top_srcdir)/m4/lrintf.m4 $(top_srcdir)/m4/ltoptions.m4 \
+	$(top_srcdir)/m4/ltsugar.m4 $(top_srcdir)/m4/ltversion.m4 \
+	$(top_srcdir)/m4/lt~obsolete.m4 $(top_srcdir)/m4/nls.m4 \
+	$(top_srcdir)/m4/ogg.m4 $(top_srcdir)/m4/po.m4 \
+	$(top_srcdir)/m4/progtest.m4 $(top_srcdir)/m4/vorbis.m4 \
+	$(top_srcdir)/configure.ac
 am__configure_deps = $(am__aclocal_m4_deps) $(CONFIGURE_DEPENDENCIES) \
 	$(ACLOCAL_M4)
 mkinstalldirs = $(install_sh) -d
@@ -96,41 +107,52 @@ CONFIG_HEADER = $(top_builddir)/config.h
 CONFIG_CLEAN_FILES =
 CONFIG_CLEAN_VPATH_FILES =
 @USE_ALSA_TRUE@am__EXEEXT_1 = elements/alsa$(EXEEXT)
-@USE_GIO_TRUE@am__EXEEXT_2 = pipelines/gio$(EXEEXT)
-@USE_OGG_TRUE@am__EXEEXT_3 = pipelines/oggmux$(EXEEXT)
-@USE_VORBIS_TRUE@am__EXEEXT_4 = elements/vorbisdec$(EXEEXT) \
+@USE_OGG_TRUE@am__EXEEXT_2 = pipelines/oggmux$(EXEEXT)
+@USE_VORBIS_TRUE@am__EXEEXT_3 = elements/vorbisdec$(EXEEXT) \
 @USE_VORBIS_TRUE@	pipelines/vorbisenc$(EXEEXT) \
 @USE_VORBIS_TRUE@	pipelines/vorbisdec$(EXEEXT) \
 @USE_VORBIS_TRUE@	elements/vorbistag$(EXEEXT)
-@USE_THEORA_TRUE@@USE_VORBIS_TRUE@am__EXEEXT_5 =  \
+@USE_THEORA_TRUE@@USE_VORBIS_TRUE@am__EXEEXT_4 =  \
 @USE_THEORA_TRUE@@USE_VORBIS_TRUE@	elements/encodebin$(EXEEXT)
-@HAVE_CXX_TRUE@am__EXEEXT_6 = libs/gstlibscpp$(EXEEXT)
-@HAVE_ORC_TRUE@am__EXEEXT_7 = orc/adder$(EXEEXT) \
+@HAVE_CXX_TRUE@am__EXEEXT_5 = libs/gstlibscpp$(EXEEXT)
+@HAVE_ORC_TRUE@am__EXEEXT_6 = orc/adder$(EXEEXT) \
 @HAVE_ORC_TRUE@	orc/audioconvert$(EXEEXT) orc/volume$(EXEEXT) \
 @HAVE_ORC_TRUE@	orc/videoscale$(EXEEXT) \
 @HAVE_ORC_TRUE@	orc/videotestsrc$(EXEEXT)
-@USE_LIBVISUAL_TRUE@am__EXEEXT_8 = elements/libvisual$(EXEEXT)
-@USE_THEORA_TRUE@am__EXEEXT_9 = pipelines/theoraenc$(EXEEXT)
-am__EXEEXT_10 = elements/adder$(EXEEXT) $(am__EXEEXT_9)
+@USE_PANGO_TRUE@am__EXEEXT_7 = elements/textoverlay$(EXEEXT)
+@USE_PLUGIN_SUBPARSE_TRUE@am__EXEEXT_8 = elements/subparse$(EXEEXT)
+@USE_LIBVISUAL_TRUE@am__EXEEXT_9 = elements/libvisual$(EXEEXT)
 PROGRAMS = $(noinst_PROGRAMS)
-elements_adder_SOURCES = elements/adder.c
-elements_adder_OBJECTS = adder.$(OBJEXT)
-elements_adder_LDADD = $(LDADD)
+elements_alsa_SOURCES = elements/alsa.c
+elements_alsa_OBJECTS = elements_alsa-alsa.$(OBJEXT)
 am__DEPENDENCIES_1 =
-elements_adder_DEPENDENCIES = $(am__DEPENDENCIES_1) \
-	$(am__DEPENDENCIES_1)
+am__DEPENDENCIES_2 = $(am__DEPENDENCIES_1) $(am__DEPENDENCIES_1)
+elements_alsa_DEPENDENCIES = $(top_builddir)/gst-libs/gst/interfaces/libgstinterfaces-@GST_MAJORMINOR@.la \
+	$(top_builddir)/gst-libs/gst/audio/libgstaudio-@GST_MAJORMINOR@.la \
+	$(am__DEPENDENCIES_2)
 AM_V_lt = $(am__v_lt_$(V))
 am__v_lt_ = $(am__v_lt_$(AM_DEFAULT_VERBOSITY))
 am__v_lt_0 = --silent
-am__dirstamp = $(am__leading_dot)dirstamp
-elements_alsa_SOURCES = elements/alsa.c
-elements_alsa_OBJECTS = elements_alsa-alsa.$(OBJEXT)
-am__DEPENDENCIES_2 = $(am__DEPENDENCIES_1) $(am__DEPENDENCIES_1)
-elements_alsa_DEPENDENCIES = $(top_builddir)/gst-libs/gst/interfaces/libgstinterfaces-@GST_MAJORMINOR@.la \
-	$(am__DEPENDENCIES_2)
 elements_alsa_LINK = $(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) \
 	$(LIBTOOLFLAGS) --mode=link $(CCLD) $(elements_alsa_CFLAGS) \
 	$(CFLAGS) $(AM_LDFLAGS) $(LDFLAGS) -o $@
+am__dirstamp = $(am__leading_dot)dirstamp
+elements_appsink_SOURCES = elements/appsink.c
+elements_appsink_OBJECTS = elements_appsink-appsink.$(OBJEXT)
+elements_appsink_DEPENDENCIES = $(top_builddir)/gst-libs/gst/app/libgstapp-@GST_MAJORMINOR@.la \
+	$(am__DEPENDENCIES_2)
+elements_appsink_LINK = $(LIBTOOL) $(AM_V_lt) --tag=CC \
+	$(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=link $(CCLD) \
+	$(elements_appsink_CFLAGS) $(CFLAGS) $(AM_LDFLAGS) $(LDFLAGS) \
+	-o $@
+elements_appsrc_SOURCES = elements/appsrc.c
+elements_appsrc_OBJECTS = elements_appsrc-appsrc.$(OBJEXT)
+elements_appsrc_DEPENDENCIES = $(top_builddir)/gst-libs/gst/app/libgstapp-@GST_MAJORMINOR@.la \
+	$(am__DEPENDENCIES_2)
+elements_appsrc_LINK = $(LIBTOOL) $(AM_V_lt) --tag=CC \
+	$(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=link $(CCLD) \
+	$(elements_appsrc_CFLAGS) $(CFLAGS) $(AM_LDFLAGS) $(LDFLAGS) \
+	-o $@
 elements_audioconvert_SOURCES = elements/audioconvert.c
 elements_audioconvert_OBJECTS =  \
 	elements_audioconvert-audioconvert.$(OBJEXT)
@@ -140,6 +162,26 @@ elements_audioconvert_DEPENDENCIES = $(top_builddir)/gst-libs/gst/audio/libgstau
 elements_audioconvert_LINK = $(LIBTOOL) $(AM_V_lt) --tag=CC \
 	$(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=link $(CCLD) \
 	$(elements_audioconvert_CFLAGS) $(CFLAGS) $(AM_LDFLAGS) \
+	$(LDFLAGS) -o $@
+elements_audiorate_SOURCES = elements/audiorate.c
+elements_audiorate_OBJECTS = elements_audiorate-audiorate.$(OBJEXT)
+elements_audiorate_DEPENDENCIES = $(top_builddir)/gst-libs/gst/audio/libgstaudio-@GST_MAJORMINOR@.la \
+	$(top_builddir)/gst-libs/gst/interfaces/libgstinterfaces-@GST_MAJORMINOR@.la \
+	$(am__DEPENDENCIES_1) $(am__DEPENDENCIES_2)
+elements_audiorate_LINK = $(LIBTOOL) $(AM_V_lt) --tag=CC \
+	$(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=link $(CCLD) \
+	$(elements_audiorate_CFLAGS) $(CFLAGS) $(AM_LDFLAGS) \
+	$(LDFLAGS) -o $@
+elements_audioresample_SOURCES = elements/audioresample.c
+elements_audioresample_OBJECTS =  \
+	elements_audioresample-audioresample.$(OBJEXT)
+elements_audioresample_DEPENDENCIES = $(top_builddir)/gst-libs/gst/fft/libgstfft-@GST_MAJORMINOR@.la \
+	$(top_builddir)/gst-libs/gst/audio/libgstaudio-@GST_MAJORMINOR@.la \
+	$(top_builddir)/gst-libs/gst/interfaces/libgstinterfaces-@GST_MAJORMINOR@.la \
+	$(am__DEPENDENCIES_1) $(am__DEPENDENCIES_2)
+elements_audioresample_LINK = $(LIBTOOL) $(AM_V_lt) --tag=CC \
+	$(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=link $(CCLD) \
+	$(elements_audioresample_CFLAGS) $(CFLAGS) $(AM_LDFLAGS) \
 	$(LDFLAGS) -o $@
 elements_audiotestsrc_SOURCES = elements/audiotestsrc.c
 elements_audiotestsrc_OBJECTS = audiotestsrc.$(OBJEXT)
@@ -162,6 +204,12 @@ elements_encodebin_LINK = $(LIBTOOL) $(AM_V_lt) --tag=CC \
 	$(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=link $(CCLD) \
 	$(elements_encodebin_CFLAGS) $(CFLAGS) $(AM_LDFLAGS) \
 	$(LDFLAGS) -o $@
+elements_gdpdepay_SOURCES = elements/gdpdepay.c
+elements_gdpdepay_OBJECTS = gdpdepay.$(OBJEXT)
+elements_gdpdepay_DEPENDENCIES = $(am__DEPENDENCIES_2)
+elements_gdppay_SOURCES = elements/gdppay.c
+elements_gdppay_OBJECTS = gdppay.$(OBJEXT)
+elements_gdppay_DEPENDENCIES = $(am__DEPENDENCIES_2)
 elements_libvisual_SOURCES = elements/libvisual.c
 elements_libvisual_OBJECTS = elements_libvisual-libvisual.$(OBJEXT)
 elements_libvisual_DEPENDENCIES = $(am__DEPENDENCIES_2)
@@ -169,6 +217,81 @@ elements_libvisual_LINK = $(LIBTOOL) $(AM_V_lt) --tag=CC \
 	$(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=link $(CCLD) \
 	$(elements_libvisual_CFLAGS) $(CFLAGS) $(AM_LDFLAGS) \
 	$(LDFLAGS) -o $@
+elements_multifdsink_SOURCES = elements/multifdsink.c
+elements_multifdsink_OBJECTS = multifdsink.$(OBJEXT)
+elements_multifdsink_LDADD = $(LDADD)
+elements_multifdsink_DEPENDENCIES = $(am__DEPENDENCIES_1) \
+	$(am__DEPENDENCIES_1)
+elements_multisocketsink_SOURCES = elements/multisocketsink.c
+elements_multisocketsink_OBJECTS =  \
+	elements_multisocketsink-multisocketsink.$(OBJEXT)
+elements_multisocketsink_DEPENDENCIES = $(am__DEPENDENCIES_1) \
+	$(am__DEPENDENCIES_2)
+elements_multisocketsink_LINK = $(LIBTOOL) $(AM_V_lt) --tag=CC \
+	$(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=link $(CCLD) \
+	$(elements_multisocketsink_CFLAGS) $(CFLAGS) $(AM_LDFLAGS) \
+	$(LDFLAGS) -o $@
+elements_playbin_SOURCES = elements/playbin.c
+elements_playbin_OBJECTS = elements_playbin-playbin.$(OBJEXT)
+elements_playbin_DEPENDENCIES = $(am__DEPENDENCIES_1) \
+	$(am__DEPENDENCIES_2)
+elements_playbin_LINK = $(LIBTOOL) $(AM_V_lt) --tag=CC \
+	$(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=link $(CCLD) \
+	$(elements_playbin_CFLAGS) $(CFLAGS) $(AM_LDFLAGS) $(LDFLAGS) \
+	-o $@
+elements_playbin_compressed_SOURCES = elements/playbin-compressed.c
+elements_playbin_compressed_OBJECTS =  \
+	elements_playbin_compressed-playbin-compressed.$(OBJEXT)
+elements_playbin_compressed_DEPENDENCIES = $(top_builddir)/gst-libs/gst/audio/libgstaudio-@GST_MAJORMINOR@.la \
+	$(am__DEPENDENCIES_1) $(am__DEPENDENCIES_2)
+elements_playbin_compressed_LINK = $(LIBTOOL) $(AM_V_lt) --tag=CC \
+	$(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=link $(CCLD) \
+	$(elements_playbin_compressed_CFLAGS) $(CFLAGS) $(AM_LDFLAGS) \
+	$(LDFLAGS) -o $@
+elements_subparse_SOURCES = elements/subparse.c
+elements_subparse_OBJECTS = elements_subparse-subparse.$(OBJEXT)
+elements_subparse_DEPENDENCIES = $(am__DEPENDENCIES_2)
+elements_subparse_LINK = $(LIBTOOL) $(AM_V_lt) --tag=CC \
+	$(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=link $(CCLD) \
+	$(elements_subparse_CFLAGS) $(CFLAGS) $(AM_LDFLAGS) $(LDFLAGS) \
+	-o $@
+elements_textoverlay_SOURCES = elements/textoverlay.c
+elements_textoverlay_OBJECTS =  \
+	elements_textoverlay-textoverlay.$(OBJEXT)
+elements_textoverlay_DEPENDENCIES = $(am__DEPENDENCIES_1) \
+	$(am__DEPENDENCIES_2)
+elements_textoverlay_LINK = $(LIBTOOL) $(AM_V_lt) --tag=CC \
+	$(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=link $(CCLD) \
+	$(elements_textoverlay_CFLAGS) $(CFLAGS) $(AM_LDFLAGS) \
+	$(LDFLAGS) -o $@
+elements_videorate_SOURCES = elements/videorate.c
+elements_videorate_OBJECTS = videorate.$(OBJEXT)
+elements_videorate_LDADD = $(LDADD)
+elements_videorate_DEPENDENCIES = $(am__DEPENDENCIES_1) \
+	$(am__DEPENDENCIES_1)
+elements_videoscale_SOURCES = elements/videoscale.c
+elements_videoscale_OBJECTS =  \
+	elements_videoscale-videoscale.$(OBJEXT)
+elements_videoscale_DEPENDENCIES = $(top_builddir)/gst-libs/gst/video/libgstvideo-@GST_MAJORMINOR@.la \
+	$(am__DEPENDENCIES_1) $(am__DEPENDENCIES_2)
+elements_videoscale_LINK = $(LIBTOOL) $(AM_V_lt) --tag=CC \
+	$(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=link $(CCLD) \
+	$(elements_videoscale_CFLAGS) $(CFLAGS) $(AM_LDFLAGS) \
+	$(LDFLAGS) -o $@
+elements_videotestsrc_SOURCES = elements/videotestsrc.c
+elements_videotestsrc_OBJECTS = videotestsrc.$(OBJEXT)
+elements_videotestsrc_LDADD = $(LDADD)
+elements_videotestsrc_DEPENDENCIES = $(am__DEPENDENCIES_1) \
+	$(am__DEPENDENCIES_1)
+elements_volume_SOURCES = elements/volume.c
+elements_volume_OBJECTS = elements_volume-volume.$(OBJEXT)
+elements_volume_DEPENDENCIES = $(top_builddir)/gst-libs/gst/audio/libgstaudio-@GST_MAJORMINOR@.la \
+	$(am__DEPENDENCIES_1) $(am__DEPENDENCIES_1) \
+	$(am__DEPENDENCIES_2)
+elements_volume_LINK = $(LIBTOOL) $(AM_V_lt) --tag=CC \
+	$(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=link $(CCLD) \
+	$(elements_volume_CFLAGS) $(CFLAGS) $(AM_LDFLAGS) $(LDFLAGS) \
+	-o $@
 elements_vorbisdec_SOURCES = elements/vorbisdec.c
 elements_vorbisdec_OBJECTS = elements_vorbisdec-vorbisdec.$(OBJEXT)
 elements_vorbisdec_DEPENDENCIES = $(am__DEPENDENCIES_2) \
@@ -212,14 +335,14 @@ libs_audio_DEPENDENCIES = $(top_builddir)/gst-libs/gst/audio/libgstaudio-@GST_MA
 libs_audio_LINK = $(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) \
 	$(LIBTOOLFLAGS) --mode=link $(CCLD) $(libs_audio_CFLAGS) \
 	$(CFLAGS) $(AM_LDFLAGS) $(LDFLAGS) -o $@
-libs_cddabasesrc_SOURCES = libs/cddabasesrc.c
-libs_cddabasesrc_OBJECTS = libs_cddabasesrc-cddabasesrc.$(OBJEXT)
-libs_cddabasesrc_DEPENDENCIES = $(top_builddir)/gst-libs/gst/cdda/libgstcdda-@GST_MAJORMINOR@.la \
+libs_audiocdsrc_SOURCES = libs/audiocdsrc.c
+libs_audiocdsrc_OBJECTS = libs_audiocdsrc-audiocdsrc.$(OBJEXT)
+libs_audiocdsrc_DEPENDENCIES = $(top_builddir)/gst-libs/gst/audio/libgstaudio-@GST_MAJORMINOR@.la \
 	$(top_builddir)/gst-libs/gst/tag/libgsttag-@GST_MAJORMINOR@.la \
 	$(am__DEPENDENCIES_1) $(am__DEPENDENCIES_2)
-libs_cddabasesrc_LINK = $(LIBTOOL) $(AM_V_lt) --tag=CC \
+libs_audiocdsrc_LINK = $(LIBTOOL) $(AM_V_lt) --tag=CC \
 	$(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=link $(CCLD) \
-	$(libs_cddabasesrc_CFLAGS) $(CFLAGS) $(AM_LDFLAGS) $(LDFLAGS) \
+	$(libs_audiocdsrc_CFLAGS) $(CFLAGS) $(AM_LDFLAGS) $(LDFLAGS) \
 	-o $@
 libs_discoverer_SOURCES = libs/discoverer.c
 libs_discoverer_OBJECTS = libs_discoverer-discoverer.$(OBJEXT)
@@ -245,10 +368,8 @@ libs_libsabi_SOURCES = libs/libsabi.c
 libs_libsabi_OBJECTS = libs_libsabi-libsabi.$(OBJEXT)
 libs_libsabi_DEPENDENCIES = $(top_builddir)/gst-libs/gst/app/libgstapp-@GST_MAJORMINOR@.la \
 	$(top_builddir)/gst-libs/gst/audio/libgstaudio-@GST_MAJORMINOR@.la \
-	$(top_builddir)/gst-libs/gst/cdda/libgstcdda-@GST_MAJORMINOR@.la \
 	$(top_builddir)/gst-libs/gst/fft/libgstfft-@GST_MAJORMINOR@.la \
 	$(top_builddir)/gst-libs/gst/interfaces/libgstinterfaces-@GST_MAJORMINOR@.la \
-	$(top_builddir)/gst-libs/gst/netbuffer/libgstnetbuffer-@GST_MAJORMINOR@.la \
 	$(top_builddir)/gst-libs/gst/pbutils/libgstpbutils-@GST_MAJORMINOR@.la \
 	$(top_builddir)/gst-libs/gst/rtp/libgstrtp-@GST_MAJORMINOR@.la \
 	$(top_builddir)/gst-libs/gst/rtsp/libgstrtsp-@GST_MAJORMINOR@.la \
@@ -260,7 +381,7 @@ libs_libsabi_LINK = $(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) \
 	$(CFLAGS) $(AM_LDFLAGS) $(LDFLAGS) -o $@
 libs_mixer_SOURCES = libs/mixer.c
 libs_mixer_OBJECTS = libs_mixer-mixer.$(OBJEXT)
-libs_mixer_DEPENDENCIES = $(top_builddir)/gst-libs/gst/interfaces/libgstinterfaces-@GST_MAJORMINOR@.la \
+libs_mixer_DEPENDENCIES = $(top_builddir)/gst-libs/gst/audio/libgstaudio-@GST_MAJORMINOR@.la \
 	$(am__DEPENDENCIES_1) $(am__DEPENDENCIES_2)
 libs_mixer_LINK = $(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) \
 	$(LIBTOOLFLAGS) --mode=link $(CCLD) $(libs_mixer_CFLAGS) \
@@ -273,14 +394,6 @@ libs_navigation_LINK = $(LIBTOOL) $(AM_V_lt) --tag=CC \
 	$(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=link $(CCLD) \
 	$(libs_navigation_CFLAGS) $(CFLAGS) $(AM_LDFLAGS) $(LDFLAGS) \
 	-o $@
-libs_netbuffer_SOURCES = libs/netbuffer.c
-libs_netbuffer_OBJECTS = libs_netbuffer-netbuffer.$(OBJEXT)
-libs_netbuffer_DEPENDENCIES = $(top_builddir)/gst-libs/gst/netbuffer/libgstnetbuffer-@GST_MAJORMINOR@.la \
-	$(am__DEPENDENCIES_2)
-libs_netbuffer_LINK = $(LIBTOOL) $(AM_V_lt) --tag=CC \
-	$(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=link $(CCLD) \
-	$(libs_netbuffer_CFLAGS) $(CFLAGS) $(AM_LDFLAGS) $(LDFLAGS) -o \
-	$@
 libs_pbutils_SOURCES = libs/pbutils.c
 libs_pbutils_OBJECTS = libs_pbutils-pbutils.$(OBJEXT)
 libs_pbutils_DEPENDENCIES = $(top_builddir)/gst-libs/gst/pbutils/libgstpbutils-@GST_MAJORMINOR@.la \
@@ -367,6 +480,18 @@ orc_volume_DEPENDENCIES = $(am__DEPENDENCIES_1)
 orc_volume_LINK = $(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) \
 	$(LIBTOOLFLAGS) --mode=link $(CCLD) $(orc_volume_CFLAGS) \
 	$(CFLAGS) $(AM_LDFLAGS) $(LDFLAGS) -o $@
+pipelines_basetime_SOURCES = pipelines/basetime.c
+pipelines_basetime_OBJECTS = basetime.$(OBJEXT)
+pipelines_basetime_LDADD = $(LDADD)
+pipelines_basetime_DEPENDENCIES = $(am__DEPENDENCIES_1) \
+	$(am__DEPENDENCIES_1)
+pipelines_capsfilter_renegotiation_SOURCES =  \
+	pipelines/capsfilter-renegotiation.c
+pipelines_capsfilter_renegotiation_OBJECTS =  \
+	capsfilter-renegotiation.$(OBJEXT)
+pipelines_capsfilter_renegotiation_LDADD = $(LDADD)
+pipelines_capsfilter_renegotiation_DEPENDENCIES =  \
+	$(am__DEPENDENCIES_1) $(am__DEPENDENCIES_1)
 pipelines_gio_SOURCES = pipelines/gio.c
 pipelines_gio_OBJECTS = pipelines_gio-gio.$(OBJEXT)
 pipelines_gio_DEPENDENCIES = $(am__DEPENDENCIES_1) \
@@ -393,13 +518,14 @@ pipelines_simple_launch_lines_LINK = $(LIBTOOL) $(AM_V_lt) --tag=CC \
 	$(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=link $(CCLD) \
 	$(pipelines_simple_launch_lines_CFLAGS) $(CFLAGS) \
 	$(AM_LDFLAGS) $(LDFLAGS) -o $@
-pipelines_theoraenc_SOURCES = pipelines/theoraenc.c
-pipelines_theoraenc_OBJECTS = pipelines_theoraenc-theoraenc.$(OBJEXT)
-pipelines_theoraenc_DEPENDENCIES = $(am__DEPENDENCIES_2) \
-	$(am__DEPENDENCIES_1)
-pipelines_theoraenc_LINK = $(LIBTOOL) $(AM_V_lt) --tag=CC \
+pipelines_streamheader_SOURCES = pipelines/streamheader.c
+pipelines_streamheader_OBJECTS =  \
+	pipelines_streamheader-streamheader.$(OBJEXT)
+pipelines_streamheader_DEPENDENCIES = $(am__DEPENDENCIES_1) \
+	$(am__DEPENDENCIES_2)
+pipelines_streamheader_LINK = $(LIBTOOL) $(AM_V_lt) --tag=CC \
 	$(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=link $(CCLD) \
-	$(pipelines_theoraenc_CFLAGS) $(CFLAGS) $(AM_LDFLAGS) \
+	$(pipelines_streamheader_CFLAGS) $(CFLAGS) $(AM_LDFLAGS) \
 	$(LDFLAGS) -o $@
 pipelines_vorbisdec_SOURCES = pipelines/vorbisdec.c
 pipelines_vorbisdec_OBJECTS = pipelines_vorbisdec-vorbisdec.$(OBJEXT)
@@ -461,35 +587,49 @@ am__v_CXXLD_0 = @echo "  CXXLD " $@;
 AM_V_GEN = $(am__v_GEN_$(V))
 am__v_GEN_ = $(am__v_GEN_$(AM_DEFAULT_VERBOSITY))
 am__v_GEN_0 = @echo "  GEN   " $@;
-SOURCES = elements/adder.c elements/alsa.c elements/audioconvert.c \
-	elements/audiotestsrc.c elements/decodebin.c \
-	elements/encodebin.c elements/libvisual.c elements/vorbisdec.c \
-	elements/vorbistag.c generic/clock-selection.c \
-	generic/states.c gst/typefindfunctions.c libs/audio.c \
-	libs/cddabasesrc.c libs/discoverer.c libs/fft.c \
-	$(libs_gstlibscpp_SOURCES) libs/libsabi.c libs/mixer.c \
-	libs/navigation.c libs/netbuffer.c libs/pbutils.c \
+SOURCES = elements/alsa.c elements/appsink.c elements/appsrc.c \
+	elements/audioconvert.c elements/audiorate.c \
+	elements/audioresample.c elements/audiotestsrc.c \
+	elements/decodebin.c elements/encodebin.c elements/gdpdepay.c \
+	elements/gdppay.c elements/libvisual.c elements/multifdsink.c \
+	elements/multisocketsink.c elements/playbin.c \
+	elements/playbin-compressed.c elements/subparse.c \
+	elements/textoverlay.c elements/videorate.c \
+	elements/videoscale.c elements/videotestsrc.c \
+	elements/volume.c elements/vorbisdec.c elements/vorbistag.c \
+	generic/clock-selection.c generic/states.c \
+	gst/typefindfunctions.c libs/audio.c libs/audiocdsrc.c \
+	libs/discoverer.c libs/fft.c $(libs_gstlibscpp_SOURCES) \
+	libs/libsabi.c libs/mixer.c libs/navigation.c libs/pbutils.c \
 	libs/profile.c libs/rtp.c libs/rtsp.c libs/tag.c libs/video.c \
 	libs/xmpwriter.c $(nodist_orc_adder_SOURCES) \
 	$(nodist_orc_audioconvert_SOURCES) \
 	$(nodist_orc_videoscale_SOURCES) \
 	$(nodist_orc_videotestsrc_SOURCES) \
-	$(nodist_orc_volume_SOURCES) pipelines/gio.c \
+	$(nodist_orc_volume_SOURCES) pipelines/basetime.c \
+	pipelines/capsfilter-renegotiation.c pipelines/gio.c \
 	pipelines/oggmux.c pipelines/simple-launch-lines.c \
-	pipelines/theoraenc.c pipelines/vorbisdec.c \
+	pipelines/streamheader.c pipelines/vorbisdec.c \
 	pipelines/vorbisenc.c
-DIST_SOURCES = elements/adder.c elements/alsa.c \
-	elements/audioconvert.c elements/audiotestsrc.c \
-	elements/decodebin.c elements/encodebin.c elements/libvisual.c \
-	elements/vorbisdec.c elements/vorbistag.c \
+DIST_SOURCES = elements/alsa.c elements/appsink.c elements/appsrc.c \
+	elements/audioconvert.c elements/audiorate.c \
+	elements/audioresample.c elements/audiotestsrc.c \
+	elements/decodebin.c elements/encodebin.c elements/gdpdepay.c \
+	elements/gdppay.c elements/libvisual.c elements/multifdsink.c \
+	elements/multisocketsink.c elements/playbin.c \
+	elements/playbin-compressed.c elements/subparse.c \
+	elements/textoverlay.c elements/videorate.c \
+	elements/videoscale.c elements/videotestsrc.c \
+	elements/volume.c elements/vorbisdec.c elements/vorbistag.c \
 	generic/clock-selection.c generic/states.c \
-	gst/typefindfunctions.c libs/audio.c libs/cddabasesrc.c \
+	gst/typefindfunctions.c libs/audio.c libs/audiocdsrc.c \
 	libs/discoverer.c libs/fft.c $(libs_gstlibscpp_SOURCES) \
-	libs/libsabi.c libs/mixer.c libs/navigation.c libs/netbuffer.c \
-	libs/pbutils.c libs/profile.c libs/rtp.c libs/rtsp.c \
-	libs/tag.c libs/video.c libs/xmpwriter.c pipelines/gio.c \
+	libs/libsabi.c libs/mixer.c libs/navigation.c libs/pbutils.c \
+	libs/profile.c libs/rtp.c libs/rtsp.c libs/tag.c libs/video.c \
+	libs/xmpwriter.c pipelines/basetime.c \
+	pipelines/capsfilter-renegotiation.c pipelines/gio.c \
 	pipelines/oggmux.c pipelines/simple-launch-lines.c \
-	pipelines/theoraenc.c pipelines/vorbisdec.c \
+	pipelines/streamheader.c pipelines/vorbisdec.c \
 	pipelines/vorbisenc.c
 HEADERS = $(noinst_HEADERS)
 ETAGS = etags
@@ -557,6 +697,7 @@ GIO_CFLAGS = @GIO_CFLAGS@
 GIO_LDFLAGS = @GIO_LDFLAGS@
 GIO_LIBS = @GIO_LIBS@
 GLIB_CFLAGS = @GLIB_CFLAGS@
+GLIB_EXTRA_CFLAGS = @GLIB_EXTRA_CFLAGS@
 GLIB_LIBS = @GLIB_LIBS@
 GLIB_PREFIX = @GLIB_PREFIX@
 GLIB_REQ = @GLIB_REQ@
@@ -574,8 +715,6 @@ GST_CONTROLLER_CFLAGS = @GST_CONTROLLER_CFLAGS@
 GST_CONTROLLER_LIBS = @GST_CONTROLLER_LIBS@
 GST_CURRENT = @GST_CURRENT@
 GST_CXXFLAGS = @GST_CXXFLAGS@
-GST_GDP_CFLAGS = @GST_GDP_CFLAGS@
-GST_GDP_LIBS = @GST_GDP_LIBS@
 GST_INSTALL_PLUGINS_HELPER = @GST_INSTALL_PLUGINS_HELPER@
 GST_LEVEL_DEFAULT = @GST_LEVEL_DEFAULT@
 GST_LIBS = @GST_LIBS@
@@ -607,7 +746,6 @@ HAVE_CDPARANOIA = @HAVE_CDPARANOIA@
 HAVE_X = @HAVE_X@
 HAVE_XSHM = @HAVE_XSHM@
 HAVE_ZLIB = @HAVE_ZLIB@
-HSTRERROR_LIBS = @HSTRERROR_LIBS@
 HTML_DIR = @HTML_DIR@
 INSTALL = @INSTALL@
 INSTALL_DATA = @INSTALL_DATA@
@@ -644,6 +782,7 @@ LTLIBINTL = @LTLIBINTL@
 LTLIBOBJS = @LTLIBOBJS@
 MAINT = @MAINT@
 MAKEINFO = @MAKEINFO@
+MANIFEST_TOOL = @MANIFEST_TOOL@
 MKDIR_P = @MKDIR_P@
 MSGFMT = @MSGFMT@
 MSGFMT_015 = @MSGFMT_015@
@@ -705,7 +844,6 @@ VORBIS_CFLAGS = @VORBIS_CFLAGS@
 VORBIS_LIBS = @VORBIS_LIBS@
 WARNING_CFLAGS = @WARNING_CFLAGS@
 WARNING_CXXFLAGS = @WARNING_CXXFLAGS@
-WIN32_LIBS = @WIN32_LIBS@
 XGETTEXT = @XGETTEXT@
 XGETTEXT_015 = @XGETTEXT_015@
 XGETTEXT_EXTRA_OPTIONS = @XGETTEXT_EXTRA_OPTIONS@
@@ -722,6 +860,7 @@ abs_builddir = @abs_builddir@
 abs_srcdir = @abs_srcdir@
 abs_top_builddir = @abs_top_builddir@
 abs_top_srcdir = @abs_top_srcdir@
+ac_ct_AR = @ac_ct_AR@
 ac_ct_CC = @ac_ct_CC@
 ac_ct_CXX = @ac_ct_CXX@
 ac_ct_DUMPBIN = @ac_ct_DUMPBIN@
@@ -755,7 +894,6 @@ libdir = @libdir@
 libexecdir = @libexecdir@
 localedir = @localedir@
 localstatedir = @localstatedir@
-lt_ECHO = @lt_ECHO@
 mandir = @mandir@
 mkdir_p = @mkdir_p@
 oldincludedir = @oldincludedir@
@@ -803,8 +941,6 @@ STATE_IGNORE_ELEMENTS = cdio cdparanoiasrc libvisual_ alsasrc alsamixer alsasink
 TESTS = $(check_PROGRAMS)
 @USE_ALSA_FALSE@check_alsa = 
 @USE_ALSA_TRUE@check_alsa = elements/alsa
-@USE_GIO_FALSE@check_gio = 
-@USE_GIO_TRUE@check_gio = pipelines/gio
 @USE_LIBVISUAL_FALSE@check_libvisual = 
 @USE_LIBVISUAL_TRUE@check_libvisual = elements/libvisual
 @USE_OGG_FALSE@check_ogg = 
@@ -835,34 +971,6 @@ VALGRIND_TO_FIX = \
 	elements/videoconvert \
 	libs/video
 
-
-# FIXME 0.11: these tests don't even build at the moment
-ZERO_11_TO_PORT = \
-	pipelines/streamheader \
-	pipelines/basetime \
-	pipelines/capsfilter-renegotiation \
-	elements/appsink            \
-	elements/appsrc             \
-	elements/audiorate          \
-	elements/audioresample      \
-	elements/gdpdepay           \
-	elements/gdppay             \
-	elements/multifdsink        \
-	elements/playbin            \
-	elements/playbin-compressed \
-	$(check_pango)              \
-	$(check_subparse)           \
-	elements/videorate          \
-	elements/videoscale         \
-	elements/videotestsrc       \
-	elements/volume
-
-
-# FIXME 0.11: these tests don't pass at the moment
-ZERO_11_TO_FIX = \
-	elements/adder	       \
-	$(check_theora)
-
 noinst_HEADERS = \
 	libs/struct_arm.h     \
 	libs/struct_i386.h     \
@@ -892,10 +1000,8 @@ libs_libsabi_CFLAGS = \
 libs_libsabi_LDADD = \
 	$(top_builddir)/gst-libs/gst/app/libgstapp-@GST_MAJORMINOR@.la \
 	$(top_builddir)/gst-libs/gst/audio/libgstaudio-@GST_MAJORMINOR@.la \
-	$(top_builddir)/gst-libs/gst/cdda/libgstcdda-@GST_MAJORMINOR@.la \
 	$(top_builddir)/gst-libs/gst/fft/libgstfft-@GST_MAJORMINOR@.la \
 	$(top_builddir)/gst-libs/gst/interfaces/libgstinterfaces-@GST_MAJORMINOR@.la \
-	$(top_builddir)/gst-libs/gst/netbuffer/libgstnetbuffer-@GST_MAJORMINOR@.la \
 	$(top_builddir)/gst-libs/gst/pbutils/libgstpbutils-@GST_MAJORMINOR@.la \
 	$(top_builddir)/gst-libs/gst/rtp/libgstrtp-@GST_MAJORMINOR@.la \
 	$(top_builddir)/gst-libs/gst/rtsp/libgstrtsp-@GST_MAJORMINOR@.la \
@@ -915,13 +1021,13 @@ libs_audio_LDADD = \
 	$(GST_BASE_LIBS) \
 	$(LDADD)
 
-libs_cddabasesrc_CFLAGS = \
+libs_audiocdsrc_CFLAGS = \
 	$(GST_PLUGINS_BASE_CFLAGS) \
 	$(GST_BASE_CFLAGS) \
 	$(AM_CFLAGS)
 
-libs_cddabasesrc_LDADD = \
-	$(top_builddir)/gst-libs/gst/cdda/libgstcdda-@GST_MAJORMINOR@.la \
+libs_audiocdsrc_LDADD = \
+	$(top_builddir)/gst-libs/gst/audio/libgstaudio-@GST_MAJORMINOR@.la \
 	$(top_builddir)/gst-libs/gst/tag/libgsttag-@GST_MAJORMINOR@.la \
 	$(GST_BASE_LIBS) \
 	$(LDADD)
@@ -951,7 +1057,7 @@ libs_mixer_CFLAGS = \
         $(AM_CFLAGS)
 
 libs_mixer_LDADD = \
-	$(top_builddir)/gst-libs/gst/interfaces/libgstinterfaces-@GST_MAJORMINOR@.la \
+	$(top_builddir)/gst-libs/gst/audio/libgstaudio-@GST_MAJORMINOR@.la \
         $(GST_BASE_LIBS) \
         $(LDADD)
 
@@ -964,14 +1070,6 @@ libs_navigation_LDADD = \
 	$(top_builddir)/gst-libs/gst/interfaces/libgstinterfaces-@GST_MAJORMINOR@.la \
         $(GST_BASE_LIBS) \
         $(LDADD)
-
-libs_netbuffer_CFLAGS = \
-	$(GST_PLUGINS_BASE_CFLAGS) \
-	$(AM_CFLAGS)
-
-libs_netbuffer_LDADD = \
-	$(top_builddir)/gst-libs/gst/netbuffer/libgstnetbuffer-@GST_MAJORMINOR@.la \
-	$(LDADD)
 
 libs_rtp_CFLAGS = \
 	$(GST_PLUGINS_BASE_CFLAGS) \
@@ -1047,6 +1145,7 @@ elements_alsa_CFLAGS = \
 
 elements_alsa_LDADD = \
 	$(top_builddir)/gst-libs/gst/interfaces/libgstinterfaces-@GST_MAJORMINOR@.la \
+	$(top_builddir)/gst-libs/gst/audio/libgstaudio-@GST_MAJORMINOR@.la \
 	$(LDADD)
 
 elements_audioconvert_CFLAGS = \
@@ -1060,15 +1159,20 @@ elements_audioconvert_LDADD = \
 	$(GST_BASE_LIBS) \
 	$(LDADD)
 
-elements_audiorate_LDADD = $(LDADD)
+elements_audiorate_LDADD = \
+	$(top_builddir)/gst-libs/gst/audio/libgstaudio-@GST_MAJORMINOR@.la \
+	$(top_builddir)/gst-libs/gst/interfaces/libgstinterfaces-@GST_MAJORMINOR@.la \
+	$(GST_BASE_LIBS) \
+	$(LDADD)
+
 elements_audiorate_CFLAGS = $(GST_PLUGINS_BASE_CFLAGS) $(CFLAGS) $(AM_CFLAGS)
 elements_libvisual_LDADD = $(LDADD)
 elements_libvisual_CFLAGS = $(CFLAGS) $(AM_CFLAGS)
-elements_gdpdepay_LDADD = $(GST_GDP_LIBS) $(LDADD)
-elements_gdppay_LDADD = $(GST_GDP_LIBS) $(LDADD)
+elements_gdpdepay_LDADD = $(LDADD)
+elements_gdppay_LDADD = $(LDADD)
 elements_playbin_LDADD = $(GST_BASE_LIBS) $(LDADD)
 elements_playbin_CFLAGS = $(GST_BASE_CFLAGS) $(AM_CFLAGS)
-elements_playbin_compressed_LDADD = $(top_builddir)/gst-libs/gst/interfaces/libgstinterfaces-@GST_MAJORMINOR@.la $(GST_BASE_LIBS) $(LDADD)
+elements_playbin_compressed_LDADD = $(top_builddir)/gst-libs/gst/audio/libgstaudio-@GST_MAJORMINOR@.la $(GST_BASE_LIBS) $(LDADD)
 elements_playbin_compressed_CFLAGS = $(GST_PLUGINS_BASE_CFLAGS) $(GST_BASE_CFLAGS) $(AM_CFLAGS)
 elements_decodebin_LDADD = $(GST_BASE_LIBS) $(LDADD)
 elements_decodebin_CFLAGS = $(GST_BASE_CFLAGS) $(AM_CFLAGS)
@@ -1091,7 +1195,7 @@ elements_audioresample_LDADD = \
 elements_textoverlay_LDADD = $(GST_BASE_LIBS) $(LDADD)
 elements_textoverlay_CFLAGS = $(GST_BASE_CFLAGS) $(AM_CFLAGS)
 elements_volume_LDADD = \
-	$(top_builddir)/gst-libs/gst/interfaces/libgstinterfaces-@GST_MAJORMINOR@.la \
+	$(top_builddir)/gst-libs/gst/audio/libgstaudio-@GST_MAJORMINOR@.la \
 	$(GST_CONTROLLER_LIBS) \
 	$(GST_BASE_LIBS) \
 	$(LDADD)
@@ -1145,8 +1249,12 @@ libs_video_LDADD = \
 	$(GST_BASE_LIBS) \
 	$(LDADD)
 
+elements_multisocketsink_CFLAGS = $(GIO_CFLAGS) $(AM_CFLAGS)
+elements_multisocketsink_LDADD = $(GIO_LIBS) $(LDADD)
 pipelines_gio_CFLAGS = $(GIO_CFLAGS) $(AM_CFLAGS)
 pipelines_gio_LDADD = $(GIO_LIBS) $(LDADD)
+pipelines_streamheader_CFLAGS = $(GIO_CFLAGS) $(AM_CFLAGS)
+pipelines_streamheader_LDADD = $(GIO_LIBS) $(LDADD)
 pipelines_vorbisenc_CFLAGS = \
         $(GST_PLUGINS_BASE_CFLAGS) \
         $(AM_CFLAGS)
@@ -1241,15 +1349,24 @@ clean-noinstPROGRAMS:
 elements/$(am__dirstamp):
 	@$(MKDIR_P) elements
 	@: > elements/$(am__dirstamp)
-elements/adder$(EXEEXT): $(elements_adder_OBJECTS) $(elements_adder_DEPENDENCIES) elements/$(am__dirstamp)
-	@rm -f elements/adder$(EXEEXT)
-	$(AM_V_CCLD)$(LINK) $(elements_adder_OBJECTS) $(elements_adder_LDADD) $(LIBS)
 elements/alsa$(EXEEXT): $(elements_alsa_OBJECTS) $(elements_alsa_DEPENDENCIES) elements/$(am__dirstamp)
 	@rm -f elements/alsa$(EXEEXT)
 	$(AM_V_CCLD)$(elements_alsa_LINK) $(elements_alsa_OBJECTS) $(elements_alsa_LDADD) $(LIBS)
+elements/appsink$(EXEEXT): $(elements_appsink_OBJECTS) $(elements_appsink_DEPENDENCIES) elements/$(am__dirstamp)
+	@rm -f elements/appsink$(EXEEXT)
+	$(AM_V_CCLD)$(elements_appsink_LINK) $(elements_appsink_OBJECTS) $(elements_appsink_LDADD) $(LIBS)
+elements/appsrc$(EXEEXT): $(elements_appsrc_OBJECTS) $(elements_appsrc_DEPENDENCIES) elements/$(am__dirstamp)
+	@rm -f elements/appsrc$(EXEEXT)
+	$(AM_V_CCLD)$(elements_appsrc_LINK) $(elements_appsrc_OBJECTS) $(elements_appsrc_LDADD) $(LIBS)
 elements/audioconvert$(EXEEXT): $(elements_audioconvert_OBJECTS) $(elements_audioconvert_DEPENDENCIES) elements/$(am__dirstamp)
 	@rm -f elements/audioconvert$(EXEEXT)
 	$(AM_V_CCLD)$(elements_audioconvert_LINK) $(elements_audioconvert_OBJECTS) $(elements_audioconvert_LDADD) $(LIBS)
+elements/audiorate$(EXEEXT): $(elements_audiorate_OBJECTS) $(elements_audiorate_DEPENDENCIES) elements/$(am__dirstamp)
+	@rm -f elements/audiorate$(EXEEXT)
+	$(AM_V_CCLD)$(elements_audiorate_LINK) $(elements_audiorate_OBJECTS) $(elements_audiorate_LDADD) $(LIBS)
+elements/audioresample$(EXEEXT): $(elements_audioresample_OBJECTS) $(elements_audioresample_DEPENDENCIES) elements/$(am__dirstamp)
+	@rm -f elements/audioresample$(EXEEXT)
+	$(AM_V_CCLD)$(elements_audioresample_LINK) $(elements_audioresample_OBJECTS) $(elements_audioresample_LDADD) $(LIBS)
 elements/audiotestsrc$(EXEEXT): $(elements_audiotestsrc_OBJECTS) $(elements_audiotestsrc_DEPENDENCIES) elements/$(am__dirstamp)
 	@rm -f elements/audiotestsrc$(EXEEXT)
 	$(AM_V_CCLD)$(LINK) $(elements_audiotestsrc_OBJECTS) $(elements_audiotestsrc_LDADD) $(LIBS)
@@ -1259,9 +1376,45 @@ elements/decodebin$(EXEEXT): $(elements_decodebin_OBJECTS) $(elements_decodebin_
 elements/encodebin$(EXEEXT): $(elements_encodebin_OBJECTS) $(elements_encodebin_DEPENDENCIES) elements/$(am__dirstamp)
 	@rm -f elements/encodebin$(EXEEXT)
 	$(AM_V_CCLD)$(elements_encodebin_LINK) $(elements_encodebin_OBJECTS) $(elements_encodebin_LDADD) $(LIBS)
+elements/gdpdepay$(EXEEXT): $(elements_gdpdepay_OBJECTS) $(elements_gdpdepay_DEPENDENCIES) elements/$(am__dirstamp)
+	@rm -f elements/gdpdepay$(EXEEXT)
+	$(AM_V_CCLD)$(LINK) $(elements_gdpdepay_OBJECTS) $(elements_gdpdepay_LDADD) $(LIBS)
+elements/gdppay$(EXEEXT): $(elements_gdppay_OBJECTS) $(elements_gdppay_DEPENDENCIES) elements/$(am__dirstamp)
+	@rm -f elements/gdppay$(EXEEXT)
+	$(AM_V_CCLD)$(LINK) $(elements_gdppay_OBJECTS) $(elements_gdppay_LDADD) $(LIBS)
 elements/libvisual$(EXEEXT): $(elements_libvisual_OBJECTS) $(elements_libvisual_DEPENDENCIES) elements/$(am__dirstamp)
 	@rm -f elements/libvisual$(EXEEXT)
 	$(AM_V_CCLD)$(elements_libvisual_LINK) $(elements_libvisual_OBJECTS) $(elements_libvisual_LDADD) $(LIBS)
+elements/multifdsink$(EXEEXT): $(elements_multifdsink_OBJECTS) $(elements_multifdsink_DEPENDENCIES) elements/$(am__dirstamp)
+	@rm -f elements/multifdsink$(EXEEXT)
+	$(AM_V_CCLD)$(LINK) $(elements_multifdsink_OBJECTS) $(elements_multifdsink_LDADD) $(LIBS)
+elements/multisocketsink$(EXEEXT): $(elements_multisocketsink_OBJECTS) $(elements_multisocketsink_DEPENDENCIES) elements/$(am__dirstamp)
+	@rm -f elements/multisocketsink$(EXEEXT)
+	$(AM_V_CCLD)$(elements_multisocketsink_LINK) $(elements_multisocketsink_OBJECTS) $(elements_multisocketsink_LDADD) $(LIBS)
+elements/playbin$(EXEEXT): $(elements_playbin_OBJECTS) $(elements_playbin_DEPENDENCIES) elements/$(am__dirstamp)
+	@rm -f elements/playbin$(EXEEXT)
+	$(AM_V_CCLD)$(elements_playbin_LINK) $(elements_playbin_OBJECTS) $(elements_playbin_LDADD) $(LIBS)
+elements/playbin-compressed$(EXEEXT): $(elements_playbin_compressed_OBJECTS) $(elements_playbin_compressed_DEPENDENCIES) elements/$(am__dirstamp)
+	@rm -f elements/playbin-compressed$(EXEEXT)
+	$(AM_V_CCLD)$(elements_playbin_compressed_LINK) $(elements_playbin_compressed_OBJECTS) $(elements_playbin_compressed_LDADD) $(LIBS)
+elements/subparse$(EXEEXT): $(elements_subparse_OBJECTS) $(elements_subparse_DEPENDENCIES) elements/$(am__dirstamp)
+	@rm -f elements/subparse$(EXEEXT)
+	$(AM_V_CCLD)$(elements_subparse_LINK) $(elements_subparse_OBJECTS) $(elements_subparse_LDADD) $(LIBS)
+elements/textoverlay$(EXEEXT): $(elements_textoverlay_OBJECTS) $(elements_textoverlay_DEPENDENCIES) elements/$(am__dirstamp)
+	@rm -f elements/textoverlay$(EXEEXT)
+	$(AM_V_CCLD)$(elements_textoverlay_LINK) $(elements_textoverlay_OBJECTS) $(elements_textoverlay_LDADD) $(LIBS)
+elements/videorate$(EXEEXT): $(elements_videorate_OBJECTS) $(elements_videorate_DEPENDENCIES) elements/$(am__dirstamp)
+	@rm -f elements/videorate$(EXEEXT)
+	$(AM_V_CCLD)$(LINK) $(elements_videorate_OBJECTS) $(elements_videorate_LDADD) $(LIBS)
+elements/videoscale$(EXEEXT): $(elements_videoscale_OBJECTS) $(elements_videoscale_DEPENDENCIES) elements/$(am__dirstamp)
+	@rm -f elements/videoscale$(EXEEXT)
+	$(AM_V_CCLD)$(elements_videoscale_LINK) $(elements_videoscale_OBJECTS) $(elements_videoscale_LDADD) $(LIBS)
+elements/videotestsrc$(EXEEXT): $(elements_videotestsrc_OBJECTS) $(elements_videotestsrc_DEPENDENCIES) elements/$(am__dirstamp)
+	@rm -f elements/videotestsrc$(EXEEXT)
+	$(AM_V_CCLD)$(LINK) $(elements_videotestsrc_OBJECTS) $(elements_videotestsrc_LDADD) $(LIBS)
+elements/volume$(EXEEXT): $(elements_volume_OBJECTS) $(elements_volume_DEPENDENCIES) elements/$(am__dirstamp)
+	@rm -f elements/volume$(EXEEXT)
+	$(AM_V_CCLD)$(elements_volume_LINK) $(elements_volume_OBJECTS) $(elements_volume_LDADD) $(LIBS)
 elements/vorbisdec$(EXEEXT): $(elements_vorbisdec_OBJECTS) $(elements_vorbisdec_DEPENDENCIES) elements/$(am__dirstamp)
 	@rm -f elements/vorbisdec$(EXEEXT)
 	$(AM_V_CCLD)$(elements_vorbisdec_LINK) $(elements_vorbisdec_OBJECTS) $(elements_vorbisdec_LDADD) $(LIBS)
@@ -1289,9 +1442,9 @@ libs/$(am__dirstamp):
 libs/audio$(EXEEXT): $(libs_audio_OBJECTS) $(libs_audio_DEPENDENCIES) libs/$(am__dirstamp)
 	@rm -f libs/audio$(EXEEXT)
 	$(AM_V_CCLD)$(libs_audio_LINK) $(libs_audio_OBJECTS) $(libs_audio_LDADD) $(LIBS)
-libs/cddabasesrc$(EXEEXT): $(libs_cddabasesrc_OBJECTS) $(libs_cddabasesrc_DEPENDENCIES) libs/$(am__dirstamp)
-	@rm -f libs/cddabasesrc$(EXEEXT)
-	$(AM_V_CCLD)$(libs_cddabasesrc_LINK) $(libs_cddabasesrc_OBJECTS) $(libs_cddabasesrc_LDADD) $(LIBS)
+libs/audiocdsrc$(EXEEXT): $(libs_audiocdsrc_OBJECTS) $(libs_audiocdsrc_DEPENDENCIES) libs/$(am__dirstamp)
+	@rm -f libs/audiocdsrc$(EXEEXT)
+	$(AM_V_CCLD)$(libs_audiocdsrc_LINK) $(libs_audiocdsrc_OBJECTS) $(libs_audiocdsrc_LDADD) $(LIBS)
 libs/discoverer$(EXEEXT): $(libs_discoverer_OBJECTS) $(libs_discoverer_DEPENDENCIES) libs/$(am__dirstamp)
 	@rm -f libs/discoverer$(EXEEXT)
 	$(AM_V_CCLD)$(libs_discoverer_LINK) $(libs_discoverer_OBJECTS) $(libs_discoverer_LDADD) $(LIBS)
@@ -1310,9 +1463,6 @@ libs/mixer$(EXEEXT): $(libs_mixer_OBJECTS) $(libs_mixer_DEPENDENCIES) libs/$(am_
 libs/navigation$(EXEEXT): $(libs_navigation_OBJECTS) $(libs_navigation_DEPENDENCIES) libs/$(am__dirstamp)
 	@rm -f libs/navigation$(EXEEXT)
 	$(AM_V_CCLD)$(libs_navigation_LINK) $(libs_navigation_OBJECTS) $(libs_navigation_LDADD) $(LIBS)
-libs/netbuffer$(EXEEXT): $(libs_netbuffer_OBJECTS) $(libs_netbuffer_DEPENDENCIES) libs/$(am__dirstamp)
-	@rm -f libs/netbuffer$(EXEEXT)
-	$(AM_V_CCLD)$(libs_netbuffer_LINK) $(libs_netbuffer_OBJECTS) $(libs_netbuffer_LDADD) $(LIBS)
 libs/pbutils$(EXEEXT): $(libs_pbutils_OBJECTS) $(libs_pbutils_DEPENDENCIES) libs/$(am__dirstamp)
 	@rm -f libs/pbutils$(EXEEXT)
 	$(AM_V_CCLD)$(libs_pbutils_LINK) $(libs_pbutils_OBJECTS) $(libs_pbutils_LDADD) $(LIBS)
@@ -1355,6 +1505,12 @@ orc/volume$(EXEEXT): $(orc_volume_OBJECTS) $(orc_volume_DEPENDENCIES) orc/$(am__
 pipelines/$(am__dirstamp):
 	@$(MKDIR_P) pipelines
 	@: > pipelines/$(am__dirstamp)
+pipelines/basetime$(EXEEXT): $(pipelines_basetime_OBJECTS) $(pipelines_basetime_DEPENDENCIES) pipelines/$(am__dirstamp)
+	@rm -f pipelines/basetime$(EXEEXT)
+	$(AM_V_CCLD)$(LINK) $(pipelines_basetime_OBJECTS) $(pipelines_basetime_LDADD) $(LIBS)
+pipelines/capsfilter-renegotiation$(EXEEXT): $(pipelines_capsfilter_renegotiation_OBJECTS) $(pipelines_capsfilter_renegotiation_DEPENDENCIES) pipelines/$(am__dirstamp)
+	@rm -f pipelines/capsfilter-renegotiation$(EXEEXT)
+	$(AM_V_CCLD)$(LINK) $(pipelines_capsfilter_renegotiation_OBJECTS) $(pipelines_capsfilter_renegotiation_LDADD) $(LIBS)
 pipelines/gio$(EXEEXT): $(pipelines_gio_OBJECTS) $(pipelines_gio_DEPENDENCIES) pipelines/$(am__dirstamp)
 	@rm -f pipelines/gio$(EXEEXT)
 	$(AM_V_CCLD)$(pipelines_gio_LINK) $(pipelines_gio_OBJECTS) $(pipelines_gio_LDADD) $(LIBS)
@@ -1364,9 +1520,9 @@ pipelines/oggmux$(EXEEXT): $(pipelines_oggmux_OBJECTS) $(pipelines_oggmux_DEPEND
 pipelines/simple-launch-lines$(EXEEXT): $(pipelines_simple_launch_lines_OBJECTS) $(pipelines_simple_launch_lines_DEPENDENCIES) pipelines/$(am__dirstamp)
 	@rm -f pipelines/simple-launch-lines$(EXEEXT)
 	$(AM_V_CCLD)$(pipelines_simple_launch_lines_LINK) $(pipelines_simple_launch_lines_OBJECTS) $(pipelines_simple_launch_lines_LDADD) $(LIBS)
-pipelines/theoraenc$(EXEEXT): $(pipelines_theoraenc_OBJECTS) $(pipelines_theoraenc_DEPENDENCIES) pipelines/$(am__dirstamp)
-	@rm -f pipelines/theoraenc$(EXEEXT)
-	$(AM_V_CCLD)$(pipelines_theoraenc_LINK) $(pipelines_theoraenc_OBJECTS) $(pipelines_theoraenc_LDADD) $(LIBS)
+pipelines/streamheader$(EXEEXT): $(pipelines_streamheader_OBJECTS) $(pipelines_streamheader_DEPENDENCIES) pipelines/$(am__dirstamp)
+	@rm -f pipelines/streamheader$(EXEEXT)
+	$(AM_V_CCLD)$(pipelines_streamheader_LINK) $(pipelines_streamheader_OBJECTS) $(pipelines_streamheader_LDADD) $(LIBS)
 pipelines/vorbisdec$(EXEEXT): $(pipelines_vorbisdec_OBJECTS) $(pipelines_vorbisdec_DEPENDENCIES) pipelines/$(am__dirstamp)
 	@rm -f pipelines/vorbisdec$(EXEEXT)
 	$(AM_V_CCLD)$(pipelines_vorbisdec_LINK) $(pipelines_vorbisdec_OBJECTS) $(pipelines_vorbisdec_LDADD) $(LIBS)
@@ -1380,26 +1536,39 @@ mostlyclean-compile:
 distclean-compile:
 	-rm -f *.tab.c
 
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/adder.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/audiotestsrc.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/basetime.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/capsfilter-renegotiation.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/clock-selection.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/elements_alsa-alsa.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/elements_appsink-appsink.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/elements_appsrc-appsrc.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/elements_audioconvert-audioconvert.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/elements_audiorate-audiorate.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/elements_audioresample-audioresample.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/elements_decodebin-decodebin.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/elements_encodebin-encodebin.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/elements_libvisual-libvisual.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/elements_multisocketsink-multisocketsink.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/elements_playbin-playbin.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/elements_playbin_compressed-playbin-compressed.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/elements_subparse-subparse.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/elements_textoverlay-textoverlay.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/elements_videoscale-videoscale.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/elements_volume-volume.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/elements_vorbisdec-vorbisdec.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/elements_vorbistag-vorbistag.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/gdpdepay.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/gdppay.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/gst_typefindfunctions-typefindfunctions.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/gstlibscpp.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libs_audio-audio.Po@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libs_cddabasesrc-cddabasesrc.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libs_audiocdsrc-audiocdsrc.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libs_discoverer-discoverer.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libs_fft-fft.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libs_libsabi-libsabi.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libs_mixer-mixer.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libs_navigation-navigation.Po@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libs_netbuffer-netbuffer.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libs_pbutils-pbutils.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libs_profile-profile.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libs_rtp-rtp.Po@am__quote@
@@ -1407,6 +1576,7 @@ distclean-compile:
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libs_tag-tag.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libs_video-video.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libs_xmpwriter-xmpwriter.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/multifdsink.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/orc_adder-adder.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/orc_audioconvert-audioconvert.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/orc_videoscale-videoscale.Po@am__quote@
@@ -1415,10 +1585,12 @@ distclean-compile:
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/pipelines_gio-gio.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/pipelines_oggmux-oggmux.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/pipelines_simple_launch_lines-simple-launch-lines.Po@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/pipelines_theoraenc-theoraenc.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/pipelines_streamheader-streamheader.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/pipelines_vorbisdec-vorbisdec.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/pipelines_vorbisenc-vorbisenc.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/states.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/videorate.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/videotestsrc.Po@am__quote@
 
 .c.o:
 @am__fastdepCC_TRUE@	$(AM_V_CC)$(COMPILE) -MT $@ -MD -MP -MF $(DEPDIR)/$*.Tpo -c -o $@ $<
@@ -1444,22 +1616,6 @@ distclean-compile:
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
 @am__fastdepCC_FALSE@	$(LTCOMPILE) -c -o $@ $<
 
-adder.o: elements/adder.c
-@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT adder.o -MD -MP -MF $(DEPDIR)/adder.Tpo -c -o adder.o `test -f 'elements/adder.c' || echo '$(srcdir)/'`elements/adder.c
-@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/adder.Tpo $(DEPDIR)/adder.Po
-@am__fastdepCC_FALSE@	$(AM_V_CC) @AM_BACKSLASH@
-@AMDEP_TRUE@@am__fastdepCC_FALSE@	source='elements/adder.c' object='adder.o' libtool=no @AMDEPBACKSLASH@
-@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCC_FALSE@	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o adder.o `test -f 'elements/adder.c' || echo '$(srcdir)/'`elements/adder.c
-
-adder.obj: elements/adder.c
-@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT adder.obj -MD -MP -MF $(DEPDIR)/adder.Tpo -c -o adder.obj `if test -f 'elements/adder.c'; then $(CYGPATH_W) 'elements/adder.c'; else $(CYGPATH_W) '$(srcdir)/elements/adder.c'; fi`
-@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/adder.Tpo $(DEPDIR)/adder.Po
-@am__fastdepCC_FALSE@	$(AM_V_CC) @AM_BACKSLASH@
-@AMDEP_TRUE@@am__fastdepCC_FALSE@	source='elements/adder.c' object='adder.obj' libtool=no @AMDEPBACKSLASH@
-@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCC_FALSE@	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o adder.obj `if test -f 'elements/adder.c'; then $(CYGPATH_W) 'elements/adder.c'; else $(CYGPATH_W) '$(srcdir)/elements/adder.c'; fi`
-
 elements_alsa-alsa.o: elements/alsa.c
 @am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(elements_alsa_CFLAGS) $(CFLAGS) -MT elements_alsa-alsa.o -MD -MP -MF $(DEPDIR)/elements_alsa-alsa.Tpo -c -o elements_alsa-alsa.o `test -f 'elements/alsa.c' || echo '$(srcdir)/'`elements/alsa.c
 @am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/elements_alsa-alsa.Tpo $(DEPDIR)/elements_alsa-alsa.Po
@@ -1476,6 +1632,38 @@ elements_alsa-alsa.obj: elements/alsa.c
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
 @am__fastdepCC_FALSE@	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(elements_alsa_CFLAGS) $(CFLAGS) -c -o elements_alsa-alsa.obj `if test -f 'elements/alsa.c'; then $(CYGPATH_W) 'elements/alsa.c'; else $(CYGPATH_W) '$(srcdir)/elements/alsa.c'; fi`
 
+elements_appsink-appsink.o: elements/appsink.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(elements_appsink_CFLAGS) $(CFLAGS) -MT elements_appsink-appsink.o -MD -MP -MF $(DEPDIR)/elements_appsink-appsink.Tpo -c -o elements_appsink-appsink.o `test -f 'elements/appsink.c' || echo '$(srcdir)/'`elements/appsink.c
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/elements_appsink-appsink.Tpo $(DEPDIR)/elements_appsink-appsink.Po
+@am__fastdepCC_FALSE@	$(AM_V_CC) @AM_BACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	source='elements/appsink.c' object='elements_appsink-appsink.o' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(elements_appsink_CFLAGS) $(CFLAGS) -c -o elements_appsink-appsink.o `test -f 'elements/appsink.c' || echo '$(srcdir)/'`elements/appsink.c
+
+elements_appsink-appsink.obj: elements/appsink.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(elements_appsink_CFLAGS) $(CFLAGS) -MT elements_appsink-appsink.obj -MD -MP -MF $(DEPDIR)/elements_appsink-appsink.Tpo -c -o elements_appsink-appsink.obj `if test -f 'elements/appsink.c'; then $(CYGPATH_W) 'elements/appsink.c'; else $(CYGPATH_W) '$(srcdir)/elements/appsink.c'; fi`
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/elements_appsink-appsink.Tpo $(DEPDIR)/elements_appsink-appsink.Po
+@am__fastdepCC_FALSE@	$(AM_V_CC) @AM_BACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	source='elements/appsink.c' object='elements_appsink-appsink.obj' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(elements_appsink_CFLAGS) $(CFLAGS) -c -o elements_appsink-appsink.obj `if test -f 'elements/appsink.c'; then $(CYGPATH_W) 'elements/appsink.c'; else $(CYGPATH_W) '$(srcdir)/elements/appsink.c'; fi`
+
+elements_appsrc-appsrc.o: elements/appsrc.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(elements_appsrc_CFLAGS) $(CFLAGS) -MT elements_appsrc-appsrc.o -MD -MP -MF $(DEPDIR)/elements_appsrc-appsrc.Tpo -c -o elements_appsrc-appsrc.o `test -f 'elements/appsrc.c' || echo '$(srcdir)/'`elements/appsrc.c
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/elements_appsrc-appsrc.Tpo $(DEPDIR)/elements_appsrc-appsrc.Po
+@am__fastdepCC_FALSE@	$(AM_V_CC) @AM_BACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	source='elements/appsrc.c' object='elements_appsrc-appsrc.o' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(elements_appsrc_CFLAGS) $(CFLAGS) -c -o elements_appsrc-appsrc.o `test -f 'elements/appsrc.c' || echo '$(srcdir)/'`elements/appsrc.c
+
+elements_appsrc-appsrc.obj: elements/appsrc.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(elements_appsrc_CFLAGS) $(CFLAGS) -MT elements_appsrc-appsrc.obj -MD -MP -MF $(DEPDIR)/elements_appsrc-appsrc.Tpo -c -o elements_appsrc-appsrc.obj `if test -f 'elements/appsrc.c'; then $(CYGPATH_W) 'elements/appsrc.c'; else $(CYGPATH_W) '$(srcdir)/elements/appsrc.c'; fi`
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/elements_appsrc-appsrc.Tpo $(DEPDIR)/elements_appsrc-appsrc.Po
+@am__fastdepCC_FALSE@	$(AM_V_CC) @AM_BACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	source='elements/appsrc.c' object='elements_appsrc-appsrc.obj' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(elements_appsrc_CFLAGS) $(CFLAGS) -c -o elements_appsrc-appsrc.obj `if test -f 'elements/appsrc.c'; then $(CYGPATH_W) 'elements/appsrc.c'; else $(CYGPATH_W) '$(srcdir)/elements/appsrc.c'; fi`
+
 elements_audioconvert-audioconvert.o: elements/audioconvert.c
 @am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(elements_audioconvert_CFLAGS) $(CFLAGS) -MT elements_audioconvert-audioconvert.o -MD -MP -MF $(DEPDIR)/elements_audioconvert-audioconvert.Tpo -c -o elements_audioconvert-audioconvert.o `test -f 'elements/audioconvert.c' || echo '$(srcdir)/'`elements/audioconvert.c
 @am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/elements_audioconvert-audioconvert.Tpo $(DEPDIR)/elements_audioconvert-audioconvert.Po
@@ -1491,6 +1679,38 @@ elements_audioconvert-audioconvert.obj: elements/audioconvert.c
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	source='elements/audioconvert.c' object='elements_audioconvert-audioconvert.obj' libtool=no @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
 @am__fastdepCC_FALSE@	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(elements_audioconvert_CFLAGS) $(CFLAGS) -c -o elements_audioconvert-audioconvert.obj `if test -f 'elements/audioconvert.c'; then $(CYGPATH_W) 'elements/audioconvert.c'; else $(CYGPATH_W) '$(srcdir)/elements/audioconvert.c'; fi`
+
+elements_audiorate-audiorate.o: elements/audiorate.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(elements_audiorate_CFLAGS) $(CFLAGS) -MT elements_audiorate-audiorate.o -MD -MP -MF $(DEPDIR)/elements_audiorate-audiorate.Tpo -c -o elements_audiorate-audiorate.o `test -f 'elements/audiorate.c' || echo '$(srcdir)/'`elements/audiorate.c
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/elements_audiorate-audiorate.Tpo $(DEPDIR)/elements_audiorate-audiorate.Po
+@am__fastdepCC_FALSE@	$(AM_V_CC) @AM_BACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	source='elements/audiorate.c' object='elements_audiorate-audiorate.o' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(elements_audiorate_CFLAGS) $(CFLAGS) -c -o elements_audiorate-audiorate.o `test -f 'elements/audiorate.c' || echo '$(srcdir)/'`elements/audiorate.c
+
+elements_audiorate-audiorate.obj: elements/audiorate.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(elements_audiorate_CFLAGS) $(CFLAGS) -MT elements_audiorate-audiorate.obj -MD -MP -MF $(DEPDIR)/elements_audiorate-audiorate.Tpo -c -o elements_audiorate-audiorate.obj `if test -f 'elements/audiorate.c'; then $(CYGPATH_W) 'elements/audiorate.c'; else $(CYGPATH_W) '$(srcdir)/elements/audiorate.c'; fi`
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/elements_audiorate-audiorate.Tpo $(DEPDIR)/elements_audiorate-audiorate.Po
+@am__fastdepCC_FALSE@	$(AM_V_CC) @AM_BACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	source='elements/audiorate.c' object='elements_audiorate-audiorate.obj' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(elements_audiorate_CFLAGS) $(CFLAGS) -c -o elements_audiorate-audiorate.obj `if test -f 'elements/audiorate.c'; then $(CYGPATH_W) 'elements/audiorate.c'; else $(CYGPATH_W) '$(srcdir)/elements/audiorate.c'; fi`
+
+elements_audioresample-audioresample.o: elements/audioresample.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(elements_audioresample_CFLAGS) $(CFLAGS) -MT elements_audioresample-audioresample.o -MD -MP -MF $(DEPDIR)/elements_audioresample-audioresample.Tpo -c -o elements_audioresample-audioresample.o `test -f 'elements/audioresample.c' || echo '$(srcdir)/'`elements/audioresample.c
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/elements_audioresample-audioresample.Tpo $(DEPDIR)/elements_audioresample-audioresample.Po
+@am__fastdepCC_FALSE@	$(AM_V_CC) @AM_BACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	source='elements/audioresample.c' object='elements_audioresample-audioresample.o' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(elements_audioresample_CFLAGS) $(CFLAGS) -c -o elements_audioresample-audioresample.o `test -f 'elements/audioresample.c' || echo '$(srcdir)/'`elements/audioresample.c
+
+elements_audioresample-audioresample.obj: elements/audioresample.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(elements_audioresample_CFLAGS) $(CFLAGS) -MT elements_audioresample-audioresample.obj -MD -MP -MF $(DEPDIR)/elements_audioresample-audioresample.Tpo -c -o elements_audioresample-audioresample.obj `if test -f 'elements/audioresample.c'; then $(CYGPATH_W) 'elements/audioresample.c'; else $(CYGPATH_W) '$(srcdir)/elements/audioresample.c'; fi`
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/elements_audioresample-audioresample.Tpo $(DEPDIR)/elements_audioresample-audioresample.Po
+@am__fastdepCC_FALSE@	$(AM_V_CC) @AM_BACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	source='elements/audioresample.c' object='elements_audioresample-audioresample.obj' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(elements_audioresample_CFLAGS) $(CFLAGS) -c -o elements_audioresample-audioresample.obj `if test -f 'elements/audioresample.c'; then $(CYGPATH_W) 'elements/audioresample.c'; else $(CYGPATH_W) '$(srcdir)/elements/audioresample.c'; fi`
 
 audiotestsrc.o: elements/audiotestsrc.c
 @am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT audiotestsrc.o -MD -MP -MF $(DEPDIR)/audiotestsrc.Tpo -c -o audiotestsrc.o `test -f 'elements/audiotestsrc.c' || echo '$(srcdir)/'`elements/audiotestsrc.c
@@ -1540,6 +1760,38 @@ elements_encodebin-encodebin.obj: elements/encodebin.c
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
 @am__fastdepCC_FALSE@	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(elements_encodebin_CFLAGS) $(CFLAGS) -c -o elements_encodebin-encodebin.obj `if test -f 'elements/encodebin.c'; then $(CYGPATH_W) 'elements/encodebin.c'; else $(CYGPATH_W) '$(srcdir)/elements/encodebin.c'; fi`
 
+gdpdepay.o: elements/gdpdepay.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT gdpdepay.o -MD -MP -MF $(DEPDIR)/gdpdepay.Tpo -c -o gdpdepay.o `test -f 'elements/gdpdepay.c' || echo '$(srcdir)/'`elements/gdpdepay.c
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/gdpdepay.Tpo $(DEPDIR)/gdpdepay.Po
+@am__fastdepCC_FALSE@	$(AM_V_CC) @AM_BACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	source='elements/gdpdepay.c' object='gdpdepay.o' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o gdpdepay.o `test -f 'elements/gdpdepay.c' || echo '$(srcdir)/'`elements/gdpdepay.c
+
+gdpdepay.obj: elements/gdpdepay.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT gdpdepay.obj -MD -MP -MF $(DEPDIR)/gdpdepay.Tpo -c -o gdpdepay.obj `if test -f 'elements/gdpdepay.c'; then $(CYGPATH_W) 'elements/gdpdepay.c'; else $(CYGPATH_W) '$(srcdir)/elements/gdpdepay.c'; fi`
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/gdpdepay.Tpo $(DEPDIR)/gdpdepay.Po
+@am__fastdepCC_FALSE@	$(AM_V_CC) @AM_BACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	source='elements/gdpdepay.c' object='gdpdepay.obj' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o gdpdepay.obj `if test -f 'elements/gdpdepay.c'; then $(CYGPATH_W) 'elements/gdpdepay.c'; else $(CYGPATH_W) '$(srcdir)/elements/gdpdepay.c'; fi`
+
+gdppay.o: elements/gdppay.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT gdppay.o -MD -MP -MF $(DEPDIR)/gdppay.Tpo -c -o gdppay.o `test -f 'elements/gdppay.c' || echo '$(srcdir)/'`elements/gdppay.c
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/gdppay.Tpo $(DEPDIR)/gdppay.Po
+@am__fastdepCC_FALSE@	$(AM_V_CC) @AM_BACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	source='elements/gdppay.c' object='gdppay.o' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o gdppay.o `test -f 'elements/gdppay.c' || echo '$(srcdir)/'`elements/gdppay.c
+
+gdppay.obj: elements/gdppay.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT gdppay.obj -MD -MP -MF $(DEPDIR)/gdppay.Tpo -c -o gdppay.obj `if test -f 'elements/gdppay.c'; then $(CYGPATH_W) 'elements/gdppay.c'; else $(CYGPATH_W) '$(srcdir)/elements/gdppay.c'; fi`
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/gdppay.Tpo $(DEPDIR)/gdppay.Po
+@am__fastdepCC_FALSE@	$(AM_V_CC) @AM_BACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	source='elements/gdppay.c' object='gdppay.obj' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o gdppay.obj `if test -f 'elements/gdppay.c'; then $(CYGPATH_W) 'elements/gdppay.c'; else $(CYGPATH_W) '$(srcdir)/elements/gdppay.c'; fi`
+
 elements_libvisual-libvisual.o: elements/libvisual.c
 @am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(elements_libvisual_CFLAGS) $(CFLAGS) -MT elements_libvisual-libvisual.o -MD -MP -MF $(DEPDIR)/elements_libvisual-libvisual.Tpo -c -o elements_libvisual-libvisual.o `test -f 'elements/libvisual.c' || echo '$(srcdir)/'`elements/libvisual.c
 @am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/elements_libvisual-libvisual.Tpo $(DEPDIR)/elements_libvisual-libvisual.Po
@@ -1555,6 +1807,166 @@ elements_libvisual-libvisual.obj: elements/libvisual.c
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	source='elements/libvisual.c' object='elements_libvisual-libvisual.obj' libtool=no @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
 @am__fastdepCC_FALSE@	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(elements_libvisual_CFLAGS) $(CFLAGS) -c -o elements_libvisual-libvisual.obj `if test -f 'elements/libvisual.c'; then $(CYGPATH_W) 'elements/libvisual.c'; else $(CYGPATH_W) '$(srcdir)/elements/libvisual.c'; fi`
+
+multifdsink.o: elements/multifdsink.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT multifdsink.o -MD -MP -MF $(DEPDIR)/multifdsink.Tpo -c -o multifdsink.o `test -f 'elements/multifdsink.c' || echo '$(srcdir)/'`elements/multifdsink.c
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/multifdsink.Tpo $(DEPDIR)/multifdsink.Po
+@am__fastdepCC_FALSE@	$(AM_V_CC) @AM_BACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	source='elements/multifdsink.c' object='multifdsink.o' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o multifdsink.o `test -f 'elements/multifdsink.c' || echo '$(srcdir)/'`elements/multifdsink.c
+
+multifdsink.obj: elements/multifdsink.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT multifdsink.obj -MD -MP -MF $(DEPDIR)/multifdsink.Tpo -c -o multifdsink.obj `if test -f 'elements/multifdsink.c'; then $(CYGPATH_W) 'elements/multifdsink.c'; else $(CYGPATH_W) '$(srcdir)/elements/multifdsink.c'; fi`
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/multifdsink.Tpo $(DEPDIR)/multifdsink.Po
+@am__fastdepCC_FALSE@	$(AM_V_CC) @AM_BACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	source='elements/multifdsink.c' object='multifdsink.obj' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o multifdsink.obj `if test -f 'elements/multifdsink.c'; then $(CYGPATH_W) 'elements/multifdsink.c'; else $(CYGPATH_W) '$(srcdir)/elements/multifdsink.c'; fi`
+
+elements_multisocketsink-multisocketsink.o: elements/multisocketsink.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(elements_multisocketsink_CFLAGS) $(CFLAGS) -MT elements_multisocketsink-multisocketsink.o -MD -MP -MF $(DEPDIR)/elements_multisocketsink-multisocketsink.Tpo -c -o elements_multisocketsink-multisocketsink.o `test -f 'elements/multisocketsink.c' || echo '$(srcdir)/'`elements/multisocketsink.c
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/elements_multisocketsink-multisocketsink.Tpo $(DEPDIR)/elements_multisocketsink-multisocketsink.Po
+@am__fastdepCC_FALSE@	$(AM_V_CC) @AM_BACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	source='elements/multisocketsink.c' object='elements_multisocketsink-multisocketsink.o' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(elements_multisocketsink_CFLAGS) $(CFLAGS) -c -o elements_multisocketsink-multisocketsink.o `test -f 'elements/multisocketsink.c' || echo '$(srcdir)/'`elements/multisocketsink.c
+
+elements_multisocketsink-multisocketsink.obj: elements/multisocketsink.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(elements_multisocketsink_CFLAGS) $(CFLAGS) -MT elements_multisocketsink-multisocketsink.obj -MD -MP -MF $(DEPDIR)/elements_multisocketsink-multisocketsink.Tpo -c -o elements_multisocketsink-multisocketsink.obj `if test -f 'elements/multisocketsink.c'; then $(CYGPATH_W) 'elements/multisocketsink.c'; else $(CYGPATH_W) '$(srcdir)/elements/multisocketsink.c'; fi`
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/elements_multisocketsink-multisocketsink.Tpo $(DEPDIR)/elements_multisocketsink-multisocketsink.Po
+@am__fastdepCC_FALSE@	$(AM_V_CC) @AM_BACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	source='elements/multisocketsink.c' object='elements_multisocketsink-multisocketsink.obj' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(elements_multisocketsink_CFLAGS) $(CFLAGS) -c -o elements_multisocketsink-multisocketsink.obj `if test -f 'elements/multisocketsink.c'; then $(CYGPATH_W) 'elements/multisocketsink.c'; else $(CYGPATH_W) '$(srcdir)/elements/multisocketsink.c'; fi`
+
+elements_playbin-playbin.o: elements/playbin.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(elements_playbin_CFLAGS) $(CFLAGS) -MT elements_playbin-playbin.o -MD -MP -MF $(DEPDIR)/elements_playbin-playbin.Tpo -c -o elements_playbin-playbin.o `test -f 'elements/playbin.c' || echo '$(srcdir)/'`elements/playbin.c
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/elements_playbin-playbin.Tpo $(DEPDIR)/elements_playbin-playbin.Po
+@am__fastdepCC_FALSE@	$(AM_V_CC) @AM_BACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	source='elements/playbin.c' object='elements_playbin-playbin.o' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(elements_playbin_CFLAGS) $(CFLAGS) -c -o elements_playbin-playbin.o `test -f 'elements/playbin.c' || echo '$(srcdir)/'`elements/playbin.c
+
+elements_playbin-playbin.obj: elements/playbin.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(elements_playbin_CFLAGS) $(CFLAGS) -MT elements_playbin-playbin.obj -MD -MP -MF $(DEPDIR)/elements_playbin-playbin.Tpo -c -o elements_playbin-playbin.obj `if test -f 'elements/playbin.c'; then $(CYGPATH_W) 'elements/playbin.c'; else $(CYGPATH_W) '$(srcdir)/elements/playbin.c'; fi`
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/elements_playbin-playbin.Tpo $(DEPDIR)/elements_playbin-playbin.Po
+@am__fastdepCC_FALSE@	$(AM_V_CC) @AM_BACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	source='elements/playbin.c' object='elements_playbin-playbin.obj' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(elements_playbin_CFLAGS) $(CFLAGS) -c -o elements_playbin-playbin.obj `if test -f 'elements/playbin.c'; then $(CYGPATH_W) 'elements/playbin.c'; else $(CYGPATH_W) '$(srcdir)/elements/playbin.c'; fi`
+
+elements_playbin_compressed-playbin-compressed.o: elements/playbin-compressed.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(elements_playbin_compressed_CFLAGS) $(CFLAGS) -MT elements_playbin_compressed-playbin-compressed.o -MD -MP -MF $(DEPDIR)/elements_playbin_compressed-playbin-compressed.Tpo -c -o elements_playbin_compressed-playbin-compressed.o `test -f 'elements/playbin-compressed.c' || echo '$(srcdir)/'`elements/playbin-compressed.c
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/elements_playbin_compressed-playbin-compressed.Tpo $(DEPDIR)/elements_playbin_compressed-playbin-compressed.Po
+@am__fastdepCC_FALSE@	$(AM_V_CC) @AM_BACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	source='elements/playbin-compressed.c' object='elements_playbin_compressed-playbin-compressed.o' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(elements_playbin_compressed_CFLAGS) $(CFLAGS) -c -o elements_playbin_compressed-playbin-compressed.o `test -f 'elements/playbin-compressed.c' || echo '$(srcdir)/'`elements/playbin-compressed.c
+
+elements_playbin_compressed-playbin-compressed.obj: elements/playbin-compressed.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(elements_playbin_compressed_CFLAGS) $(CFLAGS) -MT elements_playbin_compressed-playbin-compressed.obj -MD -MP -MF $(DEPDIR)/elements_playbin_compressed-playbin-compressed.Tpo -c -o elements_playbin_compressed-playbin-compressed.obj `if test -f 'elements/playbin-compressed.c'; then $(CYGPATH_W) 'elements/playbin-compressed.c'; else $(CYGPATH_W) '$(srcdir)/elements/playbin-compressed.c'; fi`
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/elements_playbin_compressed-playbin-compressed.Tpo $(DEPDIR)/elements_playbin_compressed-playbin-compressed.Po
+@am__fastdepCC_FALSE@	$(AM_V_CC) @AM_BACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	source='elements/playbin-compressed.c' object='elements_playbin_compressed-playbin-compressed.obj' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(elements_playbin_compressed_CFLAGS) $(CFLAGS) -c -o elements_playbin_compressed-playbin-compressed.obj `if test -f 'elements/playbin-compressed.c'; then $(CYGPATH_W) 'elements/playbin-compressed.c'; else $(CYGPATH_W) '$(srcdir)/elements/playbin-compressed.c'; fi`
+
+elements_subparse-subparse.o: elements/subparse.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(elements_subparse_CFLAGS) $(CFLAGS) -MT elements_subparse-subparse.o -MD -MP -MF $(DEPDIR)/elements_subparse-subparse.Tpo -c -o elements_subparse-subparse.o `test -f 'elements/subparse.c' || echo '$(srcdir)/'`elements/subparse.c
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/elements_subparse-subparse.Tpo $(DEPDIR)/elements_subparse-subparse.Po
+@am__fastdepCC_FALSE@	$(AM_V_CC) @AM_BACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	source='elements/subparse.c' object='elements_subparse-subparse.o' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(elements_subparse_CFLAGS) $(CFLAGS) -c -o elements_subparse-subparse.o `test -f 'elements/subparse.c' || echo '$(srcdir)/'`elements/subparse.c
+
+elements_subparse-subparse.obj: elements/subparse.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(elements_subparse_CFLAGS) $(CFLAGS) -MT elements_subparse-subparse.obj -MD -MP -MF $(DEPDIR)/elements_subparse-subparse.Tpo -c -o elements_subparse-subparse.obj `if test -f 'elements/subparse.c'; then $(CYGPATH_W) 'elements/subparse.c'; else $(CYGPATH_W) '$(srcdir)/elements/subparse.c'; fi`
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/elements_subparse-subparse.Tpo $(DEPDIR)/elements_subparse-subparse.Po
+@am__fastdepCC_FALSE@	$(AM_V_CC) @AM_BACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	source='elements/subparse.c' object='elements_subparse-subparse.obj' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(elements_subparse_CFLAGS) $(CFLAGS) -c -o elements_subparse-subparse.obj `if test -f 'elements/subparse.c'; then $(CYGPATH_W) 'elements/subparse.c'; else $(CYGPATH_W) '$(srcdir)/elements/subparse.c'; fi`
+
+elements_textoverlay-textoverlay.o: elements/textoverlay.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(elements_textoverlay_CFLAGS) $(CFLAGS) -MT elements_textoverlay-textoverlay.o -MD -MP -MF $(DEPDIR)/elements_textoverlay-textoverlay.Tpo -c -o elements_textoverlay-textoverlay.o `test -f 'elements/textoverlay.c' || echo '$(srcdir)/'`elements/textoverlay.c
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/elements_textoverlay-textoverlay.Tpo $(DEPDIR)/elements_textoverlay-textoverlay.Po
+@am__fastdepCC_FALSE@	$(AM_V_CC) @AM_BACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	source='elements/textoverlay.c' object='elements_textoverlay-textoverlay.o' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(elements_textoverlay_CFLAGS) $(CFLAGS) -c -o elements_textoverlay-textoverlay.o `test -f 'elements/textoverlay.c' || echo '$(srcdir)/'`elements/textoverlay.c
+
+elements_textoverlay-textoverlay.obj: elements/textoverlay.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(elements_textoverlay_CFLAGS) $(CFLAGS) -MT elements_textoverlay-textoverlay.obj -MD -MP -MF $(DEPDIR)/elements_textoverlay-textoverlay.Tpo -c -o elements_textoverlay-textoverlay.obj `if test -f 'elements/textoverlay.c'; then $(CYGPATH_W) 'elements/textoverlay.c'; else $(CYGPATH_W) '$(srcdir)/elements/textoverlay.c'; fi`
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/elements_textoverlay-textoverlay.Tpo $(DEPDIR)/elements_textoverlay-textoverlay.Po
+@am__fastdepCC_FALSE@	$(AM_V_CC) @AM_BACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	source='elements/textoverlay.c' object='elements_textoverlay-textoverlay.obj' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(elements_textoverlay_CFLAGS) $(CFLAGS) -c -o elements_textoverlay-textoverlay.obj `if test -f 'elements/textoverlay.c'; then $(CYGPATH_W) 'elements/textoverlay.c'; else $(CYGPATH_W) '$(srcdir)/elements/textoverlay.c'; fi`
+
+videorate.o: elements/videorate.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT videorate.o -MD -MP -MF $(DEPDIR)/videorate.Tpo -c -o videorate.o `test -f 'elements/videorate.c' || echo '$(srcdir)/'`elements/videorate.c
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/videorate.Tpo $(DEPDIR)/videorate.Po
+@am__fastdepCC_FALSE@	$(AM_V_CC) @AM_BACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	source='elements/videorate.c' object='videorate.o' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o videorate.o `test -f 'elements/videorate.c' || echo '$(srcdir)/'`elements/videorate.c
+
+videorate.obj: elements/videorate.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT videorate.obj -MD -MP -MF $(DEPDIR)/videorate.Tpo -c -o videorate.obj `if test -f 'elements/videorate.c'; then $(CYGPATH_W) 'elements/videorate.c'; else $(CYGPATH_W) '$(srcdir)/elements/videorate.c'; fi`
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/videorate.Tpo $(DEPDIR)/videorate.Po
+@am__fastdepCC_FALSE@	$(AM_V_CC) @AM_BACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	source='elements/videorate.c' object='videorate.obj' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o videorate.obj `if test -f 'elements/videorate.c'; then $(CYGPATH_W) 'elements/videorate.c'; else $(CYGPATH_W) '$(srcdir)/elements/videorate.c'; fi`
+
+elements_videoscale-videoscale.o: elements/videoscale.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(elements_videoscale_CFLAGS) $(CFLAGS) -MT elements_videoscale-videoscale.o -MD -MP -MF $(DEPDIR)/elements_videoscale-videoscale.Tpo -c -o elements_videoscale-videoscale.o `test -f 'elements/videoscale.c' || echo '$(srcdir)/'`elements/videoscale.c
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/elements_videoscale-videoscale.Tpo $(DEPDIR)/elements_videoscale-videoscale.Po
+@am__fastdepCC_FALSE@	$(AM_V_CC) @AM_BACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	source='elements/videoscale.c' object='elements_videoscale-videoscale.o' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(elements_videoscale_CFLAGS) $(CFLAGS) -c -o elements_videoscale-videoscale.o `test -f 'elements/videoscale.c' || echo '$(srcdir)/'`elements/videoscale.c
+
+elements_videoscale-videoscale.obj: elements/videoscale.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(elements_videoscale_CFLAGS) $(CFLAGS) -MT elements_videoscale-videoscale.obj -MD -MP -MF $(DEPDIR)/elements_videoscale-videoscale.Tpo -c -o elements_videoscale-videoscale.obj `if test -f 'elements/videoscale.c'; then $(CYGPATH_W) 'elements/videoscale.c'; else $(CYGPATH_W) '$(srcdir)/elements/videoscale.c'; fi`
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/elements_videoscale-videoscale.Tpo $(DEPDIR)/elements_videoscale-videoscale.Po
+@am__fastdepCC_FALSE@	$(AM_V_CC) @AM_BACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	source='elements/videoscale.c' object='elements_videoscale-videoscale.obj' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(elements_videoscale_CFLAGS) $(CFLAGS) -c -o elements_videoscale-videoscale.obj `if test -f 'elements/videoscale.c'; then $(CYGPATH_W) 'elements/videoscale.c'; else $(CYGPATH_W) '$(srcdir)/elements/videoscale.c'; fi`
+
+videotestsrc.o: elements/videotestsrc.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT videotestsrc.o -MD -MP -MF $(DEPDIR)/videotestsrc.Tpo -c -o videotestsrc.o `test -f 'elements/videotestsrc.c' || echo '$(srcdir)/'`elements/videotestsrc.c
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/videotestsrc.Tpo $(DEPDIR)/videotestsrc.Po
+@am__fastdepCC_FALSE@	$(AM_V_CC) @AM_BACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	source='elements/videotestsrc.c' object='videotestsrc.o' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o videotestsrc.o `test -f 'elements/videotestsrc.c' || echo '$(srcdir)/'`elements/videotestsrc.c
+
+videotestsrc.obj: elements/videotestsrc.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT videotestsrc.obj -MD -MP -MF $(DEPDIR)/videotestsrc.Tpo -c -o videotestsrc.obj `if test -f 'elements/videotestsrc.c'; then $(CYGPATH_W) 'elements/videotestsrc.c'; else $(CYGPATH_W) '$(srcdir)/elements/videotestsrc.c'; fi`
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/videotestsrc.Tpo $(DEPDIR)/videotestsrc.Po
+@am__fastdepCC_FALSE@	$(AM_V_CC) @AM_BACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	source='elements/videotestsrc.c' object='videotestsrc.obj' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o videotestsrc.obj `if test -f 'elements/videotestsrc.c'; then $(CYGPATH_W) 'elements/videotestsrc.c'; else $(CYGPATH_W) '$(srcdir)/elements/videotestsrc.c'; fi`
+
+elements_volume-volume.o: elements/volume.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(elements_volume_CFLAGS) $(CFLAGS) -MT elements_volume-volume.o -MD -MP -MF $(DEPDIR)/elements_volume-volume.Tpo -c -o elements_volume-volume.o `test -f 'elements/volume.c' || echo '$(srcdir)/'`elements/volume.c
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/elements_volume-volume.Tpo $(DEPDIR)/elements_volume-volume.Po
+@am__fastdepCC_FALSE@	$(AM_V_CC) @AM_BACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	source='elements/volume.c' object='elements_volume-volume.o' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(elements_volume_CFLAGS) $(CFLAGS) -c -o elements_volume-volume.o `test -f 'elements/volume.c' || echo '$(srcdir)/'`elements/volume.c
+
+elements_volume-volume.obj: elements/volume.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(elements_volume_CFLAGS) $(CFLAGS) -MT elements_volume-volume.obj -MD -MP -MF $(DEPDIR)/elements_volume-volume.Tpo -c -o elements_volume-volume.obj `if test -f 'elements/volume.c'; then $(CYGPATH_W) 'elements/volume.c'; else $(CYGPATH_W) '$(srcdir)/elements/volume.c'; fi`
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/elements_volume-volume.Tpo $(DEPDIR)/elements_volume-volume.Po
+@am__fastdepCC_FALSE@	$(AM_V_CC) @AM_BACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	source='elements/volume.c' object='elements_volume-volume.obj' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(elements_volume_CFLAGS) $(CFLAGS) -c -o elements_volume-volume.obj `if test -f 'elements/volume.c'; then $(CYGPATH_W) 'elements/volume.c'; else $(CYGPATH_W) '$(srcdir)/elements/volume.c'; fi`
 
 elements_vorbisdec-vorbisdec.o: elements/vorbisdec.c
 @am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(elements_vorbisdec_CFLAGS) $(CFLAGS) -MT elements_vorbisdec-vorbisdec.o -MD -MP -MF $(DEPDIR)/elements_vorbisdec-vorbisdec.Tpo -c -o elements_vorbisdec-vorbisdec.o `test -f 'elements/vorbisdec.c' || echo '$(srcdir)/'`elements/vorbisdec.c
@@ -1652,21 +2064,21 @@ libs_audio-audio.obj: libs/audio.c
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
 @am__fastdepCC_FALSE@	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libs_audio_CFLAGS) $(CFLAGS) -c -o libs_audio-audio.obj `if test -f 'libs/audio.c'; then $(CYGPATH_W) 'libs/audio.c'; else $(CYGPATH_W) '$(srcdir)/libs/audio.c'; fi`
 
-libs_cddabasesrc-cddabasesrc.o: libs/cddabasesrc.c
-@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libs_cddabasesrc_CFLAGS) $(CFLAGS) -MT libs_cddabasesrc-cddabasesrc.o -MD -MP -MF $(DEPDIR)/libs_cddabasesrc-cddabasesrc.Tpo -c -o libs_cddabasesrc-cddabasesrc.o `test -f 'libs/cddabasesrc.c' || echo '$(srcdir)/'`libs/cddabasesrc.c
-@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/libs_cddabasesrc-cddabasesrc.Tpo $(DEPDIR)/libs_cddabasesrc-cddabasesrc.Po
+libs_audiocdsrc-audiocdsrc.o: libs/audiocdsrc.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libs_audiocdsrc_CFLAGS) $(CFLAGS) -MT libs_audiocdsrc-audiocdsrc.o -MD -MP -MF $(DEPDIR)/libs_audiocdsrc-audiocdsrc.Tpo -c -o libs_audiocdsrc-audiocdsrc.o `test -f 'libs/audiocdsrc.c' || echo '$(srcdir)/'`libs/audiocdsrc.c
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/libs_audiocdsrc-audiocdsrc.Tpo $(DEPDIR)/libs_audiocdsrc-audiocdsrc.Po
 @am__fastdepCC_FALSE@	$(AM_V_CC) @AM_BACKSLASH@
-@AMDEP_TRUE@@am__fastdepCC_FALSE@	source='libs/cddabasesrc.c' object='libs_cddabasesrc-cddabasesrc.o' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	source='libs/audiocdsrc.c' object='libs_audiocdsrc-audiocdsrc.o' libtool=no @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCC_FALSE@	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libs_cddabasesrc_CFLAGS) $(CFLAGS) -c -o libs_cddabasesrc-cddabasesrc.o `test -f 'libs/cddabasesrc.c' || echo '$(srcdir)/'`libs/cddabasesrc.c
+@am__fastdepCC_FALSE@	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libs_audiocdsrc_CFLAGS) $(CFLAGS) -c -o libs_audiocdsrc-audiocdsrc.o `test -f 'libs/audiocdsrc.c' || echo '$(srcdir)/'`libs/audiocdsrc.c
 
-libs_cddabasesrc-cddabasesrc.obj: libs/cddabasesrc.c
-@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libs_cddabasesrc_CFLAGS) $(CFLAGS) -MT libs_cddabasesrc-cddabasesrc.obj -MD -MP -MF $(DEPDIR)/libs_cddabasesrc-cddabasesrc.Tpo -c -o libs_cddabasesrc-cddabasesrc.obj `if test -f 'libs/cddabasesrc.c'; then $(CYGPATH_W) 'libs/cddabasesrc.c'; else $(CYGPATH_W) '$(srcdir)/libs/cddabasesrc.c'; fi`
-@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/libs_cddabasesrc-cddabasesrc.Tpo $(DEPDIR)/libs_cddabasesrc-cddabasesrc.Po
+libs_audiocdsrc-audiocdsrc.obj: libs/audiocdsrc.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libs_audiocdsrc_CFLAGS) $(CFLAGS) -MT libs_audiocdsrc-audiocdsrc.obj -MD -MP -MF $(DEPDIR)/libs_audiocdsrc-audiocdsrc.Tpo -c -o libs_audiocdsrc-audiocdsrc.obj `if test -f 'libs/audiocdsrc.c'; then $(CYGPATH_W) 'libs/audiocdsrc.c'; else $(CYGPATH_W) '$(srcdir)/libs/audiocdsrc.c'; fi`
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/libs_audiocdsrc-audiocdsrc.Tpo $(DEPDIR)/libs_audiocdsrc-audiocdsrc.Po
 @am__fastdepCC_FALSE@	$(AM_V_CC) @AM_BACKSLASH@
-@AMDEP_TRUE@@am__fastdepCC_FALSE@	source='libs/cddabasesrc.c' object='libs_cddabasesrc-cddabasesrc.obj' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	source='libs/audiocdsrc.c' object='libs_audiocdsrc-audiocdsrc.obj' libtool=no @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCC_FALSE@	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libs_cddabasesrc_CFLAGS) $(CFLAGS) -c -o libs_cddabasesrc-cddabasesrc.obj `if test -f 'libs/cddabasesrc.c'; then $(CYGPATH_W) 'libs/cddabasesrc.c'; else $(CYGPATH_W) '$(srcdir)/libs/cddabasesrc.c'; fi`
+@am__fastdepCC_FALSE@	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libs_audiocdsrc_CFLAGS) $(CFLAGS) -c -o libs_audiocdsrc-audiocdsrc.obj `if test -f 'libs/audiocdsrc.c'; then $(CYGPATH_W) 'libs/audiocdsrc.c'; else $(CYGPATH_W) '$(srcdir)/libs/audiocdsrc.c'; fi`
 
 libs_discoverer-discoverer.o: libs/discoverer.c
 @am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libs_discoverer_CFLAGS) $(CFLAGS) -MT libs_discoverer-discoverer.o -MD -MP -MF $(DEPDIR)/libs_discoverer-discoverer.Tpo -c -o libs_discoverer-discoverer.o `test -f 'libs/discoverer.c' || echo '$(srcdir)/'`libs/discoverer.c
@@ -1747,22 +2159,6 @@ libs_navigation-navigation.obj: libs/navigation.c
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	source='libs/navigation.c' object='libs_navigation-navigation.obj' libtool=no @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
 @am__fastdepCC_FALSE@	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libs_navigation_CFLAGS) $(CFLAGS) -c -o libs_navigation-navigation.obj `if test -f 'libs/navigation.c'; then $(CYGPATH_W) 'libs/navigation.c'; else $(CYGPATH_W) '$(srcdir)/libs/navigation.c'; fi`
-
-libs_netbuffer-netbuffer.o: libs/netbuffer.c
-@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libs_netbuffer_CFLAGS) $(CFLAGS) -MT libs_netbuffer-netbuffer.o -MD -MP -MF $(DEPDIR)/libs_netbuffer-netbuffer.Tpo -c -o libs_netbuffer-netbuffer.o `test -f 'libs/netbuffer.c' || echo '$(srcdir)/'`libs/netbuffer.c
-@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/libs_netbuffer-netbuffer.Tpo $(DEPDIR)/libs_netbuffer-netbuffer.Po
-@am__fastdepCC_FALSE@	$(AM_V_CC) @AM_BACKSLASH@
-@AMDEP_TRUE@@am__fastdepCC_FALSE@	source='libs/netbuffer.c' object='libs_netbuffer-netbuffer.o' libtool=no @AMDEPBACKSLASH@
-@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCC_FALSE@	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libs_netbuffer_CFLAGS) $(CFLAGS) -c -o libs_netbuffer-netbuffer.o `test -f 'libs/netbuffer.c' || echo '$(srcdir)/'`libs/netbuffer.c
-
-libs_netbuffer-netbuffer.obj: libs/netbuffer.c
-@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libs_netbuffer_CFLAGS) $(CFLAGS) -MT libs_netbuffer-netbuffer.obj -MD -MP -MF $(DEPDIR)/libs_netbuffer-netbuffer.Tpo -c -o libs_netbuffer-netbuffer.obj `if test -f 'libs/netbuffer.c'; then $(CYGPATH_W) 'libs/netbuffer.c'; else $(CYGPATH_W) '$(srcdir)/libs/netbuffer.c'; fi`
-@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/libs_netbuffer-netbuffer.Tpo $(DEPDIR)/libs_netbuffer-netbuffer.Po
-@am__fastdepCC_FALSE@	$(AM_V_CC) @AM_BACKSLASH@
-@AMDEP_TRUE@@am__fastdepCC_FALSE@	source='libs/netbuffer.c' object='libs_netbuffer-netbuffer.obj' libtool=no @AMDEPBACKSLASH@
-@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCC_FALSE@	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libs_netbuffer_CFLAGS) $(CFLAGS) -c -o libs_netbuffer-netbuffer.obj `if test -f 'libs/netbuffer.c'; then $(CYGPATH_W) 'libs/netbuffer.c'; else $(CYGPATH_W) '$(srcdir)/libs/netbuffer.c'; fi`
 
 libs_pbutils-pbutils.o: libs/pbutils.c
 @am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libs_pbutils_CFLAGS) $(CFLAGS) -MT libs_pbutils-pbutils.o -MD -MP -MF $(DEPDIR)/libs_pbutils-pbutils.Tpo -c -o libs_pbutils-pbutils.o `test -f 'libs/pbutils.c' || echo '$(srcdir)/'`libs/pbutils.c
@@ -1956,6 +2352,38 @@ orc_volume-volume.obj: orc/volume.c
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
 @am__fastdepCC_FALSE@	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(orc_volume_CFLAGS) $(CFLAGS) -c -o orc_volume-volume.obj `if test -f 'orc/volume.c'; then $(CYGPATH_W) 'orc/volume.c'; else $(CYGPATH_W) '$(srcdir)/orc/volume.c'; fi`
 
+basetime.o: pipelines/basetime.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT basetime.o -MD -MP -MF $(DEPDIR)/basetime.Tpo -c -o basetime.o `test -f 'pipelines/basetime.c' || echo '$(srcdir)/'`pipelines/basetime.c
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/basetime.Tpo $(DEPDIR)/basetime.Po
+@am__fastdepCC_FALSE@	$(AM_V_CC) @AM_BACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	source='pipelines/basetime.c' object='basetime.o' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o basetime.o `test -f 'pipelines/basetime.c' || echo '$(srcdir)/'`pipelines/basetime.c
+
+basetime.obj: pipelines/basetime.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT basetime.obj -MD -MP -MF $(DEPDIR)/basetime.Tpo -c -o basetime.obj `if test -f 'pipelines/basetime.c'; then $(CYGPATH_W) 'pipelines/basetime.c'; else $(CYGPATH_W) '$(srcdir)/pipelines/basetime.c'; fi`
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/basetime.Tpo $(DEPDIR)/basetime.Po
+@am__fastdepCC_FALSE@	$(AM_V_CC) @AM_BACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	source='pipelines/basetime.c' object='basetime.obj' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o basetime.obj `if test -f 'pipelines/basetime.c'; then $(CYGPATH_W) 'pipelines/basetime.c'; else $(CYGPATH_W) '$(srcdir)/pipelines/basetime.c'; fi`
+
+capsfilter-renegotiation.o: pipelines/capsfilter-renegotiation.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT capsfilter-renegotiation.o -MD -MP -MF $(DEPDIR)/capsfilter-renegotiation.Tpo -c -o capsfilter-renegotiation.o `test -f 'pipelines/capsfilter-renegotiation.c' || echo '$(srcdir)/'`pipelines/capsfilter-renegotiation.c
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/capsfilter-renegotiation.Tpo $(DEPDIR)/capsfilter-renegotiation.Po
+@am__fastdepCC_FALSE@	$(AM_V_CC) @AM_BACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	source='pipelines/capsfilter-renegotiation.c' object='capsfilter-renegotiation.o' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o capsfilter-renegotiation.o `test -f 'pipelines/capsfilter-renegotiation.c' || echo '$(srcdir)/'`pipelines/capsfilter-renegotiation.c
+
+capsfilter-renegotiation.obj: pipelines/capsfilter-renegotiation.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT capsfilter-renegotiation.obj -MD -MP -MF $(DEPDIR)/capsfilter-renegotiation.Tpo -c -o capsfilter-renegotiation.obj `if test -f 'pipelines/capsfilter-renegotiation.c'; then $(CYGPATH_W) 'pipelines/capsfilter-renegotiation.c'; else $(CYGPATH_W) '$(srcdir)/pipelines/capsfilter-renegotiation.c'; fi`
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/capsfilter-renegotiation.Tpo $(DEPDIR)/capsfilter-renegotiation.Po
+@am__fastdepCC_FALSE@	$(AM_V_CC) @AM_BACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	source='pipelines/capsfilter-renegotiation.c' object='capsfilter-renegotiation.obj' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o capsfilter-renegotiation.obj `if test -f 'pipelines/capsfilter-renegotiation.c'; then $(CYGPATH_W) 'pipelines/capsfilter-renegotiation.c'; else $(CYGPATH_W) '$(srcdir)/pipelines/capsfilter-renegotiation.c'; fi`
+
 pipelines_gio-gio.o: pipelines/gio.c
 @am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(pipelines_gio_CFLAGS) $(CFLAGS) -MT pipelines_gio-gio.o -MD -MP -MF $(DEPDIR)/pipelines_gio-gio.Tpo -c -o pipelines_gio-gio.o `test -f 'pipelines/gio.c' || echo '$(srcdir)/'`pipelines/gio.c
 @am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/pipelines_gio-gio.Tpo $(DEPDIR)/pipelines_gio-gio.Po
@@ -2004,21 +2432,21 @@ pipelines_simple_launch_lines-simple-launch-lines.obj: pipelines/simple-launch-l
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
 @am__fastdepCC_FALSE@	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(pipelines_simple_launch_lines_CFLAGS) $(CFLAGS) -c -o pipelines_simple_launch_lines-simple-launch-lines.obj `if test -f 'pipelines/simple-launch-lines.c'; then $(CYGPATH_W) 'pipelines/simple-launch-lines.c'; else $(CYGPATH_W) '$(srcdir)/pipelines/simple-launch-lines.c'; fi`
 
-pipelines_theoraenc-theoraenc.o: pipelines/theoraenc.c
-@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(pipelines_theoraenc_CFLAGS) $(CFLAGS) -MT pipelines_theoraenc-theoraenc.o -MD -MP -MF $(DEPDIR)/pipelines_theoraenc-theoraenc.Tpo -c -o pipelines_theoraenc-theoraenc.o `test -f 'pipelines/theoraenc.c' || echo '$(srcdir)/'`pipelines/theoraenc.c
-@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/pipelines_theoraenc-theoraenc.Tpo $(DEPDIR)/pipelines_theoraenc-theoraenc.Po
+pipelines_streamheader-streamheader.o: pipelines/streamheader.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(pipelines_streamheader_CFLAGS) $(CFLAGS) -MT pipelines_streamheader-streamheader.o -MD -MP -MF $(DEPDIR)/pipelines_streamheader-streamheader.Tpo -c -o pipelines_streamheader-streamheader.o `test -f 'pipelines/streamheader.c' || echo '$(srcdir)/'`pipelines/streamheader.c
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/pipelines_streamheader-streamheader.Tpo $(DEPDIR)/pipelines_streamheader-streamheader.Po
 @am__fastdepCC_FALSE@	$(AM_V_CC) @AM_BACKSLASH@
-@AMDEP_TRUE@@am__fastdepCC_FALSE@	source='pipelines/theoraenc.c' object='pipelines_theoraenc-theoraenc.o' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	source='pipelines/streamheader.c' object='pipelines_streamheader-streamheader.o' libtool=no @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCC_FALSE@	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(pipelines_theoraenc_CFLAGS) $(CFLAGS) -c -o pipelines_theoraenc-theoraenc.o `test -f 'pipelines/theoraenc.c' || echo '$(srcdir)/'`pipelines/theoraenc.c
+@am__fastdepCC_FALSE@	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(pipelines_streamheader_CFLAGS) $(CFLAGS) -c -o pipelines_streamheader-streamheader.o `test -f 'pipelines/streamheader.c' || echo '$(srcdir)/'`pipelines/streamheader.c
 
-pipelines_theoraenc-theoraenc.obj: pipelines/theoraenc.c
-@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(pipelines_theoraenc_CFLAGS) $(CFLAGS) -MT pipelines_theoraenc-theoraenc.obj -MD -MP -MF $(DEPDIR)/pipelines_theoraenc-theoraenc.Tpo -c -o pipelines_theoraenc-theoraenc.obj `if test -f 'pipelines/theoraenc.c'; then $(CYGPATH_W) 'pipelines/theoraenc.c'; else $(CYGPATH_W) '$(srcdir)/pipelines/theoraenc.c'; fi`
-@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/pipelines_theoraenc-theoraenc.Tpo $(DEPDIR)/pipelines_theoraenc-theoraenc.Po
+pipelines_streamheader-streamheader.obj: pipelines/streamheader.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(pipelines_streamheader_CFLAGS) $(CFLAGS) -MT pipelines_streamheader-streamheader.obj -MD -MP -MF $(DEPDIR)/pipelines_streamheader-streamheader.Tpo -c -o pipelines_streamheader-streamheader.obj `if test -f 'pipelines/streamheader.c'; then $(CYGPATH_W) 'pipelines/streamheader.c'; else $(CYGPATH_W) '$(srcdir)/pipelines/streamheader.c'; fi`
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/pipelines_streamheader-streamheader.Tpo $(DEPDIR)/pipelines_streamheader-streamheader.Po
 @am__fastdepCC_FALSE@	$(AM_V_CC) @AM_BACKSLASH@
-@AMDEP_TRUE@@am__fastdepCC_FALSE@	source='pipelines/theoraenc.c' object='pipelines_theoraenc-theoraenc.obj' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	source='pipelines/streamheader.c' object='pipelines_streamheader-streamheader.obj' libtool=no @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCC_FALSE@	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(pipelines_theoraenc_CFLAGS) $(CFLAGS) -c -o pipelines_theoraenc-theoraenc.obj `if test -f 'pipelines/theoraenc.c'; then $(CYGPATH_W) 'pipelines/theoraenc.c'; else $(CYGPATH_W) '$(srcdir)/pipelines/theoraenc.c'; fi`
+@am__fastdepCC_FALSE@	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(pipelines_streamheader_CFLAGS) $(CFLAGS) -c -o pipelines_streamheader-streamheader.obj `if test -f 'pipelines/streamheader.c'; then $(CYGPATH_W) 'pipelines/streamheader.c'; else $(CYGPATH_W) '$(srcdir)/pipelines/streamheader.c'; fi`
 
 pipelines_vorbisdec-vorbisdec.o: pipelines/vorbisdec.c
 @am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(pipelines_vorbisdec_CFLAGS) $(CFLAGS) -MT pipelines_vorbisdec-vorbisdec.o -MD -MP -MF $(DEPDIR)/pipelines_vorbisdec-vorbisdec.Tpo -c -o pipelines_vorbisdec-vorbisdec.o `test -f 'pipelines/vorbisdec.c' || echo '$(srcdir)/'`pipelines/vorbisdec.c
@@ -2581,6 +3009,8 @@ clean-local: clean-local-check clean-local-orc
 
 $(CHECK_REGISTRY):
 	$(TESTS_ENVIRONMENT)
+	elements/adder	       \
+	$(check_theora)
 
 orc/adder.c: $(top_srcdir)/gst/adder/gstadderorc.orc
 	$(MKDIR_P) orc/

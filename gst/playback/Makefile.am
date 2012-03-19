@@ -17,10 +17,10 @@ libgstplayback_la_SOURCES = \
 	gstplaybin2.c \
 	gstplaysink.c \
 	gstplay-enum.c \
-	gststreamselector.c \
 	gstsubtitleoverlay.c \
 	gstplaysinkvideoconvert.c \
 	gstplaysinkaudioconvert.c \
+	gstplaysinkconvertbin.c \
 	gststreamsynchronizer.c
 
 nodist_libgstplayback_la_SOURCES = $(built_sources)
@@ -28,7 +28,7 @@ libgstplayback_la_CFLAGS = $(GST_PLUGINS_BASE_CFLAGS) $(GST_CFLAGS) $(csp_cflags
 libgstplayback_la_LDFLAGS = $(GST_PLUGIN_LDFLAGS)
 libgstplayback_la_LIBADD = \
 	$(top_builddir)/gst-libs/gst/pbutils/libgstpbutils-@GST_MAJORMINOR@.la \
-	$(top_builddir)/gst-libs/gst/interfaces/libgstinterfaces-@GST_MAJORMINOR@.la \
+	$(top_builddir)/gst-libs/gst/audio/libgstaudio-@GST_MAJORMINOR@.la \
 	$(top_builddir)/gst-libs/gst/video/libgstvideo-@GST_MAJORMINOR@.la \
 	$(GST_LIBS)
 libgstplayback_la_LIBTOOLFLAGS = --tag=disable-static
@@ -37,11 +37,11 @@ noinst_HEADERS = \
 	gstplayback.h \
 	gstplaysink.h \
 	gstplay-enum.h \
-	gststreamselector.h \
 	gstrawcaps.h \
 	gstsubtitleoverlay.h \
 	gstplaysinkvideoconvert.h \
 	gstplaysinkaudioconvert.h \
+	gstplaysinkconvertbin.h \
 	gststreamsynchronizer.h
 
 BUILT_SOURCES = $(built_headers) $(built_sources)

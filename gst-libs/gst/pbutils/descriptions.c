@@ -155,7 +155,7 @@ static const FormatInfo formats[] = {
   {"video/sp5x", "Sunplus JPEG 5.x", 0},
   {"video/vivo", "Vivo", 0},
   {"video/x-3ivx", "3ivx", 0},
-  {"video/x-4xm", "4X Techologies Video", 0},
+  {"video/x-4xm", "4X Technologies Video", 0},
   {"video/x-apple-video", "Apple video", 0},
   {"video/x-aasc", "Autodesk Animator", 0},
   {"video/x-camtasia", "TechSmith Camtasia", 0},
@@ -302,6 +302,8 @@ format_info_get_desc (const FormatInfo * info, const GstCaps * caps)
     const GstVideoFormatInfo *finfo;
 
     str = gst_structure_get_string (s, "format");
+    if (str == NULL)
+      return g_strdup (_("Uncompressed video"));
     format = gst_video_format_from_string (str);
     if (format == GST_VIDEO_FORMAT_UNKNOWN)
       return g_strdup (_("Uncompressed video"));
