@@ -7,6 +7,9 @@ include /usr/share/cdbs/1/rules/autoreconf.mk
 include /usr/share/gnome-pkg-tools/1/rules/clean-la.mk
 
 export HOME=$(CURDIR)/fake-home
+export PATH := /opt/gstreamer1.4/bin:$(PATH)
+export PKG_CONFIG_PATH=/opt/gstreamer1.4/lib/x86_64-linux-gnu/pkgconfig
+DEB_MAKE_ENVVARS += LD_LIBRARY_PATH=/opt/gstreamer1.4/lib/x86_64-linux-gnu
 
 DEB_DH_AUTORECONF_ARGS += --as-needed
 
