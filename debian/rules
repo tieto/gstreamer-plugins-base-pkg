@@ -70,7 +70,7 @@ VERSIONIZE += \
 	plugins-base-doc.install \
 
 ifneq ($(DEB_HOST_ARCH_OS),hurd)
-cdparanoia := debian/tmp/usr/lib/$(DEB_HOST_MULTIARCH)/gstreamer-$(gst_abi)/libgstcdparanoia.so
+cdparanoia := debian/tmp/opt/gstreamer1.4/lib/$(DEB_HOST_MULTIARCH)/gstreamer-1.0/libgstcdparanoia.so
 endif
 
 # Let's decide the package name and url depending on the distribution
@@ -138,6 +138,7 @@ debian/control:: debian/control.in debian/build-deps debian/mk.control debian/ru
 		>$@
 
 DEB_CONFIGURE_EXTRA_FLAGS += \
+	--prefix=/opt/gstreamer1.4 \
 	--disable-failing-tests \
 	--disable-examples \
 	--enable-DEBUG \
@@ -173,7 +174,7 @@ binary-post-install/$(gst_pkgname)-plugins-base-apps::
 
 DEB_DH_MAKESHLIBS_ARGS_$(gst_plugins_base_lib) += -X "/usr/lib/$(DEB_HOST_MULTIARCH)/gstreamer-$(gst_abi)" -V $(gst_plugins_base_lib_dep) -- -c4
 DEB_INSTALL_DOCS_ALL += debian/README.Debian NEWS
-DEB_SHLIBDEPS_INCLUDE += debian/libgstreamer-plugins-base$(gst_deb_abi)/usr/lib/$(DEB_HOST_MULTIARCH)
+DEB_SHLIBDEPS_INCLUDE += debian/libgstreamer-plugins-base1.4/opt/gstreamer1.4/lib/$(DEB_HOST_MULTIARCH):/opt/gstreamer1.4/lib/$(DEB_HOST_MULTIARCH)
 # Disable inclusion of large upstream ChangeLog
 DEB_INSTALL_CHANGELOGS_ALL :=
 

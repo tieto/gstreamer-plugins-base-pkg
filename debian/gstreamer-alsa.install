@@ -1,1 +1,1 @@
-debian/tmp/usr/lib/*/gstreamer-@GST_ABI@/libgstalsa.so
+debian/tmp/opt/gstreamer1.4/lib/*/gstreamer-1.0/libgstalsa.so

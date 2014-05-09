@@ -1,4 +1,4 @@
-debian/tmp/usr/include/gstreamer-@GST_ABI@/gst/*/*.h
-debian/tmp/usr/lib/*/*.so
-debian/tmp/usr/lib/*/pkgconfig/*.pc
-debian/tmp/usr/share/gir-*
+debian/tmp/opt/gstreamer1.4/include/gstreamer-1.0/gst/*/*.h
+debian/tmp/opt/gstreamer1.4/lib/*/*.so
+debian/tmp/opt/gstreamer1.4/lib/*/pkgconfig/*.pc
+debian/tmp/opt/gstreamer1.4/share/gir-*

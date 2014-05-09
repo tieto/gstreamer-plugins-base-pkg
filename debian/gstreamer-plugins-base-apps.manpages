@@ -1,2 +1,2 @@
-debian/tmp/usr/share/man/man1/gst-discoverer-@GST_ABI@.1
-debian/tmp/usr/share/man/man1/gst-play-@GST_ABI@.1
+debian/tmp/opt/gstreamer1.4/share/man/man1/gst-discoverer-1.0.1
+debian/tmp/opt/gstreamer1.4/share/man/man1/gst-play-1.0.1
